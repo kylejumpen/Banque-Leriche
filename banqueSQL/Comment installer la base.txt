@@ -1,0 +1,9 @@
+1 - installer mysql (il vou demande un mot de passe, mettez en un)
+2 - mysql -u root -p (puis entrez votre mot de passe)
+Commandes :
+3 - create database banque;
+4 - use banque;
+5 - source Bureau/Banque/banque-schema.sql;
+6 - source Bureau/Banque/banque-data.sql;
+Pour vider la base :
+source Bureau/Banque/banque-supprimer.sql;

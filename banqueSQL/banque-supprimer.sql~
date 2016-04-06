@@ -1,0 +1,6 @@
+drop table banque;
+drop table personnel;
+drop table clientBanque;
+drop table compteEpargne;
+drop table compteCourant;
+drop table credit;
