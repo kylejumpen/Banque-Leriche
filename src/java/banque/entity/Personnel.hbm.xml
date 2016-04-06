@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="banque.entity.Personnel" table="personnel" catalog="banque" optimistic-lock="version">
+        <id name="personnelId" type="java.lang.Short">
+            <column name="personnel_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="banque" class="banque.entity.Banque" fetch="select">
+            <column name="banque_id" not-null="true" />
+        </many-to-one>
+        <property name="nom" type="string">
+            <column name="nom" length="50" not-null="true" />
+        </property>
+        <property name="motdepasse" type="string">
+            <column name="motdepasse" length="50" />
+        </property>
+        <property name="role" type="string">
+            <column name="role" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="banque"/>
+  <table-filter match-name="personnel"/>
+  <table-filter match-name="clientBanque"/>
+  <table-filter match-name="credit"/>
+  <table-filter match-name="compteCourant"/>
+  <table-filter match-name="compteEpargne"/>
+  <table-filter match-name="banque"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="banque.entity.ClientBanque" table="clientBanque" catalog="banque" optimistic-lock="version">
+        <id name="clientBanqueId" type="java.lang.Short">
+            <column name="clientBanque_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="banque" class="banque.entity.Banque" fetch="select">
+            <column name="banque_id" not-null="true" />
+        </many-to-one>
+        <property name="nom" type="string">
+            <column name="nom" length="50" not-null="true" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="prenom" length="50" not-null="true" />
+        </property>
+        <property name="motdepasse" type="string">
+            <column name="motdepasse" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" />
+        </property>
+        <property name="codePostal" type="string">
+            <column name="codePostal" length="50" />
+        </property>
+        <set name="compteEpargnes" table="compteEpargne" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="clientBanque_id" not-null="true" />
+            </key>
+            <one-to-many class="banque.entity.CompteEpargne" />
+        </set>
+        <set name="compteCourants" table="compteCourant" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="clientBanque_id" not-null="true" />
+            </key>
+            <one-to-many class="banque.entity.CompteCourant" />
+        </set>
+    </class>
+</hibernate-mapping>
