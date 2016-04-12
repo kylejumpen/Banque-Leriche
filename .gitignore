@@ -3,6 +3,6 @@
 /build/
 build.xml
 README.md
-/web/annuaire/target/
-/web/Annuaire/target/
 /web/Banque/target/
+.idea/*
+target/*

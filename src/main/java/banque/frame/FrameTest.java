@@ -5,7 +5,7 @@
  */
 package banque.frame;
 
-import banque.HibernateUtil;
+import banque.utils.HibernateUtil;
 import banque.entity.Banque;
 import banque.entity.ClientBanque;
 import java.util.List;
