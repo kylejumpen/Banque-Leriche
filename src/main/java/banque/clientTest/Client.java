@@ -22,9 +22,8 @@ public class Client {
             response = target.request().get();
             System.out.println(args[1] + " : " + response.readEntity(String.class));
             response.close();
-        } else if (args.length == 4 && args[0].equals("POST")) {
+        } else if (args.length == 3 && args[0].equals("POST")) {
             banque = new Banque(args[1], args[2]);
-            banque.setBanqueId(Short.parseShort(args[3]));
 
             target = client.target(baseUrl + "/create");
             response = target.request().post(Entity.entity(banque, "application/xml;charset=UTF-8"));
