@@ -6,3 +6,5 @@ README.md
 /web/Banque/target/
 .idea/*
 target/*
+/src/nbproject/private/
+/AppClient/ClientLeR/nbproject/private/
