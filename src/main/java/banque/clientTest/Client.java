@@ -15,7 +15,7 @@ public class Client {
         ResteasyWebTarget target;
         Response response;
         Banque banque;
-        String baseUrl = "http://localhost:8001/BanqueLeriche-1.0/banque";
+        String baseUrl = "http://localhost:8001/Banque-1.0/banque";
 
         if (args.length >= 2 && args[0].equals("GET")) {
             target = client.target(baseUrl + "/" + args[1]);
