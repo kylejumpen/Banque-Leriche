@@ -1,0 +1,1 @@
+java -cp target/classes:lib/resteasy-client-3.0.9.Final.jar:lib/jaxrs-api-3.0.9.Final.jar:lib/httpclient-4.2.3.jar:lib/httpcore-4.2.3.jar:lib/commons-logging-1.1.1.jar:lib/commons-io-2.3.jar:lib/resteasy-jaxrs-3.0.9.Final.jar:lib/resteasy-jaxb-provider-3.0.9.Final.jar banque.clientTest.Client $1 $2 $3 $4
