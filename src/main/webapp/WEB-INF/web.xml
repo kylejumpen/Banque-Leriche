@@ -7,7 +7,7 @@
 
     <context-param>
         <param-name>resteasy.guice.modules</param-name>
-        <param-value>banque.resources.BanqueModule</param-value>
+        <param-value>banque.modules.BanqueModule</param-value>
     </context-param>
 
     <listener>
