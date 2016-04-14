@@ -12,10 +12,12 @@ import javax.ws.rs.core.Response;
 
 import banque.entity.*;
 import jdk.nashorn.internal.objects.annotations.Getter;
+import banque.utils.*;
 
 @Path("banque")
 public class BanqueResource {
     private static HashMap<Short, Banque> banques = new HashMap<Short, Banque>();
+    private Session session;
 
     @GET
     @Path("/{id}")
