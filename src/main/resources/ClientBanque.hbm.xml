@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <many-to-one name="banque" class="banque.entity.Banque" fetch="select">
-            <column name="banque_id" not-null="true" />
+            <column name="banque_id" not-null="false" />
         </many-to-one>
         <property name="nom" type="string">
             <column name="nom" length="50" not-null="true" />
@@ -28,13 +28,13 @@
         </property>
         <set name="compteEpargnes" table="compteEpargne" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="clientBanque_id" not-null="true" />
+                <column name="clientBanque_id" not-null="false" />
             </key>
             <one-to-many class="banque.entity.CompteEpargne" />
         </set>
         <set name="compteCourants" table="compteCourant" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="clientBanque_id" not-null="true" />
+                <column name="clientBanque_id" not-null="false" />
             </key>
             <one-to-many class="banque.entity.CompteCourant" />
         </set>

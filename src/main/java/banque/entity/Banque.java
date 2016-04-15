@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="banque")
 public class Banque  implements java.io.Serializable {
 
-
      private Short banqueId;
      private String nom;
      private String ville;

@@ -3,8 +3,10 @@ package banque.resources;
 import java.lang.Override;
 import java.lang.Short;
 import java.lang.String;
+import java.lang.System;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.annotation.PostConstruct;
 import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.Configuration;
 import javax.ws.rs.*;
@@ -17,8 +19,19 @@ import banque.utils.*;
 
 @Path("banque")
 public class BanqueResource {
-    private static HashMap<Short, Banque> banques = new HashMap<Short, Banque>();
     Session session;
+
+    @POST
+    @Path("/client/creer")
+    @Consumes("application/xml")
+    public Response creerClient(ClientBanque clientBanque) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(clientBanque);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(clientBanque.toString()).build();
+    }
 
     @GET
     @Path("/{id}")
@@ -38,10 +51,9 @@ public class BanqueResource {
     }
 
     @POST
-    @Path("/create")
+    @Path("/creer")
     @Consumes("application/xml")
     public Response creerBanque(Banque banque) {
-  //    banques.put(banque.getBanqueId(), banque);
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(banque);
