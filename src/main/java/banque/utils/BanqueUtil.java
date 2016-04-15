@@ -4,10 +4,10 @@ import banque.entity.*;
 import org.hibernate.Session;
 
 public class BanqueUtil {
-    Session session;
+    static Session session;
 
 
-    public Object getEntity(Class maClasse, Short id) {
+    public static Object getEntity(Class maClasse, Short id) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
