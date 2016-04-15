@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="banque.entity.CompteCourant" table="compteCourant" catalog="banque" optimistic-lock="version">
+        <id name="compteCourantId" type="java.lang.Short">
+            <column name="compteCourant_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="clientBanque" class="banque.entity.ClientBanque" fetch="select">
+            <column name="clientBanque_id" not-null="true" />
+        </many-to-one>
+        <property name="montant" type="java.lang.Integer">
+            <column name="montant" />
+        </property>
+        <property name="bloque" type="java.lang.Boolean">
+            <column name="bloque" />
+        </property>
+        <property name="iban" type="short">
+            <column name="iban" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

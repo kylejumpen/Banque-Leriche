@@ -8,4 +8,8 @@ README.md
 target/*
 /src/nbproject/private/
 /AppClient/ClientLeR/nbproject/private/
+<<<<<<< HEAD
 /AppClient/ClientLeR/build/
+=======
+src/main/resources/hibernate.cfg.xml
+>>>>>>> 61f554fd422d4b74a69d6cfddc5f74dfd2f6c306
