@@ -9,6 +9,7 @@ import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.Configuration;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+
 import org.hibernate.*;
 
 import banque.entity.*;
@@ -29,22 +30,38 @@ public class BanqueResource {
         try {
             Banque banque = (Banque) session.load(Banque.class, id);
             return banque.toString();
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
-        return "Aucune banque d'id " + id +" trouve";
+        return "Aucune banque d'id " + id + " trouve";
     }
 
     @POST
     @Path("/create")
     @Consumes("application/xml")
     public Response creerBanque(Banque banque) {
-  //    banques.put(banque.getBanqueId(), banque);
+        //    banques.put(banque.getBanqueId(), banque);
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(banque);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(banque.toString()).build();
+    }
+
+    @DELETE
+    @Path("/supprimer/{id}")
+    public Response supprimerBanque(@PathParam("id") Short id) {
+        BanqueUtil.writeInFile("fichier.txt", "lol");
+        Banque banque = new Banque();
+        session = HibernateUtil.getSessionFactory().openSession();
+//            banque = (Banque) BanqueUtil.getEntity(Banque.class, id);
+        banque = (Banque) session.load(Banque.class, id);
+//            BanqueUtil.writeInFile("fichier.txt", banque.toString());
+        session.beginTransaction();
+        session.delete(banque);
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(banque.toString()).build();

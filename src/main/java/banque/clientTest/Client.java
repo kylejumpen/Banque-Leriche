@@ -1,5 +1,6 @@
 package banque.clientTest;
 
+import banque.utils.BanqueUtil;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -28,6 +29,11 @@ public class Client {
             target = client.target(baseUrl + "/create");
             response = target.request().post(Entity.entity(banque, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());
+            response.close();
+        } else if(args[0].equals("SUPPRIMER-COMPTE")) {
+            target = client.target(baseUrl + "/supprimer/2");
+            response = target.request().delete();
+            System.out.println("DELETE : " + response.getStatus());
             response.close();
         }
     }
