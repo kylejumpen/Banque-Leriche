@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Graphics;
 
 /**
@@ -10,12 +5,19 @@ package Graphics;
  * @author kyle
  */
 public class GlobalFrame extends javax.swing.JFrame {
-
+    
+    AccueilCo paneAccueil;
+    
     /**
      * Creates new form GlobalFrame
      */
     public GlobalFrame() {
-        initComponents();
+        super();
+        paneAccueil = new AccueilCo();
+        this.add(paneAccueil);
+        this.setSize(400,400);
+        this.setTitle("Accueil Banque Le Riche");
+        //initComponents();
     }
 
     /**
@@ -75,6 +77,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GlobalFrame().setVisible(true);
+                
             }
         });
     }
