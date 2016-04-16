@@ -67,11 +67,8 @@ public class BanqueResource {
     @Path("/supprimer/{id}")
     public Response supprimerBanque(@PathParam("id") Short id) {
         BanqueUtil.writeInFile("fichier.txt", "lol");
-        Banque banque = new Banque();
         session = HibernateUtil.getSessionFactory().openSession();
-//            banque = (Banque) BanqueUtil.getEntity(Banque.class, id);
-        banque = (Banque) session.load(Banque.class, id);
-//            BanqueUtil.writeInFile("fichier.txt", banque.toString());
+        Banque banque = (Banque) session.load(Banque.class, id);
         session.beginTransaction();
         session.delete(banque);
         session.getTransaction().commit();

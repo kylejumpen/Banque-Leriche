@@ -1,5 +1,4 @@
 
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
@@ -32,7 +31,7 @@ CREATE TABLE personnel (
   banque_id SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY  (personnel_id),
   KEY idx_fk_banque_id (banque_id),
-  CONSTRAINT `fk_personnel_banque` FOREIGN KEY (banque_id) REFERENCES banque (banque_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_personnel_banque` FOREIGN KEY (banque_id) REFERENCES banque (banque_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -49,7 +48,7 @@ CREATE TABLE clientBanque (
   banque_id SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY  (clientBanque_id),
   KEY idx_fk_banque_id (banque_id),
-  CONSTRAINT `fk_clientBanque_banque` FOREIGN KEY (banque_id) REFERENCES banque (banque_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_clientBanque_banque` FOREIGN KEY (banque_id) REFERENCES banque (banque_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

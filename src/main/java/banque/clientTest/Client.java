@@ -35,7 +35,7 @@ public class Client {
             response = target.request().post(Entity.entity(banque, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());
             response.close();
-        } else if(args[0].equals("SUPPRIMER-COMPTE")) {
+        } else if(args[0].equals("SUPPRIMER-BANQUE")) {
             target = client.target(baseUrl + "/supprimer/2");
             response = target.request().delete();
             System.out.println("DELETE : " + response.getStatus());
