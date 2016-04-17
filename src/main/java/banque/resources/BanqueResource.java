@@ -23,26 +23,26 @@ import banque.utils.*;
 public class BanqueResource {
     Session session;
 
-//    Creer un client == OK                     /client/creer
-//    Supprimer un client                       /client/supprimer{id}
-//    Obtenir les infos sur un client           /client/{id}
+//    Creer un client                           /client/creer
+//    TODO Supprimer un client                  /client/supprimer{id}
+//    TODO Obtenir les infos sur un client      /client/{id}
 
-//    Creer une banque == OK                    /creer
-//    Supprimer une banque == OK                /supprimer/{id}
-//    Obtenir les infos banque ==               /{id}
+//    Creer une banque                           /creer
+//    Supprimer une banque                       /supprimer/{id}
+//    Obtenir les infos banque             /{id}
 
-//    Creer un compte                           /client/compte/creer
-//    Supprimer un compte                       /client/compte/supprimer/{id}
-//    Effectuer opération                       /client/compte/operer
-//    Epargner                                  /client/compte/epargner
-//    Créditer                                  /client/compte/crediter
-//    Débiter                                   /client/compte/debiter
-//    Rembourser crédit                         /client/compte/rembourser-credit
-//    Echanger argent                           /client/compte/echanger
+//    TODO Creer un compte                           /client/compte/creer
+//    TODO Supprimer un compte                       /client/compte/supprimer/{id}
+//    TODO Effectuer opération                       /client/compte/operer
+//    TODO Epargner                                  /client/compte/epargner
+//    TODO Créditer                                  /client/compte/crediter
+//    TODO Débiter                                   /client/compte/debiter
+//    TODO Rembourser crédit                         /client/compte/rembourser-credit
+//    TODO Echanger argent                           /client/compte/echanger
 
-//    Creer un membre du personnel              /personnel/creer
-//    Supprimer un membre du personnel          /personnel/supprimer
-//    Infos d'un membre du personnel            /personnel/{id}
+//    TODO Creer un membre du personnel              /personnel/creer
+//    TODO Supprimer un membre du personnel          /personnel/supprimer
+//    TODO Infos d'un membre du personnel            /personnel/{id}
 
     @POST
     @Path("/client/creer")

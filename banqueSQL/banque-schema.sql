@@ -63,7 +63,7 @@ CREATE TABLE compteCourant (
   clientBanque_id SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY  (compteCourant_id),
   KEY idx_fk_clientBanque_id (clientBanque_id),
-  CONSTRAINT `fk_compteCourant_clientBanque` FOREIGN KEY (clientBanque_id) REFERENCES clientBanque (clientBanque_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_compteCourant_clientBanque` FOREIGN KEY (clientBanque_id) REFERENCES clientBanque (clientBanque_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE compteEpargne (
   clientBanque_id SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY  (compteEpargne_id),
   KEY idx_fk_clientBanque_id (clientBanque_id),
-  CONSTRAINT `fk_compteEpargne_clientBanque` FOREIGN KEY (clientBanque_id) REFERENCES clientBanque (clientBanque_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_compteEpargne_clientBanque` FOREIGN KEY (clientBanque_id) REFERENCES clientBanque (clientBanque_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Table structure for table `credit`
@@ -94,7 +94,7 @@ CREATE TABLE credit (
   duree SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY  (credit_id),
   KEY idx_fk_compteEpargne_id (compteEpargne_id),
-  CONSTRAINT fk_credit_compteEpargne FOREIGN KEY (compteEpargne_id) REFERENCES compteEpargne (compteEpargne_id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_credit_compteEpargne FOREIGN KEY (compteEpargne_id) REFERENCES compteEpargne (compteEpargne_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DELIMITER ;
