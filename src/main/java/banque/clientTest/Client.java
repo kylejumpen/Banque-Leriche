@@ -23,24 +23,8 @@ public class Client {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String baseUrl = "http://localhost:8001/Banque-1.0/banque";
 
-        if (args.length >= 2 && args[0].equals("GET")) {
-            target = client.target(baseUrl + "/" + args[1]);
-            response = target.request().get();
-            System.out.println(args[1] + " : " + response.readEntity(String.class));
-            response.close();
-        }else if (args.length == 3 && args[0].equals("POST")) {
-            banque = new Banque(args[1], args[2]);
-
-            target = client.target(baseUrl + "/creer");
-            response = target.request().post(Entity.entity(banque, "application/xml;charset=UTF-8"));
-            System.out.println("POST : " + response.getStatus());
-            response.close();
-        } else if(args[0].equals("SUPPRIMER-BANQUE")) {
-            target = client.target(baseUrl + "/supprimer/2");
-            response = target.request().delete();
-            System.out.println("DELETE : " + response.getStatus());
-            response.close();
-        }else if (args.length == 7 && args[0].equals("POST")) {
+        //Param: CREER-CLIENT nom prenom mdp email code-postal idBanque
+        if (args.length == 7 && args[0].equals("CREER-CLIENT")) {
             clientBanque = new ClientBanque(args[1], args[2], args[3], args[4], args[5]);
             banque = (Banque) session.load(Banque.class, Short.parseShort(args[6]));
             clientBanque.setBanque(banque);
@@ -50,6 +34,34 @@ public class Client {
             System.out.println("POST : " + response.getStatus());
             response.close();
             session.close();
+        } //Param: SUPPRIMER-CLIENT idClient
+        else if(args.length == 2 && args[0].equals("SUPPRIMER-CLIENT")) {
+            target = client.target(baseUrl + "/client/supprimer/" + args[1]);
+            response = target.request().delete();
+            System.out.println("DELETE : " + response.getStatus());
+            response.close();
+        } //Param: CREER-BANQUE nom ville
+        else if (args.length == 3 && args[0].equals("CREER-BANQUE")) {
+            banque = new Banque(args[1], args[2]);
+            target = client.target(baseUrl + "/creer");
+            response = target.request().post(Entity.entity(banque, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+        } //Param: SUPPRIMER-BANQUE idBanque
+        else if(args.length == 2 && args[0].equals("SUPPRIMER-BANQUE")) {
+            target = client.target(baseUrl + "/supprimer/" + args[1]);
+            response = target.request().delete();
+            System.out.println("DELETE : " + response.getStatus());
+            response.close();
+        }
+        //Param: GET-BANQUE idBanque
+        else if (args.length == 2 && args[0].equals("GET-BANQUE")) {
+            target = client.target(baseUrl + "/" + args[1]);
+            response = target.request().get();
+            System.out.println(args[1] + " : " + response.readEntity(String.class));
+            response.close();
+        } else {
+            System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }
     }
 }
