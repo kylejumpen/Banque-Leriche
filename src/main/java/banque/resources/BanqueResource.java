@@ -24,7 +24,7 @@ public class BanqueResource {
     Session session;
 
 //    Creer un client                           /client/creer
-//    TODO Supprimer un client                  /client/supprimer{id}
+//    TSupprimer un client                      /client/supprimer{id}
 //    TODO Obtenir les infos sur un client      /client/{id}
 
 //    Creer une banque                           /creer
