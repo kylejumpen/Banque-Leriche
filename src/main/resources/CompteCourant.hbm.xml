@@ -17,7 +17,7 @@
         <property name="bloque" type="java.lang.Boolean">
             <column name="bloque" />
         </property>
-        <property name="iban" type="short">
+        <property name="iban" type="int">
             <column name="iban" not-null="true" />
         </property>
     </class>

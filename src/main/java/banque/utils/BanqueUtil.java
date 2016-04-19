@@ -5,6 +5,7 @@ import org.hibernate.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 public class BanqueUtil {
     static Session session;
@@ -31,5 +32,13 @@ public class BanqueUtil {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static int genererIban() {
+        Random rand = new Random();
+        int min = 100;
+        int max = 999;
+
+        return rand.nextInt((max - min) + 1) + min;
     }
 }

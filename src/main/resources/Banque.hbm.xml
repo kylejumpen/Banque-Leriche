@@ -14,17 +14,17 @@
         <property name="ville" type="string">
             <column name="ville" length="45" not-null="true" />
         </property>
-        <set name="clientBanques" table="clientBanque" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="banque_id" not-null="false" />
-            </key>
-            <one-to-many class="banque.entity.ClientBanque" />
-        </set>
-        <set name="personnels" table="personnel" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="banque_id" not-null="false" />
-            </key>
-            <one-to-many class="banque.entity.Personnel" />
-        </set>
+        <!--<set name="clientBanques" table="clientBanque" inverse="true" lazy="true" fetch="select">-->
+            <!--<key>-->
+                <!--<column name="banque_id" not-null="false" />-->
+            <!--</key>-->
+            <!--<one-to-many class="banque.entity.ClientBanque" />-->
+        <!--</set>-->
+        <!--<set name="personnels" table="personnel" inverse="true" lazy="true" fetch="select">-->
+            <!--<key>-->
+                <!--<column name="banque_id" not-null="false" />-->
+            <!--</key>-->
+            <!--<one-to-many class="banque.entity.Personnel" />-->
+        <!--</set>-->
     </class>
 </hibernate-mapping>

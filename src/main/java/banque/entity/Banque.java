@@ -16,30 +16,30 @@ public class Banque  implements java.io.Serializable {
      private Short banqueId;
      private String nom;
      private String ville;
-     private Set clientBanques = new HashSet(0);
-     private Set personnels = new HashSet(0);
+//     private Set clientBanques = new HashSet(0);
+//     private Set personnels = new HashSet(0);
 
     public Banque() {
     }
 
-	
+
     public Banque(String nom, String ville) {
         this.nom = nom;
         this.ville = ville;
     }
 
-    public Banque(String nom, String ville, Set clientBanques, Set personnels) {
-       this.nom = nom;
-       this.ville = ville;
-       this.clientBanques = clientBanques;
-       this.personnels = personnels;
-    }
+//    public Banque(String nom, String ville, Set clientBanques, Set personnels) {
+//       this.nom = nom;
+//       this.ville = ville;
+//       this.clientBanques = clientBanques;
+//       this.personnels = personnels;
+//    }
 
     @XmlElement
     public Short getBanqueId() {
         return this.banqueId;
     }
-    
+
     public void setBanqueId(Short banqueId) {
         this.banqueId = banqueId;
     }
@@ -48,7 +48,7 @@ public class Banque  implements java.io.Serializable {
     public String getNom() {
         return this.nom;
     }
-    
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -57,28 +57,28 @@ public class Banque  implements java.io.Serializable {
     public String getVille() {
         return this.ville;
     }
-    
+
     public void setVille(String ville) {
         this.ville = ville;
     }
 
-    @XmlElement
-    public Set getClientBanques() {
-        return this.clientBanques;
-    }
-    
-    public void setClientBanques(Set clientBanques) {
-        this.clientBanques = clientBanques;
-    }
-
-    @XmlElement
-    public Set getPersonnels() {
-        return this.personnels;
-    }
-
-    public void setPersonnels(Set personnels) {
-        this.personnels = personnels;
-    }
+//    @XmlElement
+//    public Set getClientBanques() {
+//        return this.clientBanques;
+//    }
+//
+//    public void setClientBanques(Set clientBanques) {
+//        this.clientBanques = clientBanques;
+//    }
+//
+//    @XmlElement
+//    public Set getPersonnels() {
+//        return this.personnels;
+//    }
+//
+//    public void setPersonnels(Set personnels) {
+//        this.personnels = personnels;
+//    }
 
     public String toString() {
         return " Nom : " + nom + " Ville : " + ville + " Id : " + banqueId;

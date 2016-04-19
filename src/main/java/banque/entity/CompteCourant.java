@@ -14,17 +14,19 @@ public class CompteCourant  implements java.io.Serializable {
      private ClientBanque clientBanque;
      private Integer montant;
      private Boolean bloque;
-     private short iban;
+     private int iban;
 
     public CompteCourant() {
     }
 
-	
-    public CompteCourant(ClientBanque clientBanque, short iban) {
+
+    public CompteCourant(ClientBanque clientBanque, int iban) {
         this.clientBanque = clientBanque;
         this.iban = iban;
+//        this.montant = 0;
+//        this.bloque = false;
     }
-    public CompteCourant(ClientBanque clientBanque, Integer montant, Boolean bloque, short iban) {
+    public CompteCourant(ClientBanque clientBanque, Integer montant, Boolean bloque, int iban) {
        this.clientBanque = clientBanque;
        this.montant = montant;
        this.bloque = bloque;
@@ -35,7 +37,7 @@ public class CompteCourant  implements java.io.Serializable {
     public Short getCompteCourantId() {
         return this.compteCourantId;
     }
-    
+
     public void setCompteCourantId(Short compteCourantId) {
         this.compteCourantId = compteCourantId;
     }
@@ -44,7 +46,7 @@ public class CompteCourant  implements java.io.Serializable {
     public ClientBanque getClientBanque() {
         return this.clientBanque;
     }
-    
+
     public void setClientBanque(ClientBanque clientBanque) {
         this.clientBanque = clientBanque;
     }
@@ -53,7 +55,7 @@ public class CompteCourant  implements java.io.Serializable {
     public Integer getMontant() {
         return this.montant;
     }
-    
+
     public void setMontant(Integer montant) {
         this.montant = montant;
     }
@@ -62,17 +64,17 @@ public class CompteCourant  implements java.io.Serializable {
     public Boolean getBloque() {
         return this.bloque;
     }
-    
+
     public void setBloque(Boolean bloque) {
         this.bloque = bloque;
     }
 
     @XmlElement
-    public short getIban() {
+    public int getIban() {
         return this.iban;
     }
-    
-    public void setIban(short iban) {
+
+    public void setIban(int iban) {
         this.iban = iban;
     }
 }

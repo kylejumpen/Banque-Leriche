@@ -31,7 +31,7 @@ public class BanqueResource {
 //    Supprimer une banque                       /supprimer/{id}
 //    Obtenir les infos banque             /{id}
 
-//    TODO Creer un compte                           /client/compte/creer
+//    Creer un compte                           /client/compte/creer
 //    TODO Supprimer un compte                       /client/compte/supprimer/{id}
 //    TODO Effectuer opération                       /client/compte/operer
 //    TODO Epargner                                  /client/compte/epargner
@@ -107,5 +107,19 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(banque.toString()).build();
+    }
+
+    //COMPTE _______________________________________________________________________
+
+    @POST
+    @Path("/client/compte/creer")
+    @Consumes("application/xml")
+    public Response creerCompte(CompteCourant compte) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(compte);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(compte.toString()).build();
     }
 }
