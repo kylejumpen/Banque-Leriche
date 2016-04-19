@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class BanqueUtil {
     static Session session;
+    static SessionFactory sessionFactory;
 
 
     public static Object getEntity(Class maClasse, Short id) {
@@ -36,8 +37,20 @@ public class BanqueUtil {
 
     public static int genererIban() {
         Random rand = new Random();
-        int min = 100;
-        int max = 999;
+        int min = 1000;
+        int max = 9999;
+        int iban;
+        CompteCourant cc;
+
+        sessionFactory = HibernateUtil.getSessionFactory();
+        do {
+            iban = rand.nextInt((max - min) + 1) + min;
+            Query query = sessionFactory.openSession().createQuery("from CompteCourant where iban=:numero");
+            query.setParameter("numero", iban);
+            cc = (CompteCourant) query.uniqueResult();
+            System.out.println("iban: " + iban);
+        } while(cc != null);
+        sessionFactory.close();
 
         return rand.nextInt((max - min) + 1) + min;
     }

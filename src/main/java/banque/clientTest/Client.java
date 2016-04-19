@@ -64,10 +64,8 @@ public class Client {
         //Param: CREER-COMPTE idBanque
         else if (args.length == 2 && args[0].equals("CREER-COMPTE")) {
             ClientBanque clientCC = (ClientBanque) session.load(ClientBanque.class, Short.parseShort(args[1]));
-            int iban = BanqueUtil.genererIban(); // TODO creer un iban qui n'existe pas déjà
+            int iban = BanqueUtil.genererIban();
             CompteCourant compteCourant = new CompteCourant(clientCC, iban);
-            // TODO est ce qu'on initialiserait pas "bloqué" et "montant" dans le constructeur ?
-
             target = client.target(baseUrl + "/client/compte/creer");
             response = target.request().post(Entity.entity(compteCourant, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());
