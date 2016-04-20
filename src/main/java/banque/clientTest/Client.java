@@ -71,7 +71,21 @@ public class Client {
             System.out.println("POST : " + response.getStatus());
             response.close();
             session.close();
-        } else {
+        } //Param: SUPPRIMER-COMPTE idCompte
+        else if(args.length == 2 && args[0].equals("SUPPRIMER-COMPTE")) {
+            target = client.target(baseUrl + "/client/compte/supprimer/" + args[1]);
+            response = target.request().delete();
+            System.out.println("DELETE : " + response.getStatus());
+            response.close();
+        }   //Param: OPERER idCompteADebiter idCompteACrediter montant
+//        else if(args.length == 4 && args[0].equals("OPERER")) {
+//            target = client.target(baseUrl + "/client/compte/operer/");
+//            response = target.request().delete();
+//            System.out.println("DELETE : " + response.getStatus());
+//            response.close();
+//        }
+
+        else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }
     }

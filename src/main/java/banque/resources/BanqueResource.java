@@ -24,7 +24,7 @@ public class BanqueResource {
     Session session;
 
 //    Creer un client                           /client/creer
-//    TSupprimer un client                      /client/supprimer{id}
+//    Supprimer un client                      /client/supprimer{id}
 //    TODO Obtenir les infos sur un client      /client/{id}
 
 //    Creer une banque                           /creer
@@ -32,7 +32,7 @@ public class BanqueResource {
 //    Obtenir les infos banque             /{id}
 
 //    Creer un compte                           /client/compte/creer
-//    TODO Supprimer un compte                       /client/compte/supprimer/{id}
+//     Supprimer un compte                       /client/compte/supprimer/{id}
 //    TODO Effectuer opération                       /client/compte/operer
 //    TODO Epargner                                  /client/compte/epargner
 //    TODO Créditer                                  /client/compte/crediter
@@ -121,5 +121,17 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(compte.toString()).build();
+    }
+
+    @DELETE
+    @Path("/client/compte/supprimer/{id}")
+    public Response supprimerCompte(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, id);
+        session.beginTransaction();
+        session.delete(cc);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(cc.toString()).build();
     }
 }

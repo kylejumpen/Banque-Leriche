@@ -23,8 +23,8 @@ public class CompteCourant  implements java.io.Serializable {
     public CompteCourant(ClientBanque clientBanque, int iban) {
         this.clientBanque = clientBanque;
         this.iban = iban;
-//        this.montant = 0;
-//        this.bloque = false;
+        this.montant = 0;
+        this.bloque = false;
     }
     public CompteCourant(ClientBanque clientBanque, Integer montant, Boolean bloque, int iban) {
        this.clientBanque = clientBanque;
