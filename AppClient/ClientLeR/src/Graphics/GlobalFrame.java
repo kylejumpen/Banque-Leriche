@@ -1,22 +1,38 @@
 package Graphics;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author kyle
  */
 public class GlobalFrame extends javax.swing.JFrame {
     
-    AccueilCo paneAccueil;
+    public static JPanel cards;
+    private AccueilCo paneAccueil;
+    private GererCompte paneGererCompte;
+    private ConsulterCompte paneConsulterCompte;
     
     /**
      * Creates new form GlobalFrame
      */
     public GlobalFrame() {
-        super();
+        //super();
+        cards= new JPanel();
+        cards.setLayout(new CardLayout());
         paneAccueil = new AccueilCo();
-        this.add(paneAccueil);
+        paneGererCompte = new GererCompte();
+        paneConsulterCompte = new ConsulterCompte();
+        //Ajouter toutes les cartes au Layout
+        cards.add(paneAccueil,"paneAccueil");
+        cards.add(paneGererCompte,"paneGererCompte");
+        cards.add(paneConsulterCompte,"paneConsulterCompte");
+        this.add(cards);
         this.setSize(400,400);
         this.setTitle("Accueil Banque Le Riche");
+        //Montrer la carte Accueil
+        ((CardLayout) cards.getLayout()).show(cards,"paneAccueil");
         //initComponents();
     }
 
@@ -30,17 +46,7 @@ public class GlobalFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(new java.awt.CardLayout());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

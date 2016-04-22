@@ -64,6 +64,13 @@ public class Client {
             System.out.println(args[1] + " : " + response.readEntity(String.class));
             response.close();
         }
+        //Param: GET-COMPTE idCompte
+        else if (args.length == 2 && args[0].equals("GET-COMPTE")) {
+            target = client.target(baseUrl + "/client/compteCourant/" + args[1]);
+            response = target.request().get();
+            System.out.println(args[1] + " : " + response.readEntity(String.class));
+            response.close();
+        }
         //Param: CREER-COMPTE idBanque
         else if (args.length == 2 && args[0].equals("CREER-COMPTE")) {
             ClientBanque clientCC = (ClientBanque) session.load(ClientBanque.class, Short.parseShort(args[1]));

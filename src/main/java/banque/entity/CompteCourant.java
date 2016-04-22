@@ -77,6 +77,10 @@ public class CompteCourant  implements java.io.Serializable {
     public void setIban(int iban) {
         this.iban = iban;
     }
+
+    public String toString() {
+        return "Id:"+compteCourantId+"Montant"+montant;
+    }
 }
 
 
