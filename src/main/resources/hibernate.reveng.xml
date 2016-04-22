@@ -8,4 +8,5 @@
   <table-filter match-name="compteCourant"/>
   <table-filter match-name="compteEpargne"/>
   <table-filter match-name="banque"/>
+  <table-filter match-name="operation"/>
 </hibernate-reverse-engineering>
