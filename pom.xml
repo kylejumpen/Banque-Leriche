@@ -83,15 +83,20 @@
                 <artifactId>javassist</artifactId>
                 <version>3.12.1.GA</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>            
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                  <webXml>src\main\webapp\WEB-INF\web.xml</webXml>        
+                  <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
                 </configuration>
             </plugin>
             <plugin>

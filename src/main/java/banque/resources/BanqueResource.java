@@ -12,6 +12,9 @@ import javax.security.auth.login.Configuration;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import banque.clientTest.Client;
 import org.hibernate.*;
 
@@ -133,5 +136,25 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(cc.toString()).build();
+    }
+
+
+
+    //TEST JSON _______________________________________________________________________
+
+    @POST
+    @Path("/test/json")
+    @Consumes("application/xml")
+    public Response testJson(String chaine) {
+        Gson gson = new Gson();
+        Banque banque = gson.fromJson(chaine, Banque.class);
+        BanqueUtil.writeInFile("test_json_resultat.txt", banque.toString()); //Bon ça... ça marche pas encore bcp très bien :)
+
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        session.save(compte);
+//        session.getTransaction().commit();
+//        session.close();
+        return Response.status(200).entity(banque.toString()).build();
     }
 }

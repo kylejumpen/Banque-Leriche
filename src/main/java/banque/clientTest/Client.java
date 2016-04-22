@@ -9,6 +9,9 @@ import org.hibernate.*;
 import banque.entity.*;
 import banque.utils.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.lang.Short;
 import java.lang.System;
 
@@ -84,7 +87,20 @@ public class Client {
 //            System.out.println("DELETE : " + response.getStatus());
 //            response.close();
 //        }
-
+        //TEST JSON Param: TEST-JSON nomBanque nomVille
+        else if(args.length == 3 && args[0].equals("TEST-JSON")) {
+            //ATTENTION: Ici je prends l'exemple avec une banque, mais vous ce sera un tableau puisque vous n'aurez pas
+            // accès à l'entité Banque :)  D'ailleurs il faut voir si on peut pas faire de tableau associatif pour plus de clarté
+            Gson gson = new Gson(); //Initialisation de l'outil gson
+            Banque banqueTestJson = new Banque(args[1], args[2]); //Creation d'une banque quelconque
+            String maChaineJson = gson.toJson(banqueTestJson); //Transformation en chaine de caractère
+            BanqueUtil.writeInFile("test_json.txt", maChaineJson); //Je vais l'ecrire dans le fichier
+            target = client.target(baseUrl + "/test/json");
+            response = target.request().post(Entity.entity(maChaineJson, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+            session.close();
+        }
         else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }
