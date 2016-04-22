@@ -5,6 +5,8 @@
  */
 package Graphics;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author pauline
@@ -32,6 +34,11 @@ public class GererCompte extends javax.swing.JPanel {
         creerCompte = new javax.swing.JButton();
 
         consulterCompte.setText("Consulter un Compte");
+        consulterCompte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consulterCompteActionPerformed(evt);
+            }
+        });
         add(consulterCompte);
 
         consulterStatistiques.setText("Consulter les Statistiques");
@@ -40,6 +47,11 @@ public class GererCompte extends javax.swing.JPanel {
         creerCompte.setText("Créer un Compte");
         add(creerCompte);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consulterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterCompteActionPerformed
+                //Montrer la carte gerer compte
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneConsulterCompte");
+    }//GEN-LAST:event_consulterCompteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

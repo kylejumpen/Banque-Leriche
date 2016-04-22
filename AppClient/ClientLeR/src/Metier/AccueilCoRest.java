@@ -8,7 +8,7 @@ import java.net.*;
  */
 public class AccueilCoRest {
   
-    public static String AccueilCoGet(String user, String pw) {
+    public static String accueilCoGet(String user, String pw) {
        try {
         URL url = new URL("http://www.google.fr") ; // remplacez l'Url
         //URL nurl = new URL("http://localhost:8081/adressedeconnexion/?username="+user+"&password="+pw);

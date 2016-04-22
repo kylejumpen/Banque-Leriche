@@ -85,6 +85,23 @@ public class BanqueResource {
         return "Aucune banque d'id " + id + " trouve";
     }
 
+    @GET
+    @Path("/client/compteCourant/{id}")
+    @Produces("text/plain")
+    public String getCompteCourant(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
+            return compteCourant.getCompteCourantId()+"-"+compteCourant.getClientBanque().getNom()+"-"+compteCourant.getClientBanque().getPrenom()+"-"+compteCourant.getMontant();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return "Aucun compte courant de numéro " + id + " trouve";
+    }
+
     @POST
     @Path("/creer")
     @Consumes("application/xml")

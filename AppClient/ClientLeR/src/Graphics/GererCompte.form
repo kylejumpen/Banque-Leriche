@@ -20,6 +20,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consulter un Compte"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consulterCompteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="consulterStatistiques">
       <Properties>
