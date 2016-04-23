@@ -1,5 +1,6 @@
 package banque.resources;
 
+import java.io.FileNotFoundException;
 import java.lang.Override;
 import java.lang.Short;
 import java.lang.String;
@@ -11,9 +12,13 @@ import javax.security.auth.login.AppConfigurationEntry;
 import javax.security.auth.login.Configuration;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.io.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.*;
 
 import banque.clientTest.Client;
 import org.hibernate.*;
@@ -162,16 +167,20 @@ public class BanqueResource {
     @POST
     @Path("/test/json")
     @Consumes("application/xml")
-    public Response testJson(String chaine) {
+    public Response testJson(String chaine) throws FileNotFoundException {
         Gson gson = new Gson();
-        Banque banque = gson.fromJson(chaine, Banque.class);
-        BanqueUtil.writeInFile("test_json_resultat.txt", banque.toString()); //Bon ça... ça marche pas encore bcp très bien :)
+        Banque banque = new Banque();
+        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>(){}.getType());
 
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        session.save(compte);
-//        session.getTransaction().commit();
-//        session.close();
+        banque.setNom(args.get("nom").toString());
+        banque.setVille(args.get("ville").toString());
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(banque);
+        session.getTransaction().commit();
+        session.close();
+
         return Response.status(200).entity(banque.toString()).build();
     }
 }
