@@ -82,6 +82,19 @@ CREATE TABLE compteEpargne (
   CONSTRAINT `fk_compteEpargne_clientBanque` FOREIGN KEY (clientBanque_id) REFERENCES clientBanque (clientBanque_id) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
+-- Table structure for table `operation`
+--
+
+
+CREATE TABLE operation (
+  operation_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  type VARCHAR(50) NOT NULL,
+  compte_debiteur_id SMALLINT UNSIGNED NOT NULL,
+  compte_crediteur_id SMALLINT UNSIGNED NOT NULL,
+  montant INTEGER,
+  PRIMARY KEY  (operation_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
 -- Table structure for table `credit`
 --
 
@@ -102,5 +115,4 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 
