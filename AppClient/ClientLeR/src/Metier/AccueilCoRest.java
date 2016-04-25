@@ -1,6 +1,7 @@
 package Metier;
 import java.io.*;
 import java.net.*;
+import Entity.Compte;
 
 /**
  *
@@ -25,8 +26,8 @@ public class AccueilCoRest {
         return "erreur";
         }
     }
-
-    public static String createAccountPost(Account account) {
+    
+    public static String createAccountPost(Compte account) {
         try {
          URL url = new URL("http://www.google.fr") ; // remplacez l'Url
          //URL nurl = new URL("http://localhost:8081/adressedeconnexion/
@@ -50,7 +51,7 @@ public class AccueilCoRest {
         e.printStackTrace();
         return "erreur";
         }
-
+        
     }
-
+    
 }
