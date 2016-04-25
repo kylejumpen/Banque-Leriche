@@ -109,22 +109,7 @@ public class BanqueResource {
         return "Aucune banque d'id " + id + " trouve";
     }
 
-    @GET
-    @Path("/client/compteCourant/{id}")
-    @Produces("text/plain")
-    public String getCompteCourant(@PathParam("id") Short id) {
-        session = HibernateUtil.getSessionFactory().openSession();
 
-        try {
-            CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
-            return compteCourant.getCompteCourantId() + "-" + compteCourant.getClientBanque().getNom() + "-" + compteCourant.getClientBanque().getPrenom() + "-" + compteCourant.getMontant();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            session.close();
-        }
-        return "Aucun compte courant de numéro " + id + " trouve";
-    }
 
     @POST
     @Path("/creer")
@@ -163,7 +148,7 @@ public class BanqueResource {
     //COMPTE _______________________________________________________________________
 
     @POST
-    @Path("/client/compte/creer")
+    @Path("/client/compte-courant/creer")
     @Consumes("application/xml")
     public Response creerCompte(String chaine) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -184,7 +169,7 @@ public class BanqueResource {
     }
 
     @DELETE
-    @Path("/client/compte/supprimer/{id}")
+    @Path("/client/compte-courant/supprimer/{id}")
     public Response supprimerCompte(@PathParam("id") Short id) {
         session = HibernateUtil.getSessionFactory().openSession();
         CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, id);
@@ -194,6 +179,70 @@ public class BanqueResource {
         session.close();
         return Response.status(200).entity(cc.toString()).build();
     }
+
+    @GET
+    @Path("/client/compte-courant/{id}")
+    @Produces("text/plain")
+    public String getCompteCourant(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
+            return compteCourant.getCompteCourantId() + "-" + compteCourant.getClientBanque().getNom() + "-" + compteCourant.getClientBanque().getPrenom() + "-" + compteCourant.getMontant();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return "Aucun compte courant de numéro " + id + " trouve";
+    }
+
+    //OPERATIONS _______________________________________________________________________
+    @POST
+    @Path("/client/compte/operer")
+    @Consumes("application/xml")
+    public Response operer(String chaine) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Gson gson = new Gson();
+        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        Operation operation = new Operation(
+                args.get("type"),
+                Short.parseShort(args.get("idCompteADebiter")),
+                Short.parseShort(args.get("idCompteACrediter")),
+                Integer.parseInt(args.get("montant"))
+        );
+
+        if(args.get("typeCompteADebiter").equals("courant")) {
+            CompteCourant compteADebiter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteADebiter")));
+            compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
+            session.update(compteADebiter);
+        } else {
+            CompteEpargne compteADebiter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteADebiter")));
+            compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
+            session.update(compteADebiter);
+        }
+
+        if(args.get("typeCompteACrediter").equals("courant")) {
+            CompteCourant compteACrediter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteACrediter")));
+            compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
+            session.update(compteACrediter);
+        } else {
+            CompteEpargne compteACrediter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteACrediter")));
+            compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
+            session.update(compteACrediter);
+        }
+
+        session.save(operation);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(operation.toString()).build();
+    }
+
+
 
 
     //TEST JSON _______________________________________________________________________

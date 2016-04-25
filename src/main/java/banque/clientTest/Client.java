@@ -90,24 +90,33 @@ public class Client {
             jsonArgs.put("idClient", args[1]);
             maChaine = gson.toJson(jsonArgs);
 
-            target = client.target(baseUrl + "/client/compte/creer");
+            target = client.target(baseUrl + "/client/compte-courant/creer");
             response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());
             response.close();
             session.close();
         } //Param: SUPPRIMER-COMPTE idCompte
         else if(args.length == 2 && args[0].equals("SUPPRIMER-COMPTE")) {
-            target = client.target(baseUrl + "/client/compte/supprimer/" + args[1]);
+            target = client.target(baseUrl + "/client/compte-courant/supprimer/" + args[1]);
             response = target.request().delete();
             System.out.println("DELETE : " + response.getStatus());
             response.close();
-        }   //Param: OPERER idCompteADebiter idCompteACrediter montant
-//        else if(args.length == 4 && args[0].equals("OPERER")) {
-//            target = client.target(baseUrl + "/client/compte/operer/");
-//            response = target.request().delete();
-//            System.out.println("DELETE : " + response.getStatus());
-//            response.close();
-//        }
+        }   //Param: OPERER type idCompteADebiter typeCompteADebiter idCompteACrediter typeCompteACrediter montant    type = {debit, credit} typeCompteADebiter = {courant, epargne}
+        else if(args.length == 7 && args[0].equals("OPERER")) {
+            jsonArgs.put("type", args[1]);
+            jsonArgs.put("idCompteADebiter", args[2]);
+            jsonArgs.put("typeCompteADebiter", args[3]);
+            jsonArgs.put("idCompteACrediter", args[4]);
+            jsonArgs.put("typeCompteACrediter", args[5]);
+            jsonArgs.put("montant", args[6]);
+            maChaine = gson.toJson(jsonArgs);
+
+            target = client.target(baseUrl + "/client/compte/operer");
+            response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+            session.close();
+        }
         //TEST JSON Param: TEST-JSON nomBanque nomVille
         else if(args.length == 3 && args[0].equals("TEST-JSON")) {
             //ATTENTION: Ici je prends l'exemple avec une banque, mais vous ce sera un tableau puisque vous n'aurez pas
