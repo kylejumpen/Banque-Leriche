@@ -45,13 +45,24 @@ public class GererCompte extends javax.swing.JPanel {
         add(consulterStatistiques);
 
         creerCompte.setText("Créer un Compte");
+        creerCompte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creerCompteActionPerformed(evt);
+            }
+        });
         add(creerCompte);
     }// </editor-fold>//GEN-END:initComponents
 
     private void consulterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterCompteActionPerformed
-                //Montrer la carte gerer compte
+                //Montrer la carte consulter compte
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneConsulterCompte");
     }//GEN-LAST:event_consulterCompteActionPerformed
+
+    private void creerCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerCompteActionPerformed
+        // TODO add your handling code here:
+        //Montrer la carte creer compte
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneCreerCompte");       
+    }//GEN-LAST:event_creerCompteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

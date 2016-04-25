@@ -13,7 +13,7 @@ public class GlobalFrame extends javax.swing.JFrame {
     private AccueilCo paneAccueil;
     private GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
-    
+    private CreerCompte paneCreerCompte;
     /**
      * Creates new form GlobalFrame
      */
@@ -24,10 +24,12 @@ public class GlobalFrame extends javax.swing.JFrame {
         paneAccueil = new AccueilCo();
         paneGererCompte = new GererCompte();
         paneConsulterCompte = new ConsulterCompte();
+        paneCreerCompte = new CreerCompte();
         //Ajouter toutes les cartes au Layout
         cards.add(paneAccueil,"paneAccueil");
         cards.add(paneGererCompte,"paneGererCompte");
         cards.add(paneConsulterCompte,"paneConsulterCompte");
+        cards.add(paneCreerCompte,"paneCreerCompte");
         this.add(cards);
         this.setSize(400,400);
         this.setTitle("Accueil Banque Le Riche");
