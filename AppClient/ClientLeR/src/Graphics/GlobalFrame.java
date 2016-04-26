@@ -1,6 +1,11 @@
 package Graphics;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -8,33 +13,51 @@ import javax.swing.JPanel;
  * @author kyle
  */
 public class GlobalFrame extends javax.swing.JFrame {
-    
+
     public static JPanel cards;
     private AccueilCo paneAccueil;
-    private GererCompte paneGererCompte;
+    public static GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
     private CreerCompte paneCreerCompte;
+    private EchangeArgent paneEchangeArgent;
+    private JPanel menu;
+    private JButton retourAccueil;
+    public ArrayList<String> oldPanel;
+
     /**
      * Creates new form GlobalFrame
      */
     public GlobalFrame() {
         //super();
-        cards= new JPanel();
+        oldPanel = new ArrayList<String>();
+        cards = new JPanel();
         cards.setLayout(new CardLayout());
         paneAccueil = new AccueilCo();
         paneGererCompte = new GererCompte();
         paneConsulterCompte = new ConsulterCompte();
         paneCreerCompte = new CreerCompte();
+        paneEchangeArgent = new EchangeArgent();
+        retourAccueil = new JButton("Retour");
+        retourAccueil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+            }
+        });
+        menu = new JPanel();
+        menu.add(retourAccueil, BorderLayout.EAST);
         //Ajouter toutes les cartes au Layout
-        cards.add(paneAccueil,"paneAccueil");
-        cards.add(paneGererCompte,"paneGererCompte");
-        cards.add(paneConsulterCompte,"paneConsulterCompte");
-        cards.add(paneCreerCompte,"paneCreerCompte");
-        this.add(cards);
-        this.setSize(400,400);
+        cards.add(paneAccueil, "paneAccueil");
+        cards.add(paneGererCompte, "paneGererCompte");
+        cards.add(paneConsulterCompte, "paneConsulterCompte");
+        cards.add(paneCreerCompte, "paneCreerCompte");
+        cards.add(paneEchangeArgent,"paneEchangeArgent");
+        this.add(cards, BorderLayout.CENTER);
+        this.add(menu, BorderLayout.NORTH);
+        this.setSize(400, 400);
         this.setTitle("Accueil Banque Le Riche");
         //Montrer la carte Accueil
-        ((CardLayout) cards.getLayout()).show(cards,"paneAccueil");
+        ((CardLayout) cards.getLayout()).show(cards, "paneAccueil");
         //initComponents();
     }
 
@@ -85,7 +108,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GlobalFrame().setVisible(true);
-                
+
             }
         });
     }

@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class ConsulterCompte extends javax.swing.JPanel {
 
+    private int idCompte;
+
     /**
      * Creates new form ConsulterCompte
      */
@@ -37,10 +39,11 @@ public class ConsulterCompte extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         montant = new javax.swing.JLabel();
         virement = new javax.swing.JButton();
-        editer = new javax.swing.JButton();
+        crediter = new javax.swing.JButton();
         pret = new javax.swing.JButton();
         supprimer = new javax.swing.JButton();
         rechercher = new javax.swing.JButton();
+        debiter = new javax.swing.JButton();
 
         jLabel1.setText("Numéro de Compte :");
 
@@ -50,7 +53,12 @@ public class ConsulterCompte extends javax.swing.JPanel {
 
         virement.setText("Faire un virement");
 
-        editer.setText("Editer le Montant");
+        crediter.setText("Créditer le compte");
+        crediter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crediterActionPerformed(evt);
+            }
+        });
 
         pret.setText("Faire un prêt");
 
@@ -65,6 +73,13 @@ public class ConsulterCompte extends javax.swing.JPanel {
         rechercher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rechercherActionPerformed(evt);
+            }
+        });
+
+        debiter.setText("Débiter le compte");
+        debiter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debiterActionPerformed(evt);
             }
         });
 
@@ -96,17 +111,19 @@ public class ConsulterCompte extends javax.swing.JPanel {
                                 .addComponent(pret)
                                 .addGap(24, 24, 24)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(supprimer)
-                .addGap(118, 118, 118))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel3)
                 .addGap(32, 32, 32)
                 .addComponent(montant, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editer))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(crediter)
+                    .addComponent(debiter)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(supprimer)
+                .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +147,11 @@ public class ConsulterCompte extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(montant, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(editer)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(crediter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(debiter)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pret)
                     .addComponent(virement))
@@ -143,27 +162,71 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
-        JOptionPane jop = new JOptionPane();
-        int option = jop.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce compte?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (option == JOptionPane.OK_OPTION) {
-            
+        if (numeroCompte.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Aucun compte à supprimer", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane jop = new JOptionPane();
+            int option = jop.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce compte?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (option == JOptionPane.OK_OPTION) {
+                ConsulterCompteRest.supprimerCompte(idCompte);
+                montant.setText("");
+                proprietaire.setText("");
+            }
         }
     }//GEN-LAST:event_supprimerActionPerformed
 
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
 
-String reponse = ConsulterCompteRest.consulterCompteGet(Integer.parseInt(numeroCompte.getText()));
-String[] parts = reponse.split("-");
-montant.setText(parts[3]+"€");
-proprietaire.setText(parts[1]+" "+parts[2]);
-//montant.setText(parts[3]);
+        String reponse = ConsulterCompteRest.consulterCompteGet(Integer.parseInt(numeroCompte.getText()));
+        System.out.println(reponse);
+        if (reponse.equals("KO")) {
+            JOptionPane.showMessageDialog(this, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+            numeroCompte.setText("");
+        } else {
+            idCompte = Integer.parseInt(numeroCompte.getText());
+            String[] parts = reponse.split("-");
+            montant.setText(parts[3] + "€");
+            proprietaire.setText(parts[1] + " " + parts[2]);
+        }
 
 
     }//GEN-LAST:event_rechercherActionPerformed
 
+    private void crediterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crediterActionPerformed
+        if (numeroCompte.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Aucun compte à créditer", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            JOptionPane jop1 = new JOptionPane();
+            int somme;
+            String sommeTransaction = JOptionPane.showInputDialog(this, "somme à créditer", "Crédit");
+            if (sommeTransaction != null) {
+                somme = Integer.parseInt(sommeTransaction);
+                ConsulterCompteRest.crediterCompte(somme, idCompte);
+            }
+        }
+    }//GEN-LAST:event_crediterActionPerformed
+
+    private void debiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debiterActionPerformed
+        if (numeroCompte.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Aucun compte à débiter", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            JOptionPane jop1 = new JOptionPane();
+            int somme;
+            String sommeTransaction = JOptionPane.showInputDialog(this, "somme à débiter", "Débit");
+            if (sommeTransaction != null) {
+                somme = Integer.parseInt(sommeTransaction);
+                ConsulterCompteRest.debiterCompte(somme, idCompte);
+
+            }
+        }
+    }//GEN-LAST:event_debiterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton editer;
+    private javax.swing.JButton crediter;
+    private javax.swing.JButton debiter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

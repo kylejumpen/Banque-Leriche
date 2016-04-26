@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
+import java.io.InputStream; 
+
+
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,7 +36,7 @@ public class BanqueResource {
 
 //    Creer un client                           /client/creer
 //    Supprimer un client                      /client/supprimer{id}
-//    TODO Obtenir les infos sur un client      /client/{id}
+//    Obtenir les infos sur un client      /client/{id}
 
 //    Creer une banque                           /creer
 //    Supprimer une banque                       /supprimer/{id}
@@ -90,6 +93,24 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(client.toString()).build();
+    }
+
+
+    @GET
+    @Path("/client/{id}")
+    @Produces("text/plain")
+    public String getClientBanque(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
+            return client.toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return "KO";
     }
 
     @GET
@@ -194,7 +215,7 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return "Aucun compte courant de numéro " + id + " trouve";
+        return "KO";
     }
 
     //OPERATIONS _______________________________________________________________________
@@ -266,5 +287,24 @@ public class BanqueResource {
         session.close();
 
         return Response.status(200).entity(banque.toString()).build();
+    }
+
+    //Personnel _______________________________________________________________________
+
+    @GET
+    @Path("/personnel/{id}")
+    @Produces("text/plain")
+    public String getPersonnel(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Personnel personnel = (Personnel) session.load(Personnel.class, id);
+            return personnel.getBanque()+"-"+personnel.getNom()+"-"+personnel.getMotdepasse()+"-"+personnel.getRole();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return "KO";
     }
 }

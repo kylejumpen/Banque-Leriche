@@ -1,11 +1,16 @@
 package Graphics;
+
 import Metier.AccueilCoRest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kyle
  */
 public class AccueilCo extends javax.swing.JPanel {
+
+    public String role;
 
     /**
      * Creates new form AccueilCo
@@ -29,7 +34,7 @@ public class AccueilCo extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        connexion = new javax.swing.JButton();
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(400, 175));
@@ -53,10 +58,10 @@ public class AccueilCo extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("se connecter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        connexion.setText("se connecter");
+        connexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                connexionActionPerformed(evt);
             }
         });
 
@@ -81,7 +86,7 @@ public class AccueilCo extends javax.swing.JPanel {
                 .addGap(60, 60, 60)
                 .addComponent(jButton1)
                 .addGap(53, 53, 53)
-                .addComponent(jButton2))
+                .addComponent(connexion))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +108,7 @@ public class AccueilCo extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(connexion)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,18 +121,31 @@ public class AccueilCo extends javax.swing.JPanel {
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionActionPerformed
         String username = jTextField1.getText();
         String password = jPasswordField1.getText();
-        System.out.println(AccueilCoRest.accueilCoGet(username,password));
-        //Montrer la carte gerer compte
-        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneGererCompte");
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String reponse = AccueilCoRest.accueilCoGet(username, password);
+        if (reponse.equals("KO")) {
+            JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+        } else if (reponse.equals("mdp")) {
+            JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
+            jPasswordField1.setText("");
+        } else {
+            String[] parts = reponse.split("-");
+            role = parts[3];
+            if(role.equals("Employe")){
+                GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
+            }
+            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+        }
+    }//GEN-LAST:event_connexionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton connexion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

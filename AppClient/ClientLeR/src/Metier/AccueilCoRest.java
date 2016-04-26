@@ -11,7 +11,7 @@ public class AccueilCoRest {
 
     public static String accueilCoGet(String user, String pw) {
        try {
-        URL url = new URL("http://www.google.fr") ; // remplacez l'Url
+        URL url = new URL("http://localhost:8001/Banque-1.0/banque/personnel/" + Integer.parseInt(user)) ; // remplacez l'Url
         //URL nurl = new URL("http://localhost:8081/adressedeconnexion/?username="+user+"&password="+pw);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection() ;
         conn.setRequestMethod("GET");
@@ -20,7 +20,17 @@ public class AccueilCoRest {
 
         String response = br.readLine();
         conn.disconnect();
-        return response;
+        if(!response.equals("KO")){
+            String[] parts = response.split("-");
+            if(parts[2].equals(pw)){
+                return response;
+            }
+            else{
+                return "mdp";
+            }
+        }else{
+            return "KO";
+        } 
         }catch(Exception e) {
         e.printStackTrace() ;
         return "erreur";
