@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 public class GlobalFrame extends javax.swing.JFrame {
 
     public static JPanel cards;
+    private AjoutPersonnel paneAjoutPersonnel;
     private AccueilCo paneAccueil;
     public static GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
@@ -32,6 +33,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         oldPanel = new ArrayList<String>();
         cards = new JPanel();
         cards.setLayout(new CardLayout());
+        paneAjoutPersonnel = new AjoutPersonnel();
         paneAccueil = new AccueilCo();
         paneGererCompte = new GererCompte();
         paneConsulterCompte = new ConsulterCompte();
@@ -52,9 +54,11 @@ public class GlobalFrame extends javax.swing.JFrame {
         cards.add(paneConsulterCompte, "paneConsulterCompte");
         cards.add(paneCreerCompte, "paneCreerCompte");
         cards.add(paneEchangeArgent,"paneEchangeArgent");
+        cards.add(paneAjoutPersonnel,"paneAjoutPersonnel");
         this.add(cards, BorderLayout.CENTER);
         this.add(menu, BorderLayout.NORTH);
         this.setSize(400, 400);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Accueil Banque Le Riche");
         //Montrer la carte Accueil
         ((CardLayout) cards.getLayout()).show(cards, "paneAccueil");
