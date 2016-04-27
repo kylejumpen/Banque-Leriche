@@ -15,8 +15,7 @@ import javax.ws.rs.core.Response;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
-import java.io.InputStream; 
-
+import java.io.InputStream;
 
 
 import com.google.gson.Gson;
@@ -43,13 +42,13 @@ public class BanqueResource {
 //    Obtenir les infos banque             /{id}
 
 //    Creer un compte                           /client/compte/creer
-//     Supprimer un compte                       /client/compte/supprimer/{id}
-//    TODO Effectuer opération                       /client/compte/operer
-//    TODO Epargner                                  /client/compte/epargner
-//    TODO Créditer                                  /client/compte/crediter
-//    TODO Débiter                                   /client/compte/debiter
-//    TODO Rembourser crédit                         /client/compte/rembourser-credit
-//    TODO Echanger argent                           /client/compte/echanger
+//    Supprimer un compte                       /client/compte/supprimer/{id}
+//    Effectuer opération                       /client/compte/operer
+//    SUPPIMEE Epargner                                  /client/compte/epargner
+//    SUPPRIMEE Créditer                                  /client/compte/crediter
+//    SUPPRIMEE Débiter                                   /client/compte/debiter
+//    SUPPRIMEE Rembourser crédit                         /client/compte/rembourser-credit
+//    SUPPRIMEE Echanger argent                           /client/compte/echanger
 
 //    TODO Creer un membre du personnel              /personnel/creer
 //    TODO Supprimer un membre du personnel          /personnel/supprimer
@@ -129,7 +128,6 @@ public class BanqueResource {
         }
         return "Aucune banque d'id " + id + " trouve";
     }
-
 
 
     @POST
@@ -237,7 +235,7 @@ public class BanqueResource {
                 Integer.parseInt(args.get("montant"))
         );
 
-        if(args.get("typeCompteADebiter").equals("courant")) {
+        if (args.get("typeCompteADebiter").equals("courant")) {
             CompteCourant compteADebiter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteADebiter")));
             compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
             session.update(compteADebiter);
@@ -247,7 +245,7 @@ public class BanqueResource {
             session.update(compteADebiter);
         }
 
-        if(args.get("typeCompteACrediter").equals("courant")) {
+        if (args.get("typeCompteACrediter").equals("courant")) {
             CompteCourant compteACrediter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteACrediter")));
             compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
             session.update(compteACrediter);
@@ -264,31 +262,6 @@ public class BanqueResource {
     }
 
 
-
-
-    //TEST JSON _______________________________________________________________________
-
-    @POST
-    @Path("/test/json")
-    @Consumes("application/xml")
-    public Response testJson(String chaine) throws FileNotFoundException {
-        Gson gson = new Gson();
-        Banque banque = new Banque();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
-        }.getType());
-
-        banque.setNom(args.get("nom").toString());
-        banque.setVille(args.get("ville").toString());
-
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(banque);
-        session.getTransaction().commit();
-        session.close();
-
-        return Response.status(200).entity(banque.toString()).build();
-    }
-
     //Personnel _______________________________________________________________________
 
     @GET
@@ -299,12 +272,52 @@ public class BanqueResource {
 
         try {
             Personnel personnel = (Personnel) session.load(Personnel.class, id);
-            return personnel.getBanque()+"-"+personnel.getNom()+"-"+personnel.getMotdepasse()+"-"+personnel.getRole();
+            return personnel.getBanque() + "-" + personnel.getNom() + "-" + personnel.getMotdepasse() + "-" + personnel.getRole();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
         return "KO";
+    }
+
+
+    @POST
+    @Path("/personnel/creer")
+    @Consumes("application/xml")
+    public Response creerPersonnel(String chaine) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Gson gson = new Gson();
+        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        Banque banque = (Banque) session.load(Banque.class, Short.parseShort(args.get("idBanque")));
+
+        Personnel personnel = new Personnel(
+                banque,
+                args.get("nom"),
+                args.get("mdp"),
+                args.get("role")
+        );
+
+        session.save(personnel);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(personnel.toString()).build();
+    }
+
+
+    @DELETE
+    @Path("/personnel/supprimer/{id}")
+    public Response supprimerPersonnel(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Personnel personnel = (Personnel) session.load(Personnel.class, id);
+        session.beginTransaction();
+        session.delete(personnel);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(personnel.toString()).build();
     }
 }
