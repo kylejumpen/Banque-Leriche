@@ -17,7 +17,7 @@ public class Operation  implements java.io.Serializable {
      private String type;
      private short compteDebiteurId;
      private short compteCrediteurId;
-     private Integer montant;
+     private float montant;
 
     public Operation() {
     }
@@ -28,7 +28,7 @@ public class Operation  implements java.io.Serializable {
         this.compteDebiteurId = compteDebiteurId;
         this.compteCrediteurId = compteCrediteurId;
     }
-    public Operation(String type, short compteDebiteurId, short compteCrediteurId, Integer montant) {
+    public Operation(String type, short compteDebiteurId, short compteCrediteurId, float montant) {
        this.type = type;
        this.compteDebiteurId = compteDebiteurId;
        this.compteCrediteurId = compteCrediteurId;
@@ -72,11 +72,11 @@ public class Operation  implements java.io.Serializable {
     }
 
     @XmlElement
-    public Integer getMontant() {
+    public float getMontant() {
         return this.montant;
     }
 
-    public void setMontant(Integer montant) {
+    public void setMontant(float montant) {
         this.montant = montant;
     }
 

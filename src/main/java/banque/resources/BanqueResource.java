@@ -50,9 +50,9 @@ public class BanqueResource {
 //    SUPPRIMEE Rembourser crédit                         /client/compte/rembourser-credit
 //    SUPPRIMEE Echanger argent                           /client/compte/echanger
 
-//    TODO Creer un membre du personnel              /personnel/creer
-//    TODO Supprimer un membre du personnel          /personnel/supprimer
-//    TODO Infos d'un membre du personnel            /personnel/{id}
+//    Creer un membre du personnel              /personnel/creer
+//    Supprimer un membre du personnel          /personnel/supprimer
+//    Infos d'un membre du personnel            /personnel/{id}
 
     @POST
     @Path("/client/creer")
@@ -284,7 +284,7 @@ public class BanqueResource {
 
     @POST
     @Path("/personnel/creer")
-    @Consumes("application/xml")
+//    @Consumes("application/xml")
     public Response creerPersonnel(String chaine) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -319,5 +319,24 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(personnel.toString()).build();
+    }
+
+    @PUT
+    @Path("/epargner")
+    @Consumes("application/xml")
+    public Response epargner(String chaine) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
+        for(CompteEpargne temp : comptes) {
+            temp.setMontant(temp.getMontant() + temp.getMontant() * temp.getTauxInteret() * 0.01f);
+            session.update(temp);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return Response.status(200).entity(chaine).build();
     }
 }

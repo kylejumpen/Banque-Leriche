@@ -138,6 +138,14 @@ public class Client {
             System.out.println("DELETE : " + response.getStatus());
             response.close();
         }
+        //Param: EPARGNER
+        else if(args.length == 1 && args[0].equals("EPARGNER")) {
+            target = client.target(baseUrl + "/epargner");
+            maChaine = "coucou";
+            response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("PUT :" + response.getStatus());
+            response.close();
+        }
 
         else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
