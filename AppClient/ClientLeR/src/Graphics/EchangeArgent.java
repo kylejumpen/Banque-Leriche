@@ -5,7 +5,7 @@
  */
 package Graphics;
 
-import Metier.Echange;
+import Metier.EchangeR;
 
 /**
  *
@@ -13,13 +13,13 @@ import Metier.Echange;
  */
 public class EchangeArgent extends javax.swing.JPanel {
 
-    private Echange con;
+    private EchangeR con;
     /**
      * Creates new form EchangeArgent
      */
     public EchangeArgent() {
         initComponents();
-        con = new Echange();
+        con = new EchangeR();
     }
 
     /**

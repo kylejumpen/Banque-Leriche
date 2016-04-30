@@ -5,8 +5,8 @@
  */
 package Graphics;
 
-import Metier.ConsulterCompteRest;
 import javax.swing.JOptionPane;
+import Metier.ConsulterCompteR;
 
 /**
  *
@@ -15,9 +15,10 @@ import javax.swing.JOptionPane;
 public class ConsulterCompte extends javax.swing.JPanel {
 
     private int idCompte;
+    private ConsulterCompteR con;
 
     /**
-     * Creates new form ConsulterCompte
+     * Creates new form ConsulterCompteR
      */
     public ConsulterCompte() {
         initComponents();
@@ -168,7 +169,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
             JOptionPane jop = new JOptionPane();
             int option = jop.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce compte?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
-                ConsulterCompteRest.supprimerCompte(idCompte);
+                con.supprimerCompte(idCompte);
                 montant.setText("");
                 proprietaire.setText("");
             }
@@ -177,7 +178,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
 
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
 
-        String reponse = ConsulterCompteRest.consulterCompteGet(Integer.parseInt(numeroCompte.getText()));
+        String reponse = con.consulterCompteGet(Integer.parseInt(numeroCompte.getText()));
         System.out.println(reponse);
         if (reponse.equals("KO")) {
             JOptionPane.showMessageDialog(this, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -202,7 +203,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
             String sommeTransaction = JOptionPane.showInputDialog(this, "somme à créditer", "Crédit");
             if (sommeTransaction != null) {
                 somme = Integer.parseInt(sommeTransaction);
-                ConsulterCompteRest.crediterCompte(somme, idCompte);
+                con.crediterCompte(somme, idCompte);
             }
         }
     }//GEN-LAST:event_crediterActionPerformed
@@ -217,7 +218,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
             String sommeTransaction = JOptionPane.showInputDialog(this, "somme à débiter", "Débit");
             if (sommeTransaction != null) {
                 somme = Integer.parseInt(sommeTransaction);
-                ConsulterCompteRest.debiterCompte(somme, idCompte);
+                con.debiterCompte(somme, idCompte);
 
             }
         }

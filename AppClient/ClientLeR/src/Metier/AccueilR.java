@@ -9,7 +9,7 @@ import javax.ws.rs.client.Entity;
  *
  * @author kyle
  */
-public class Accueil extends CoRest {
+public class AccueilR extends CoRest {
         
     public String accueilCoGet(String user, String pw) {
        try {
@@ -46,7 +46,8 @@ public class Accueil extends CoRest {
             response.close();
             if(maChaine.equals("200"))
                 return true;
-            else 
+           
+            System.out.println("Soucis de fonctionnement, code renvoyé : "+maChaine);
                 return false;
     }
     /*

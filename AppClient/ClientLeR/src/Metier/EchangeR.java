@@ -14,7 +14,7 @@ import javax.ws.rs.client.Entity;
  * @author pauline
  * @author kyle
  */
-public class Echange extends CoRest {
+public class EchangeR extends CoRest {
     
     public void echangerArgent(String type, int debiteur, int crediteur, int montant){
         
