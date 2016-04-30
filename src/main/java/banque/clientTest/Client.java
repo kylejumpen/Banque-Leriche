@@ -40,7 +40,7 @@ public class Client {
             jsonArgs.put("idBanque", args[6]);
 
             maChaine = gson.toJson(jsonArgs);
-//            BanqueUtil.writeInFile("test_json.txt", maChaineCreerClient);
+  //            BanqueUtil.writeInFile("test_json.txt", maChaineCreerClient);
             target = client.target(baseUrl + "/client/creer");
             response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());

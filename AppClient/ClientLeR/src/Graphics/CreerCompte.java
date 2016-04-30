@@ -1,6 +1,6 @@
 package Graphics;
 import Entity.Compte;
-import Metier.AccueilCoRest;
+import Metier.Accueil;
 
 
 /**
@@ -67,9 +67,10 @@ public class CreerCompte extends javax.swing.JPanel {
         String nom = jTextField2.getText();
         String Addresse = jTextField3.getText();
         String type = jTextField4.getText();
-        
+        /*
         if(prenom != "" && nom != "" && Addresse != "" && type != "" )
-            System.out.println(AccueilCoRest.createAccountPost(new Compte(nom,prenom,Addresse,type)));
+            System.out.println(Accueil.createAccountPost(new Compte(nom,prenom,Addresse,type)));
+        */
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

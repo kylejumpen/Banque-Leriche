@@ -7,23 +7,30 @@ package Metier;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.HashMap;
+import javax.ws.rs.client.Entity;
 
 /**
  *
  * @author pauline
+ * @author kyle
  */
-public class EchangeArgentRest {
+public class Echange extends CoRest {
     
-    public static void echangerArgent(String type, int debiteur, int crediteur, int montant){
-        /*Gson gson = new Gson();
-        HashMap<String, String> jsonArgs = new HashMap<String, String>();
-        jsonArgs.put("type", "courant");
-        jsonArgs.put("compteDebiteurId", "\"" + debiteur + "\"");
-        jsonArgs.put("compteCrediteurId","\"" + crediteur + "\"" );
-        jsonArgs.put("montant", "\"" + montant + "\"");
+    public void echangerArgent(String type, int debiteur, int crediteur, int montant){
+        
+        this.jsonArgs.put("type", "courant");
+        this.jsonArgs.put("compteDebiteurId", "\"" + debiteur + "\"");
+        this.jsonArgs.put("compteCrediteurId","\"" + crediteur + "\"" );
+        this.jsonArgs.put("montant", "\"" + montant + "\"");
 
-        String maChaineJson; //Transformation en chaine de caractère
-        maChaineJson = gson.toJson(jsonArgs);
+        String maChaine; //Transformation en chaine de caractère
+        maChaine = this.gson.toJson(jsonArgs);
+        this.target = this.client.target(baseUrl + "/client/compte/operer"); //vérifier l'url
+        response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        maChaine = String.valueOf(response.getStatus());
+        response.close();
+        
+        /*
         try {
 
             URL url = new URL("http://localhost:8001/Banque-1.0/banque/client/compte/operer/post"); // remplacez l'Url

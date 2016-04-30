@@ -1,6 +1,6 @@
 package Graphics;
 
-import Metier.AccueilCoRest;
+import Metier.Accueil;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -11,12 +11,14 @@ import javax.swing.JOptionPane;
 public class AccueilCo extends javax.swing.JPanel {
 
     public String role;
+    private Accueil con;
 
     /**
      * Creates new form AccueilCo
      */
     public AccueilCo() {
         initComponents();
+        con = new Accueil();
     }
 
     /**
@@ -124,7 +126,7 @@ public class AccueilCo extends javax.swing.JPanel {
     private void connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionActionPerformed
         String username = jTextField1.getText();
         String password = jPasswordField1.getText();
-        String reponse = AccueilCoRest.accueilCoGet(username, password);
+        String reponse = con.accueilCoGet(username, password);
         if (reponse.equals("KO")) {
             JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             jTextField1.setText("");

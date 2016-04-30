@@ -3,6 +3,7 @@
 - Utilisation du serveur wildfly
 - Tools-> Platform permet de localiser le jdk a travers netbeans si besoin
 - /etc/netbeans.conf précisez l'emplacement du jdk
+- ./standalone.sh -Djboss.socket.binding.port-offset=-79 (Mais pourquoi ?)
 
 (notez ici tout les éléments de configs qui serviront au rapport,
 en effet vu les procédures impliquées ce serait bien que le prof n'est pas à chercher les infos par lui-même).

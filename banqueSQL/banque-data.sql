@@ -19,8 +19,8 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO personnel VALUES (1,'pauline','pmouches','Employe',1),
-(2,'quentin','qlerebours','Gerant',2);
+INSERT INTO personnel VALUES (1,'pauline','pmouches','Gerant',1),
+(2,'quentin','qlerebours','Gerant',2),(3,'kafui','kaf','Gerant',3);
 COMMIT;
 
 --
