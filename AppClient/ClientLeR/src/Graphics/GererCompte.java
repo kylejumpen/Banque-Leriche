@@ -59,6 +59,11 @@ public class GererCompte extends javax.swing.JPanel {
         });
 
         ajoutPersonnel.setText("Ajouter un nouveau membre");
+        ajoutPersonnel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutPersonnelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,6 +108,11 @@ public class GererCompte extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneEchangeArgent");           }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ajoutPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutPersonnelActionPerformed
+((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneAjoutPersonnel");                                      
+
+    }//GEN-LAST:event_ajoutPersonnelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -17,7 +17,7 @@
         <property name="compteCrediteurId" type="short">
             <column name="compte_crediteur_id" not-null="true" />
         </property>
-        <property name="montant" type="java.lang.Integer">
+        <property name="montant" type="float">
             <column name="montant" />
         </property>
     </class>

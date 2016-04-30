@@ -12,7 +12,7 @@ public class CompteCourant  implements java.io.Serializable {
 
      private Short compteCourantId;
      private ClientBanque clientBanque;
-     private Integer montant;
+     private float montant;
      private Boolean bloque;
      private int iban;
 
@@ -26,7 +26,7 @@ public class CompteCourant  implements java.io.Serializable {
         this.montant = 0;
         this.bloque = false;
     }
-    public CompteCourant(ClientBanque clientBanque, Integer montant, Boolean bloque, int iban) {
+    public CompteCourant(ClientBanque clientBanque, float montant, Boolean bloque, int iban) {
        this.clientBanque = clientBanque;
        this.montant = montant;
        this.bloque = bloque;
@@ -52,11 +52,11 @@ public class CompteCourant  implements java.io.Serializable {
     }
 
     @XmlElement
-    public Integer getMontant() {
+    public float getMontant() {
         return this.montant;
     }
 
-    public void setMontant(Integer montant) {
+    public void setMontant(float montant) {
         this.montant = montant;
     }
 

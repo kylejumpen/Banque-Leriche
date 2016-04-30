@@ -15,7 +15,7 @@ public class CompteEpargne  implements java.io.Serializable {
 
      private Short compteEpargneId;
      private ClientBanque clientBanque;
-     private Integer montant;
+     private float montant;
      private Boolean bloque;
      private Short tauxInteret;
      private short iban;
@@ -24,12 +24,12 @@ public class CompteEpargne  implements java.io.Serializable {
     public CompteEpargne() {
     }
 
-	
+
     public CompteEpargne(ClientBanque clientBanque, short iban) {
         this.clientBanque = clientBanque;
         this.iban = iban;
     }
-    public CompteEpargne(ClientBanque clientBanque, Integer montant, Boolean bloque, Short tauxInteret, short iban, Set credits) {
+    public CompteEpargne(ClientBanque clientBanque, float montant, Boolean bloque, Short tauxInteret, short iban, Set credits) {
        this.clientBanque = clientBanque;
        this.montant = montant;
        this.bloque = bloque;
@@ -42,7 +42,7 @@ public class CompteEpargne  implements java.io.Serializable {
     public Short getCompteEpargneId() {
         return this.compteEpargneId;
     }
-    
+
     public void setCompteEpargneId(Short compteEpargneId) {
         this.compteEpargneId = compteEpargneId;
     }
@@ -51,17 +51,17 @@ public class CompteEpargne  implements java.io.Serializable {
     public ClientBanque getClientBanque() {
         return this.clientBanque;
     }
-    
+
     public void setClientBanque(ClientBanque clientBanque) {
         this.clientBanque = clientBanque;
     }
 
     @XmlElement
-    public Integer getMontant() {
+    public float getMontant() {
         return this.montant;
     }
-    
-    public void setMontant(Integer montant) {
+
+    public void setMontant(float montant) {
         this.montant = montant;
     }
 
@@ -69,7 +69,7 @@ public class CompteEpargne  implements java.io.Serializable {
     public Boolean getBloque() {
         return this.bloque;
     }
-    
+
     public void setBloque(Boolean bloque) {
         this.bloque = bloque;
     }
@@ -78,7 +78,7 @@ public class CompteEpargne  implements java.io.Serializable {
     public Short getTauxInteret() {
         return this.tauxInteret;
     }
-    
+
     public void setTauxInteret(Short tauxInteret) {
         this.tauxInteret = tauxInteret;
     }
@@ -87,7 +87,7 @@ public class CompteEpargne  implements java.io.Serializable {
     public short getIban() {
         return this.iban;
     }
-    
+
     public void setIban(short iban) {
         this.iban = iban;
     }
@@ -96,7 +96,7 @@ public class CompteEpargne  implements java.io.Serializable {
     public Set getCredits() {
         return this.credits;
     }
-    
+
     public void setCredits(Set credits) {
         this.credits = credits;
     }

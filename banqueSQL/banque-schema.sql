@@ -57,7 +57,7 @@ CREATE TABLE clientBanque (
 
 CREATE TABLE compteCourant (
   compteCourant_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  montant INTEGER,
+  montant FLOAT,
   bloque BOOL,
   iban SMALLINT UNSIGNED NOT NULL,
   clientBanque_id SMALLINT UNSIGNED NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE compteCourant (
 
 CREATE TABLE compteEpargne (
   compteEpargne_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  montant INTEGER,
+  montant FLOAT,
   bloque BOOL,
   tauxInteret SMALLINT UNSIGNED,
   iban SMALLINT UNSIGNED NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE operation (
   type VARCHAR(50) NOT NULL,
   compte_debiteur_id SMALLINT UNSIGNED NOT NULL,
   compte_crediteur_id SMALLINT UNSIGNED NOT NULL,
-  montant INTEGER,
+  montant FLOAT,
   PRIMARY KEY  (operation_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
@@ -101,7 +101,7 @@ CREATE TABLE operation (
 CREATE TABLE credit (
   credit_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   compteEpargne_id SMALLINT UNSIGNED NOT NULL,
-  montant INTEGER,
+  montant FLOAT,
   taux SMALLINT UNSIGNED,
   dateEmprunt DATETIME NOT NULL,
   duree SMALLINT UNSIGNED NOT NULL,

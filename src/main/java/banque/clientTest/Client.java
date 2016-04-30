@@ -117,20 +117,36 @@ public class Client {
             response.close();
             session.close();
         }
-        //TEST JSON Param: TEST-JSON nomBanque nomVille
-        else if(args.length == 3 && args[0].equals("TEST-JSON")) {
-            //ATTENTION: Ici je prends l'exemple avec une banque, mais vous ce sera un tableau puisque vous n'aurez pas
-            // accès à l'entité Banque :)  D'ailleurs il faut voir si on peut pas faire de tableau associatif pour plus de clarté
-            //Gson gson = new Gson(); Initialisation de l'outil gson a été faite plus haut
-            Banque banqueTestJson = new Banque(args[1], args[2]); //Creation d'une banque quelconque
-            String maChaineJson = gson.toJson(banqueTestJson); //Transformation en chaine de caractère
-            BanqueUtil.writeInFile("test_json.txt", maChaineJson); //Je vais l'ecrire dans le fichier
-            target = client.target(baseUrl + "/test/json");
-            response = target.request().post(Entity.entity(maChaineJson, "application/xml;charset=UTF-8"));
+        //Param: CREER-PERSONNEL nom mdp role idBanque   role = {gerant, employe, admin}
+        else if (args.length == 5 && args[0].equals("CREER-PERSONNEL")) {
+            jsonArgs.put("nom", args[1]);
+            jsonArgs.put("mdp", args[2]);
+            jsonArgs.put("role", args[3]);
+            jsonArgs.put("idBanque", args[4]);
+            maChaine = gson.toJson(jsonArgs);
+
+            target = client.target(baseUrl + "/personnel/creer");
+            response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             System.out.println("POST : " + response.getStatus());
             response.close();
             session.close();
         }
+        //Param: SUPPRIMER-PERSONNEL idPersonnel
+        else if(args.length == 2 && args[0].equals("SUPPRIMER-PERSONNEL")) {
+            target = client.target(baseUrl + "/personnel/supprimer/" + args[1]);
+            response = target.request().delete();
+            System.out.println("DELETE : " + response.getStatus());
+            response.close();
+        }
+        //Param: EPARGNER
+        else if(args.length == 1 && args[0].equals("EPARGNER")) {
+            target = client.target(baseUrl + "/epargner");
+            maChaine = "coucou";
+            response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("PUT :" + response.getStatus());
+            response.close();
+        }
+
         else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }

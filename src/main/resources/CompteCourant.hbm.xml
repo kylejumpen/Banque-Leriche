@@ -11,7 +11,7 @@
         <many-to-one name="clientBanque" class="banque.entity.ClientBanque" fetch="select">
             <column name="clientBanque_id" not-null="true" />
         </many-to-one>
-        <property name="montant" type="java.lang.Integer">
+        <property name="montant" type="float">
             <column name="montant" />
         </property>
         <property name="bloque" type="java.lang.Boolean">
