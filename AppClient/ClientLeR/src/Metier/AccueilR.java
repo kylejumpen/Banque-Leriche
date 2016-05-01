@@ -13,12 +13,12 @@ public class AccueilR extends CoRest {
         
     public String accueilCoGet(String user, String pw) {
        try {
-        String url = baseUrl + Integer.parseInt(user); // remplacez l'Url
+        String url = baseUrl +"/personnel/"+ Integer.parseInt(user); // remplacez l'Url
         //URL nurl = new URL("http://localhost:8081/adressedeconnexion/?username="+user+"&password="+pw);
         this.target = this.client.target(url);
         this.response =this.target.request().get();
         String response = this.response.readEntity(String.class);
-        
+        System.out.println(response);
         if(!response.equals("KO")){
             String[] parts = response.split("-");
             if(parts[2].equals(pw)){
@@ -29,7 +29,8 @@ public class AccueilR extends CoRest {
             }
         }else{
             return "KO";
-        } 
+        }
+        
         }catch(Exception e) {
         e.printStackTrace() ;
         return "erreur";
@@ -40,7 +41,7 @@ public class AccueilR extends CoRest {
          this.jsonArgs.put("idClient", String.valueOf(idClient));
          String maChaine = this.gson.toJson(jsonArgs);
 
-            this.target = this.client.target(baseUrl + "/client/compte-courant/creer");
+            this.target = this.client.target(baseUrl + "client/compte-courant/creer");
             this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             maChaine = String.valueOf(response.getStatus());
             response.close();
