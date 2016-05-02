@@ -63,12 +63,15 @@ public class MethodesRest {
         jsonArgs.put("mdp", mdp);
         jsonArgs.put("email", email);
         jsonArgs.put("codePostal", code);
+        jsonArgs.put("idBanque", "1");
+        
 
         String maChaine = this.gson.toJson(jsonArgs);
 
-        this.target = this.client.target(baseUrl + "client/creer");
+        this.target = this.client.target(baseUrl + "/client/creer");
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         maChaine = String.valueOf(response.getStatus());
+        System.out.println(response);
         response.close();
         if (maChaine.equals("200")) {
             return true;

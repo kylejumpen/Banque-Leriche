@@ -37,6 +37,8 @@ COMMIT;
 
 SET AUTOCOMMIT=0;
 INSERT INTO compteCourant VALUES (1,100,false,11,1);
+INSERT INTO compteCourant VALUES (2,500,false,22,2);
+INSERT INTO compteCourant VALUES (3,10,false,21,1);
 COMMIT;
 
 --

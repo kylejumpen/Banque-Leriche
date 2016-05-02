@@ -1,6 +1,8 @@
 package Graphics;
 import Entity.Compte;
 import Metier.AccueilR;
+import Metier.MethodesRest;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -9,11 +11,13 @@ import Metier.AccueilR;
  */
 public class CreerCompte extends javax.swing.JPanel {
 
+    MethodesRest con;
     /**
      * Creates new form CreateAccount
      */
     public CreerCompte() {
         initComponents();
+        con = new MethodesRest();
     }
 
     /**
@@ -30,24 +34,28 @@ public class CreerCompte extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         validerAjouterCompte = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        nom = new javax.swing.JTextField();
+        prenom = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         typeCompte = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        motdepasse = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        codepostal = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nom :");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel2.setText("Prénom :");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
 
-        jLabel3.setText("Addresse :");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        jLabel3.setText("Email:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel4.setText("Type de compte :");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         validerAjouterCompte.setText("Confirmer");
         validerAjouterCompte.addActionListener(new java.awt.event.ActionListener() {
@@ -55,35 +63,50 @@ public class CreerCompte extends javax.swing.JPanel {
                 validerAjouterCompteActionPerformed(evt);
             }
         });
-        add(validerAjouterCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 80, -1));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 70, -1));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 160, -1));
+        add(validerAjouterCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
+        add(nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, -1));
+        add(prenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 140, -1));
+        add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 160, -1));
 
         typeCompte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Courant", "Epargne" }));
-        add(typeCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, -1));
+        add(typeCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, -1));
+
+        jLabel5.setText("Mot de passe:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        add(motdepasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 110, -1));
+
+        jLabel6.setText("Code postal:");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        add(codepostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void validerAjouterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjouterCompteActionPerformed
-        String prenom = jTextField1.getText();
-        String nom = jTextField2.getText();
-        String addresse = jTextField3.getText();
+        String nomClient = nom.getText();
+        String prenomClient = prenom.getText();
+        String emailClient = email.getText();
+        String mdpClient = motdepasse.getText();
+        String codeClient = codepostal.getText();
         String type = typeCompte.getSelectedItem().toString();
         
-        if(prenom != "" && nom != "" && addresse != "")
-            System.out.println(AccueilR.createAccountPost(new Compte(nom,prenom,Addresse,type)));
-        
+        if(!prenomClient.equals("") && !nomClient.equals("") && !emailClient.equals("") && !mdpClient.equals("") && !codeClient.equals(""))
+            con.creerClient(nomClient,prenomClient,emailClient, mdpClient,codeClient);
+        else
+            JOptionPane.showMessageDialog(this, "Merci de remplir tous les champs", "Alerte", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_validerAjouterCompteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField codepostal;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField motdepasse;
+    private javax.swing.JTextField nom;
+    private javax.swing.JTextField prenom;
     private javax.swing.JComboBox<String> typeCompte;
     private javax.swing.JButton validerAjouterCompte;
     // End of variables declaration//GEN-END:variables

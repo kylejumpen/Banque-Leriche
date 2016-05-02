@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 public class AccueilCo extends javax.swing.JPanel {
 
     public String role;
+    public int idBanque;
     private MethodesRest con;
 
     /**
@@ -138,6 +139,7 @@ public class AccueilCo extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
+    //Changer en json et set id banque
             String[] parts = reponse.split("-");
             role = parts[3];
             if(role.equals("Employe")){
