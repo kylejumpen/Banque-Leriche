@@ -4,6 +4,9 @@ package Metier;
 //import Entity.Compte;
 
 import javax.ws.rs.client.Entity;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 /**
  *
@@ -11,6 +14,9 @@ import javax.ws.rs.client.Entity;
  */
 public class AccueilR extends CoRest {
         
+     ResteasyClient client = new ResteasyClientBuilder().build();
+     
+     
     public String accueilCoGet(String user, String pw) {
        try {
         String url = baseUrl +"/personnel/"+ Integer.parseInt(user); // remplacez l'Url

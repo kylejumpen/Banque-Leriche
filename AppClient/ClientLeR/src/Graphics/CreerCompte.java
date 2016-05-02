@@ -29,11 +29,11 @@ public class CreerCompte extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        validerAjouterCompte = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        typeCompte = new javax.swing.JComboBox<>();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -49,33 +49,34 @@ public class CreerCompte extends javax.swing.JPanel {
         jLabel4.setText("Type de compte :");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jButton1.setText("Confirmer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        validerAjouterCompte.setText("Confirmer");
+        validerAjouterCompte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                validerAjouterCompteActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
+        add(validerAjouterCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
         add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 80, -1));
         add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 70, -1));
         add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 160, -1));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 100, -1));
+
+        typeCompte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Courant", "Epargne" }));
+        add(typeCompte, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void validerAjouterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjouterCompteActionPerformed
         String prenom = jTextField1.getText();
         String nom = jTextField2.getText();
-        String Addresse = jTextField3.getText();
-        String type = jTextField4.getText();
-        /*
-        if(prenom != "" && nom != "" && Addresse != "" && type != "" )
+        String addresse = jTextField3.getText();
+        String type = typeCompte.getSelectedItem().toString();
+        
+        if(prenom != "" && nom != "" && addresse != "")
             System.out.println(AccueilR.createAccountPost(new Compte(nom,prenom,Addresse,type)));
-        */
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_validerAjouterCompteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -83,6 +84,7 @@ public class CreerCompte extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> typeCompte;
+    private javax.swing.JButton validerAjouterCompte;
     // End of variables declaration//GEN-END:variables
 }

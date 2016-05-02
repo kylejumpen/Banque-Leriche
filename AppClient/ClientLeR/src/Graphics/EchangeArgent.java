@@ -6,6 +6,7 @@
 package Graphics;
 
 import Metier.EchangeR;
+import Metier.MethodesRest;
 
 /**
  *
@@ -13,13 +14,14 @@ import Metier.EchangeR;
  */
 public class EchangeArgent extends javax.swing.JPanel {
 
-    private EchangeR con;
+    private MethodesRest con;
+
     /**
      * Creates new form EchangeArgent
      */
     public EchangeArgent() {
         initComponents();
-        con = new EchangeR();
+        con = new MethodesRest();
     }
 
     /**
@@ -124,7 +126,7 @@ public class EchangeArgent extends javax.swing.JPanel {
         } else {
             type = "cheque";
         }
-        con.echangerArgent(type,Integer.parseInt(crediteur.getText()),Integer.parseInt(debiteur.getText()),Integer.parseInt(montant.getText()));
+        con.echangerArgent(Integer.parseInt(crediteur.getText()), Integer.parseInt(debiteur.getText()), Integer.parseInt(montant.getText()));
 
 
     }//GEN-LAST:event_validerActionPerformed

@@ -7,6 +7,7 @@ package Graphics;
 
 import javax.swing.JOptionPane;
 import Metier.ConsulterCompteR;
+import Metier.MethodesRest;
 
 /**
  *
@@ -15,13 +16,14 @@ import Metier.ConsulterCompteR;
 public class ConsulterCompte extends javax.swing.JPanel {
 
     private int idCompte;
-    private ConsulterCompteR con;
+    private MethodesRest con;
 
     /**
      * Creates new form ConsulterCompteR
      */
     public ConsulterCompte() {
         initComponents();
+        con = new MethodesRest();
     }
 
     /**

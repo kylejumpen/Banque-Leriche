@@ -1,6 +1,7 @@
 package Graphics;
 
 import Metier.AccueilR;
+import Metier.MethodesRest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -11,14 +12,14 @@ import javax.swing.JOptionPane;
 public class AccueilCo extends javax.swing.JPanel {
 
     public String role;
-    private AccueilR con;
+    private MethodesRest con;
 
     /**
      * Creates new form AccueilCo
      */
     public AccueilCo() {
         initComponents();
-        con = new AccueilR();
+        con = new MethodesRest();
     }
 
     /**
