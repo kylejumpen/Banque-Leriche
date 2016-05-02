@@ -54,6 +54,15 @@ public class Client {
             System.out.println("DELETE : " + response.getStatus());
             response.close();
         }
+        //Param: GET-CLIENT idClient
+        else if (args.length == 2 && args[0].equals("GET-CLIENT")) {
+            target = client.target(baseUrl + "/client/" + args[1]);
+            response = target.request().get();
+            System.out.println(args[1] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+
+
         //Param: CREER-BANQUE nom ville
         else if (args.length == 3 && args[0].equals("CREER-BANQUE")) {
             jsonArgs.put("nom", args[1]);
@@ -80,7 +89,7 @@ public class Client {
         }
         //Param: GET-COMPTE idCompte
         else if (args.length == 2 && args[0].equals("GET-COMPTE")) {
-            target = client.target(baseUrl + "/client/compteCourant/" + args[1]);
+            target = client.target(baseUrl + "/client/compte-courant/" + args[1]);
             response = target.request().get();
             System.out.println(args[1] + " : " + response.readEntity(String.class));
             response.close();
@@ -136,6 +145,13 @@ public class Client {
             target = client.target(baseUrl + "/personnel/supprimer/" + args[1]);
             response = target.request().delete();
             System.out.println("DELETE : " + response.getStatus());
+            response.close();
+        }
+        //Param: GET-PERSONNEL idPersonnel
+        else if (args.length == 2 && args[0].equals("GET-PERSONNEL")) {
+            target = client.target(baseUrl + "/personnel/" + args[1]);
+            response = target.request().get();
+            System.out.println(args[1] + " : " + response.readEntity(String.class));
             response.close();
         }
         //Param: EPARGNER

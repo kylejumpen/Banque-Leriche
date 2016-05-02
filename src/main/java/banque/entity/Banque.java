@@ -2,6 +2,9 @@ package banque.entity;
 // Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1
 
 
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
@@ -81,7 +84,12 @@ public class Banque  implements java.io.Serializable {
 //    }
 
     public String toString() {
-        return " Nom : " + nom + " Ville : " + ville + " Id : " + banqueId;
+        Gson gson = new Gson();
+        HashMap<String, String> jsonArgs = new HashMap<String, String>();
+        jsonArgs.put("banqueId", getBanqueId().toString());
+        jsonArgs.put("nom", getNom());
+        jsonArgs.put("ville", getVille());
+        return gson.toJson(jsonArgs);
     }
 }
 

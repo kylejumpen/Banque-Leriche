@@ -2,6 +2,9 @@ package banque.entity;
 // Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1
 
 
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
@@ -99,6 +102,18 @@ public class CompteEpargne  implements java.io.Serializable {
 
     public void setCredits(Set credits) {
         this.credits = credits;
+    }
+
+    public String toString() {
+        Gson gson = new Gson();
+        HashMap<String, String> jsonArgs = new HashMap<String, String>();
+        jsonArgs.put("compteEpargneId", getCompteEpargneId().toString());
+        jsonArgs.put("clientBanque", getClientBanque().toString());
+        jsonArgs.put("montant", Float.toString(getMontant()));
+        jsonArgs.put("bloque", Boolean.toString(getBloque()));
+        jsonArgs.put("tauxInteret", Short.toString(getTauxInteret()));
+        jsonArgs.put("iban", Integer.toString(getIban()));
+        return gson.toJson(jsonArgs);
     }
 }
 

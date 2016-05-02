@@ -2,7 +2,12 @@ package banque.entity;
 // Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1
 
 
+import com.google.gson.Gson;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 /**
@@ -88,6 +93,20 @@ public class Credit  implements java.io.Serializable {
 
     public void setDuree(short duree) {
         this.duree = duree;
+    }
+
+    public String toString() {
+        Gson gson = new Gson();
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        HashMap<String, String> jsonArgs = new HashMap<String, String>();
+        jsonArgs.put("creditId", Short.toString(getCreditId()));
+        jsonArgs.put("compteEpargne", getCompteEpargne().toString());
+        jsonArgs.put("montant", Float.toString(getMontant()));
+        jsonArgs.put("taux", Short.toString(getTaux()));
+        jsonArgs.put("dateEmprunt", df.format(getDateEmprunt()));
+        jsonArgs.put("duree", Integer.toString(getDuree()));
+        return gson.toJson(jsonArgs);
     }
 }
 

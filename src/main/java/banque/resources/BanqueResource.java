@@ -1,37 +1,27 @@
 package banque.resources;
 
-import java.io.FileNotFoundException;
-import java.lang.Override;
 import java.lang.Short;
 import java.lang.String;
 import java.lang.System;
 import java.util.HashMap;
-import java.util.Iterator;
-import javax.annotation.PostConstruct;
-import javax.security.auth.login.AppConfigurationEntry;
-import javax.security.auth.login.Configuration;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.io.*;
-import java.lang.reflect.*;
 import java.util.*;
-import java.io.InputStream;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.*;
 
-import banque.clientTest.Client;
 import org.hibernate.*;
 
 import banque.entity.*;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import banque.utils.*;
 
 @Path("banque")
 public class BanqueResource {
     Session session;
+    String failure = "{\"succes\": \"false\"}";
 
 //    Creer un client                           /client/creer
 //    Supprimer un client                      /client/supprimer{id}
@@ -53,6 +43,9 @@ public class BanqueResource {
 //    Creer un membre du personnel              /personnel/creer
 //    Supprimer un membre du personnel          /personnel/supprimer
 //    Infos d'un membre du personnel            /personnel/{id}
+
+
+    //CLIENT _______________________________________________________________________
 
     @POST
     @Path("/client/creer")
@@ -109,8 +102,11 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return "KO";
+        return this.failure;
     }
+
+
+    //BANQUE _______________________________________________________________________
 
     @GET
     @Path("/{id}")
@@ -126,7 +122,7 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return "Aucune banque d'id " + id + " trouve";
+        return this.failure;
     }
 
 
@@ -207,13 +203,13 @@ public class BanqueResource {
 
         try {
             CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
-            return compteCourant.getCompteCourantId() + "-" + compteCourant.getClientBanque().getNom() + "-" + compteCourant.getClientBanque().getPrenom() + "-" + compteCourant.getMontant();
+            return compteCourant.toString();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
-        return "KO";
+        return this.failure;
     }
 
     //OPERATIONS _______________________________________________________________________
@@ -272,13 +268,13 @@ public class BanqueResource {
 
         try {
             Personnel personnel = (Personnel) session.load(Personnel.class, id);
-            return personnel.getBanque() + "-" + personnel.getNom() + "-" + personnel.getMotdepasse() + "-" + personnel.getRole();
+            return personnel.toString();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
-        return "KO";
+        return this.failure;
     }
 
 
