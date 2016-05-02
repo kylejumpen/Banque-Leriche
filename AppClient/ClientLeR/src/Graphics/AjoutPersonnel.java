@@ -1,6 +1,7 @@
 package Graphics;
 
 import Metier.AjoutPersonnelR;
+import Metier.MethodesRest;
 import java.awt.CardLayout;
 
 /**
@@ -9,14 +10,14 @@ import java.awt.CardLayout;
  */
 public class AjoutPersonnel extends javax.swing.JPanel {
 
-    private AjoutPersonnelR con;
+    private MethodesRest con;
     
     /**
      * Creates new form AjoutPersonnel
      */
     public AjoutPersonnel() {
         initComponents();
-        con = new AjoutPersonnelR();
+        con = new MethodesRest();
     }
 
     /**

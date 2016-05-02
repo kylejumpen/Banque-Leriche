@@ -3,6 +3,8 @@ package Metier;
 import com.google.gson.Gson;
 import java.util.HashMap;
 import javax.ws.rs.client.Entity;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
  *
@@ -10,9 +12,11 @@ import javax.ws.rs.client.Entity;
  */
 public class ConsulterCompteR extends CoRest {
 
+    
     public String consulterCompteGet(int id) {
+        System.out.println("coucou");
         
-        target = client.target(baseUrl + "/client/compteCourant/" + id);
+        target = client.target(baseUrl + "/client/compte-courant/" + id);
             response = target.request().get();
             String reponse = response.readEntity(String.class);
             response.close();
