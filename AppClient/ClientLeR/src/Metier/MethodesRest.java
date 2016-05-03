@@ -81,10 +81,26 @@ public class MethodesRest {
         return false;
     }
 
-    public String consulterCompteGet(int id) {
-        System.out.println("coucou");
-
+    public String consulterCompteCourantClient(int id) {
         target = client.target(baseUrl + "/client/compte-courant/" + id);
+        response = target.request().get();
+        String reponse = response.readEntity(String.class);
+        response.close();
+        return reponse;
+    }
+    
+        public String consulterCompteEpargneClient(int id) {
+        target = client.target(baseUrl + "/client/compte-epargne/" + id);
+        response = target.request().get();
+        String reponse = response.readEntity(String.class);
+        response.close();
+        return reponse;
+    }
+    
+    
+        public String consulterClientGet(int id) {
+
+        target = client.target(baseUrl + "/client/" + id);
         response = target.request().get();
         String reponse = response.readEntity(String.class);
         response.close();
