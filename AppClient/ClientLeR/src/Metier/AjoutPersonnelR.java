@@ -8,6 +8,10 @@ import javax.ws.rs.client.Entity;
  */
 public class AjoutPersonnelR extends CoRest {
 
+    public AjoutPersonnelR(){
+        super();
+    }
+    
     public void ajouterPersonnel(String banque, String nom, String motdepasse, String role) {
         String roleEnum;
         if(role.equals("Employé"))

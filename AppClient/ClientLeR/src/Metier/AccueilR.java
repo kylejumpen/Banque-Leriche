@@ -1,88 +1,70 @@
 package Metier;
-//import java.io.*;
-//import java.net.*;
-//import Entity.Compte;
 
 import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-
+import com.google.gson.*;
 /**
  *
  * @author kyle
  */
 public class AccueilR extends CoRest {
-        
-     ResteasyClient client = new ResteasyClientBuilder().build();
-     
+ 
+    public AccueilR(){
+        super();
+    }
      
     public String accueilCoGet(String user, String pw) {
        try {
         String url = baseUrl +"/personnel/"+ Integer.parseInt(user); // remplacez l'Url
-        //URL nurl = new URL("http://localhost:8081/adressedeconnexion/?username="+user+"&password="+pw);
         this.target = this.client.target(url);
         this.response =this.target.request().get();
-        String response = this.response.readEntity(String.class);
-        System.out.println(response);
-        if(!response.equals("KO")){
-            String[] parts = response.split("-");
-            if(parts[2].equals(pw)){
-                return response;
-            }
-            else{
-                return "mdp";
-            }
-        }else{
-            return "KO";
-        }
-        
+        String responsebrut = this.response.readEntity(String.class);
+        System.out.println(responsebrut);
+        // Bloc de verification
+       /* JsonParser parser = new JsonParser();
+        parser.parse(responsebrut); // throws JsonSyntaxException */
+       JsonElement root = new JsonParser().parse(responsebrut);
+       if(root.getAsJsonObject().has("succes"))
+           return "KO";
+       else if(!pw.equals(root.getAsJsonObject().get("motdepasse").getAsString()))
+           return "mdp";
+       
+       String reponse = root.getAsJsonObject().get("role").getAsString();
+       /*
+       JsonPrimitive banquest =root.getAsJsonObject().get("banque").getAsJsonPrimitive();
+       root = new JsonParser().parse(banquest.getAsString());
+       System.out.println(root.isJsonObject());*/
+       return reponse;
+       
         }catch(Exception e) {
         e.printStackTrace() ;
         return "erreur";
         }
     }
     
-    public boolean createAccountPost(int idClient){
-         this.jsonArgs.put("idClient", String.valueOf(idClient));
-         String maChaine = this.gson.toJson(jsonArgs);
+    public boolean createAccountPost(String nom, String prenom, String email, String mdp, String code){
 
-            this.target = this.client.target(baseUrl + "client/compte-courant/creer");
-            this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
-            maChaine = String.valueOf(response.getStatus());
-            response.close();
-            if(maChaine.equals("200"))
-                return true;
-           
-            System.out.println("Soucis de fonctionnement, code renvoyé : "+maChaine);
-                return false;
-    }
-    /*
-    public String createAccountPost(Compte account) {
-        try {
-         URL url = new URL("http://www.google.fr") ; // remplacez l'Url
-         //URL nurl = new URL("http://localhost:8081/adressedeconnexion/
-         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-         conn.setDoOutput(true);
-         conn.setRequestMethod("POST");
-         conn.setRequestProperty("Content-Type", "application/json");
-         String input = "{\"nom\":"+account.getNom()+",\"prenom\":"+account.getPrenom()
-                +",\"Addresse\":"+account.getAddresse()+",\"Addresse\":"+account.getType()+"}";
-        OutputStream os = conn.getOutputStream();
-        os.write(input.getBytes());
-        os.flush();
-        BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-        String output = "",temp ="";
-
-        while ((temp = br.readLine()) != null)
-        output += temp;
-        conn.disconnect();
-        return temp;
-        } catch (Exception e) {
-        e.printStackTrace();
-        return "erreur";
-        }
+        jsonArgs.put("nom", nom);
+        jsonArgs.put("prenom", prenom);
+        jsonArgs.put("mdp", mdp);
+        jsonArgs.put("email", email);
+        jsonArgs.put("codePostal", code);
+        jsonArgs.put("idBanque", "1");
         
-    }*/
-    
+        String maChaine = gson.toJson(jsonArgs);
+
+        target = client.target(baseUrl + "/client/creer");
+        response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        maChaine = String.valueOf(response.getStatus());
+        System.out.println(response);
+        response.close();
+        if (maChaine.equals("200")) {
+            return true;
+        }
+
+        System.out.println("Soucis de fonctionnement, code renvoyé : " + maChaine);
+        return false;
+    }
 }

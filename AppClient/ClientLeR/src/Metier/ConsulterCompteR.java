@@ -12,6 +12,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  */
 public class ConsulterCompteR extends CoRest {
 
+    public ConsulterCompteR() {
+        super();
+    }
     
     public String consulterCompteGet(int id) {
         System.out.println("coucou");

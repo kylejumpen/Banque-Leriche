@@ -13,14 +13,16 @@ public class AccueilCo extends javax.swing.JPanel {
 
     public String role;
     public int idBanque;
-    private MethodesRest con;
-
+    //private MethodesRest con;
+    private AccueilR con;
     /**
      * Creates new form AccueilCo
      */
     public AccueilCo() {
         initComponents();
-        con = new MethodesRest();
+        //con = new MethodesRest();
+         con = new AccueilR();
+        
     }
 
     /**
@@ -127,6 +129,7 @@ public class AccueilCo extends javax.swing.JPanel {
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /* Pauline
     private void connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionActionPerformed
         String username = jTextField1.getText();
         String password = jPasswordField1.getText();
@@ -148,8 +151,29 @@ public class AccueilCo extends javax.swing.JPanel {
             ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
         }
     }//GEN-LAST:event_connexionActionPerformed
-
-
+*/
+    
+    
+    /*Kyle */ 
+    private void connexionActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        String username = jTextField1.getText();
+        String password = jPasswordField1.getText();
+        String reponse = con.accueilCoGet(username, password); // ici je prend le role seulement
+        if (reponse.equals("KO")) {
+            JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+        } else if (reponse.equals("mdp")) {
+            JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
+            jPasswordField1.setText("");
+        } else {
+            if(reponse.equals("Employe")){
+                GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
+            }
+            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+        }
+    }   
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connexion;
     private javax.swing.JButton jButton1;

@@ -14,14 +14,18 @@ import javax.ws.rs.client.Entity;
 
 public abstract class CoRest {
     
-    protected static ResteasyClient client = new ResteasyClientBuilder().build();
+    protected static ResteasyClient client;
     protected ResteasyWebTarget target;
     protected Response response;
-    protected HashMap<String, String> jsonArgs = new HashMap<String, String>();
-    protected Gson gson = new Gson();
-    final static String baseUrl = "http://localhost:8001/Banque-1.0/banque";
+    protected HashMap<String, String> jsonArgs ;
+    protected Gson gson;
+    protected final static String baseUrl = "http://localhost:8001/Banque-1.0/banque";
     
     
-    
+    public CoRest(){
+        this.client = new ResteasyClientBuilder().build();
+        this.jsonArgs =  new HashMap<String, String>();
+        this.gson = new Gson();
+    }
     
 }

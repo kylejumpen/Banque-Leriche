@@ -16,6 +16,10 @@ import javax.ws.rs.client.Entity;
  */
 public class EchangeR extends CoRest {
     
+    public EchangeR() {
+    super();    
+    }
+    
     public void echangerArgent(String type, int debiteur, int crediteur, int montant){
         
         this.jsonArgs.put("type", "courant");
