@@ -1,6 +1,8 @@
 package Metier;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.util.HashMap;
 import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -17,12 +19,22 @@ public class ConsulterCompteR extends CoRest {
     }
     
     public String consulterCompteGet(int id) {
-        System.out.println("coucou");
         
         target = client.target(baseUrl + "/client/compte-courant/" + id);
-            response = target.request().get();
-            String reponse = response.readEntity(String.class);
-            response.close();
+        response = target.request().get();
+        String reponse = response.readEntity(String.class);
+        JsonElement root = new JsonParser().parse(reponse);
+       if(root.getAsJsonObject().has("succes"))
+           return "KO";
+       //extraire montant nom et prenom     
+        reponse = root.getAsJsonObject().get("montant").getAsString()+"#";
+       
+       root = new JsonParser().parse(root.getAsJsonObject().get("clientBanque")
+               .getAsString());
+      
+       reponse += (root.getAsJsonObject().get("nom").getAsString() + "#");
+       reponse += root.getAsJsonObject().get("prenom").getAsString();
+       response.close();
         return reponse;
   
     }
@@ -50,27 +62,6 @@ public class ConsulterCompteR extends CoRest {
         this.target = this.client.target(baseUrl +"/client/compte/operer/post"); // URL a remplacer
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         
-        /*
-        try {
-
-            URL url = new URL("http://localhost:8001/Banque-1.0/banque/client/compte/operer/post"); // remplacez l'Url
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            		conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(maChaineJson);
-            out.flush();
-            out.close();
-            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
-            String response = br.readLine();
-            conn.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        */
     }
     
         public void crediterCompte(int montant, int compte) {

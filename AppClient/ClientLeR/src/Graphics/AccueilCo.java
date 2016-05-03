@@ -1,7 +1,7 @@
 package Graphics;
 
 import Metier.AccueilR;
-import Metier.MethodesRest;
+//import Metier.MethodesRest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -167,6 +167,10 @@ public class AccueilCo extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
+            String[] parts = reponse.split("#");
+            role = parts[0];
+            idBanque =Integer.parseInt(parts[1]);
+            System.out.println(idBanque);
             if(reponse.equals("Employe")){
                 GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
             }

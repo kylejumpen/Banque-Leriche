@@ -21,7 +21,7 @@ public class AccueilR extends CoRest {
         this.target = this.client.target(url);
         this.response =this.target.request().get();
         String responsebrut = this.response.readEntity(String.class);
-        System.out.println(responsebrut);
+
         // Bloc de verification
        /* JsonParser parser = new JsonParser();
         parser.parse(responsebrut); // throws JsonSyntaxException */
@@ -30,12 +30,10 @@ public class AccueilR extends CoRest {
            return "KO";
        else if(!pw.equals(root.getAsJsonObject().get("motdepasse").getAsString()))
            return "mdp";
-       
-       String reponse = root.getAsJsonObject().get("role").getAsString();
-       /*
-       JsonPrimitive banquest =root.getAsJsonObject().get("banque").getAsJsonPrimitive();
-       root = new JsonParser().parse(banquest.getAsString());
-       System.out.println(root.isJsonObject());*/
+       String reponse = root.getAsJsonObject().get("role").getAsString()+"#";
+      
+       root = new JsonParser().parse(root.getAsJsonObject().get("banque").getAsString());
+       reponse += root.getAsJsonObject().get("banqueId").getAsInt();
        return reponse;
        
         }catch(Exception e) {
@@ -44,7 +42,7 @@ public class AccueilR extends CoRest {
         }
     }
     
-    public boolean createAccountPost(String nom, String prenom, String email, String mdp, String code){
+    public boolean creerClient(String nom, String prenom, String email, String mdp, String code){
 
         jsonArgs.put("nom", nom);
         jsonArgs.put("prenom", prenom);

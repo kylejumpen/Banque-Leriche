@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Graphics;
 
 import javax.swing.JOptionPane;
 import Metier.ConsulterCompteR;
-import Metier.MethodesRest;
+//import Metier.MethodesRest;
+
 
 /**
  *
@@ -16,14 +12,18 @@ import Metier.MethodesRest;
 public class ConsulterCompte extends javax.swing.JPanel {
 
     private int idCompte;
-    private MethodesRest con;
+  //private MethodesRest con;
+   private  ConsulterCompteR con;
+    
 
     /**
      * Creates new form ConsulterCompteR
      */
     public ConsulterCompte() {
         initComponents();
-        con = new MethodesRest();
+        //con = new MethodesRest();
+        con = new ConsulterCompteR();
+        
     }
 
     /**
@@ -181,14 +181,13 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
 
         String reponse = con.consulterCompteGet(Integer.parseInt(numeroCompte.getText()));
-        System.out.println(reponse);
         if (reponse.equals("KO")) {
             JOptionPane.showMessageDialog(this, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             numeroCompte.setText("");
         } else {
             idCompte = Integer.parseInt(numeroCompte.getText());
-            String[] parts = reponse.split("-");
-            montant.setText(parts[3] + "€");
+            String[] parts = reponse.split("#");
+            montant.setText(parts[0] + "€");
             proprietaire.setText(parts[1] + " " + parts[2]);
         }
 

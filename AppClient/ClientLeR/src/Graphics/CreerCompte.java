@@ -1,7 +1,7 @@
 package Graphics;
 import Entity.Compte;
-//import Metier.AccueilR;
-import Metier.MethodesRest;
+import Metier.AccueilR;
+//import Metier.MethodesRest;
 import javax.swing.JOptionPane;
 
 
@@ -11,15 +11,15 @@ import javax.swing.JOptionPane;
  */
 public class CreerCompte extends javax.swing.JPanel {
 
-    MethodesRest con;
-    //AccueilR con;
+    //MethodesRest con;
+    AccueilR con;
     /**
      * Creates new form CreateAccount
      */
     public CreerCompte() {
         initComponents();
-        con = new MethodesRest();
-        //con = new AccueilR();
+        //con = new MethodesRest();
+        con = new AccueilR();
     }
 
     /**

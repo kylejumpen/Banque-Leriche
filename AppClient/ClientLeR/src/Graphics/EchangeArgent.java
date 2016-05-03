@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Graphics;
 
 import Metier.EchangeR;
-import Metier.MethodesRest;
+//import Metier.MethodesRest;
 
 /**
  *
@@ -14,14 +9,15 @@ import Metier.MethodesRest;
  */
 public class EchangeArgent extends javax.swing.JPanel {
 
-    private MethodesRest con;
-
+    //private MethodesRest con;
+    private EchangeR con;
     /**
      * Creates new form EchangeArgent
      */
     public EchangeArgent() {
+        con = new EchangeR();
         initComponents();
-        con = new MethodesRest();
+       // con = new MethodesRest();
     }
 
     /**
@@ -126,7 +122,7 @@ public class EchangeArgent extends javax.swing.JPanel {
         } else {
             type = "cheque";
         }
-        con.echangerArgent(Integer.parseInt(crediteur.getText()), Integer.parseInt(debiteur.getText()), Integer.parseInt(montant.getText()));
+        con.echangerArgent(type,Integer.parseInt(crediteur.getText()), Integer.parseInt(debiteur.getText()), Integer.parseInt(montant.getText()));
 
 
     }//GEN-LAST:event_validerActionPerformed
