@@ -22,6 +22,7 @@ public class AccueilR extends CoRest {
         this.response =this.target.request().get();
         String responsebrut = this.response.readEntity(String.class);
 
+
         // Bloc de verification
        /* JsonParser parser = new JsonParser();
         parser.parse(responsebrut); // throws JsonSyntaxException */

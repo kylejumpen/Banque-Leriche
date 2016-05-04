@@ -32,4 +32,16 @@ public class AdminR extends CoRest{
         return reponse;
     }
     
+        public void ajouterBanque(String nom, String ville) {
+
+        jsonArgs.put("nom", nom);
+        jsonArgs.put("ville", ville);
+
+        String maChaine; //Transformation en chaine de caractère
+        maChaine = gson.toJson(jsonArgs);
+        this.target = this.client.target(baseUrl + "/creer");
+        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        response.close();
+    }
+    
 }

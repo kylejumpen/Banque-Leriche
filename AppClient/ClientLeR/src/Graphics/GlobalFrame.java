@@ -24,6 +24,7 @@ public class GlobalFrame extends javax.swing.JFrame {
     private AjoutPersonnel paneAjoutPersonnel;
     private AccueilCo paneAccueil;
     private AdminMenu paneAdmin;
+    private AjouterBanque paneAjoutBanque;
     public static GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
     private CreerCompte paneCreerCompte;
@@ -40,6 +41,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         oldPanel = new ArrayList<String>();
         cards = new JPanel();
         cards.setLayout(new CardLayout());
+        paneAjoutBanque = new AjouterBanque();
         paneAdmin = new AdminMenu();
         paneAjoutPersonnel = new AjoutPersonnel();
         paneAccueil = new AccueilCo();
@@ -57,6 +59,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         menu = new JPanel();
         menu.add(retourAccueil, BorderLayout.EAST);
         //Ajouter toutes les cartes au Layout
+        cards.add(paneAjoutBanque,"paneAjoutBanque");
         cards.add(paneAccueil, "paneAccueil");
         cards.add(paneAdmin,"paneAdmin");
         cards.add(paneGererCompte, "paneGererCompte");
