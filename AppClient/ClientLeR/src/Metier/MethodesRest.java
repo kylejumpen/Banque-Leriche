@@ -184,6 +184,7 @@ public class MethodesRest {
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(baseUrl + "/personnel/creer");
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        System.out.println(response.getStatus());
         response.close();
 
     }

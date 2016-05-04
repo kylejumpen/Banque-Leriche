@@ -185,31 +185,37 @@ public class ConsulterCompte extends javax.swing.JPanel {
         courant.setEnabled(true);
         epargne.setEnabled(true);
         Gson gson = new Gson();
-        int idClient = Integer.parseInt(numeroClient.getText());
-        String reponse = con.consulterClientGet(idClient);
-        if (reponse.equals("KO")) {
-            JOptionPane.showMessageDialog(this, "Ce client n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
-            numeroClient.setText("");
-        } else {
+        try {
+            int idClient = Integer.parseInt(numeroClient.getText());
 
-            String ccourant = con.consulterCompteCourantClient(idClient);
-            if (ccourant.equals("KO")) {
-                compteCourant.setText("Pas de compte courant");
-                courant.setEnabled(false);
+            String reponse = con.consulterClientGet(idClient);
+            if (reponse.equals("KO")) {
+                JOptionPane.showMessageDialog(this, "Ce client n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+                numeroClient.setText("");
             } else {
-                HashMap<String, String> args = gson.fromJson(ccourant, new TypeToken<HashMap<String, String>>() {
-                }.getType());
-                compteCourant.setText(args.get("montant"));
+
+                String ccourant = con.consulterCompteCourantClient(idClient);
+                if (ccourant.equals("KO")) {
+                    compteCourant.setText("Pas de compte courant");
+                    courant.setEnabled(false);
+                } else {
+                    HashMap<String, String> args = gson.fromJson(ccourant, new TypeToken<HashMap<String, String>>() {
+                    }.getType());
+                    compteCourant.setText(args.get("montant"));
+                }
+                String cepargne = con.consulterCompteEpargneClient(idClient);
+                if (ccourant.equals("KO")) {
+                    compteEpargne.setText("Pas de compte epargne");
+                    epargne.setEnabled(false);
+                } else {
+                    HashMap<String, String> args = gson.fromJson(cepargne, new TypeToken<HashMap<String, String>>() {
+                    }.getType());
+                    compteEpargne.setText(args.get("montant"));
+                }
             }
-            String cepargne = con.consulterCompteEpargneClient(idClient);
-            if (ccourant.equals("KO")) {
-                compteEpargne.setText("Pas de compte epargne");
-                epargne.setEnabled(false);
-            } else {
-                HashMap<String, String> args = gson.fromJson(cepargne, new TypeToken<HashMap<String, String>>() {
-                }.getType());
-                compteEpargne.setText(args.get("montant"));
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Entrée invalide", "Alerte", JOptionPane.ERROR_MESSAGE);
+            numeroClient.setText("");
         }
     }//GEN-LAST:event_rechercherActionPerformed
 
@@ -240,7 +246,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
             if (sommeTransaction != null) {
                 somme = Integer.parseInt(sommeTransaction);
                 con.debiterCompte(somme, idCompte);
-
             }
         }
     }//GEN-LAST:event_debiterActionPerformed

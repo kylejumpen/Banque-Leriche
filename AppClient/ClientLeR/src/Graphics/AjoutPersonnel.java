@@ -11,13 +11,16 @@ import java.awt.CardLayout;
 public class AjoutPersonnel extends javax.swing.JPanel {
 
     private MethodesRest con;
-    
+    //private AjoutPersonnelR con;
+
     /**
      * Creates new form AjoutPersonnel
      */
     public AjoutPersonnel() {
-        initComponents();
+        //con = new AjoutPersonnelR();
         con = new MethodesRest();
+        initComponents();
+
     }
 
     /**
@@ -106,8 +109,8 @@ public class AjoutPersonnel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-            con.ajouterPersonnel(banque.getText(),nom.getText(),motdepasse.getText(),role.getSelectedItem().toString());
-            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneGererCompte");                                                 
+        con.ajouterPersonnel(banque.getText(), nom.getText(), motdepasse.getText(), role.getSelectedItem().toString());
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
 
     }//GEN-LAST:event_validerActionPerformed
 

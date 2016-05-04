@@ -30,12 +30,11 @@ public class AccueilR extends CoRest {
            return "KO";
        else if(!pw.equals(root.getAsJsonObject().get("motdepasse").getAsString()))
            return "mdp";
-       String reponse = root.getAsJsonObject().get("role").getAsString()+"#";
+       String reponse = root.getAsJsonObject().get("role").getAsString()+"#"+root.getAsJsonObject().get("personnelId").getAsString()+"#";
       
        root = new JsonParser().parse(root.getAsJsonObject().get("banque").getAsString());
        reponse += root.getAsJsonObject().get("banqueId").getAsInt();
        return reponse;
-       
         }catch(Exception e) {
         e.printStackTrace() ;
         return "erreur";
