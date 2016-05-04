@@ -161,6 +161,27 @@ public class BanqueResource {
         return Response.status(200).entity(banque.toString()).build();
     }
 
+    @GET
+    @Path("/compte/courant/{id}")
+    @Produces("text/plain")
+    public String getCompteCourantFromClient(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Query q = session.createQuery(
+                    "FROM CompteCourant cc WHERE cc.clientBanque.clientBanqueId=:id");
+            q.setParameter("id", id);
+            List<?> result = q.list();
+            CompteCourant cc = (CompteCourant)result.get(0);
+            return cc.toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
+    }
+
     //COMPTE _______________________________________________________________________
 
     @POST

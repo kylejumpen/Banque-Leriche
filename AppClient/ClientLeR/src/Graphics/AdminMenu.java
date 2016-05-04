@@ -6,6 +6,7 @@
 package Graphics;
 
 import Metier.AdminR;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,10 +36,15 @@ public class AdminMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        ajouter = new javax.swing.JButton();
         supprimer = new javax.swing.JButton();
 
-        jButton1.setText("Ajouter une Banque");
+        ajouter.setText("Ajouter une Banque");
+        ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterActionPerformed(evt);
+            }
+        });
 
         supprimer.setText("Supprimer une Banque");
         supprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -53,7 +59,7 @@ public class AdminMenu extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jButton1)
+                .addComponent(ajouter)
                 .addGap(18, 18, 18)
                 .addComponent(supprimer)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -63,7 +69,7 @@ public class AdminMenu extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(ajouter)
                     .addComponent(supprimer))
                 .addContainerGap(146, Short.MAX_VALUE))
         );
@@ -79,9 +85,13 @@ public class AdminMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_supprimerActionPerformed
 
+    private void ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterActionPerformed
+       ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAjoutBanque");
+    }//GEN-LAST:event_ajouterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton ajouter;
     private javax.swing.JButton supprimer;
     // End of variables declaration//GEN-END:variables
 }

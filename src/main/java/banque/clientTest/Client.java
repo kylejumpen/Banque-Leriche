@@ -177,6 +177,11 @@ public class Client {
             response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             System.out.println("PUT :" + response.getStatus());
             response.close();
+        } else if(args.length == 2 && args[0].equals("GET-COMPTE-CLIENT")) {
+            target = client.target(baseUrl + "/compte/courant/" + args[1]);
+            response = target.request().get();
+            System.out.println(args[1] + " : " + response.readEntity(String.class));
+            response.close();
         }
 
         else {
