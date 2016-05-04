@@ -213,29 +213,51 @@ public class BanqueResource {
         return this.failure;
     }
 
-//    @GET
-//    @Path("/client/liste-comptes-courants")
-//    @Produces("text/plain")
-//    public String getListComptesCourants() {
-//        session = HibernateUtil.getSessionFactory().openSession();
-//
-//        try {
-//            List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
-//            for(CompteEpargne temp : comptes) {
-//                temp.setMontant(temp.getMontant() + temp.getMontant() * temp.getTauxInteret() * 0.01f);
-//                session.update(temp);
-//            }
-//            return compteCourant.toString();
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            session.close();
-//        }
-//        return this.failure;
-//    }
+    @GET
+    @Path("/liste/comptes-courant")
+    @Produces("text/plain")
+    public String getListesComptesCourant() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            List<CompteCourant> comptes = session.createCriteria(CompteCourant.class).list();
+            Gson gson = new Gson();
+            HashMap<String, String> jsonArgs = new HashMap<String, String>();
+            int i = 0;
+            for (CompteCourant temp : comptes) {
+                i++;
+                jsonArgs.put("banque-" + i, temp.toString());
+            }
+            return gson.toJson(jsonArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
+    }
 
-
-
+    @GET
+    @Path("/liste/comptes-epargne")
+    @Produces("text/plain")
+    public String getListesComptesEpargne() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
+            Gson gson = new Gson();
+            HashMap<String, String> jsonArgs = new HashMap<String, String>();
+            int i = 0;
+            for (CompteEpargne temp : comptes) {
+                i++;
+                jsonArgs.put("banque-" + i, temp.toString());
+            }
+            return gson.toJson(jsonArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
+    }
 
 
     //OPERATIONS _______________________________________________________________________
@@ -351,7 +373,7 @@ public class BanqueResource {
         session.beginTransaction();
 
         List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
-        for(CompteEpargne temp : comptes) {
+        for (CompteEpargne temp : comptes) {
             temp.setMontant(temp.getMontant() + temp.getMontant() * temp.getTauxInteret() * 0.01f);
             session.update(temp);
         }

@@ -110,7 +110,23 @@ public class Client {
             response = target.request().delete();
             System.out.println("DELETE : " + response.getStatus());
             response.close();
-        }   //Param: OPERER type idCompteADebiter typeCompteADebiter idCompteACrediter typeCompteACrediter montant    type = {debit, credit} typeCompteADebiter = {courant, epargne}
+        }
+        //Param: LISTE-CC
+        else if (args.length == 1 && args[0].equals("LISTE-CC")) {
+            target = client.target(baseUrl + "/liste/comptes-courant");
+            response = target.request().get();
+            System.out.println(args[0] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+        //Param: LISTE-CE
+        else if (args.length == 1 && args[0].equals("LISTE-CE")) {
+            target = client.target(baseUrl + "/liste/comptes-epargne");
+            response = target.request().get();
+            System.out.println(args[0] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+
+        //Param: OPERER type idCompteADebiter typeCompteADebiter idCompteACrediter typeCompteACrediter montant    type = {debit, credit} typeCompteADebiter = {courant, epargne}
         else if(args.length == 7 && args[0].equals("OPERER")) {
             jsonArgs.put("type", args[1]);
             jsonArgs.put("idCompteADebiter", args[2]);
