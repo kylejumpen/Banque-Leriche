@@ -78,6 +78,7 @@ public class BanqueResource {
     @DELETE
     @Path("/client/supprimer/{id}")
     public Response supprimerClient(@PathParam("id") Short id) {
+
         session = HibernateUtil.getSessionFactory().openSession();
         ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
         session.beginTransaction();
@@ -211,6 +212,31 @@ public class BanqueResource {
         }
         return this.failure;
     }
+
+//    @GET
+//    @Path("/client/liste-comptes-courants")
+//    @Produces("text/plain")
+//    public String getListComptesCourants() {
+//        session = HibernateUtil.getSessionFactory().openSession();
+//
+//        try {
+//            List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
+//            for(CompteEpargne temp : comptes) {
+//                temp.setMontant(temp.getMontant() + temp.getMontant() * temp.getTauxInteret() * 0.01f);
+//                session.update(temp);
+//            }
+//            return compteCourant.toString();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            session.close();
+//        }
+//        return this.failure;
+//    }
+
+
+
+
 
     //OPERATIONS _______________________________________________________________________
     @POST
