@@ -161,6 +161,9 @@ public class BanqueResource {
         return Response.status(200).entity(banque.toString()).build();
     }
 
+
+
+    //COMPTE _______________________________________________________________________
     @GET
     @Path("/compte/courant/{id}")
     @Produces("text/plain")
@@ -179,10 +182,29 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return this.failure;
+        return "KO";
     }
 
-    //COMPTE _______________________________________________________________________
+    @GET
+    @Path("/compte/epargne/{id}")
+    @Produces("text/plain")
+    public String getCompteEpargneFromClient(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Query q = session.createQuery(
+                    "FROM CompteEpargne ce WHERE ce.clientBanque.clientBanqueId=:id");
+            q.setParameter("id", id);
+            List<?> result = q.list();
+            CompteEpargne ce = (CompteEpargne)result.get(0);
+            return ce.toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return "KO";
+    }
 
     @POST
     @Path("/client/compte-courant/creer")
@@ -207,7 +229,7 @@ public class BanqueResource {
 
     @DELETE
     @Path("/client/compte-courant/supprimer/{id}")
-    public Response supprimerCompte(@PathParam("id") Short id) {
+    public Response supprimerCompteCourant(@PathParam("id") Short id) {
         session = HibernateUtil.getSessionFactory().openSession();
         CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, id);
         session.beginTransaction();
@@ -215,6 +237,18 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(cc.toString()).build();
+    }
+
+    @DELETE
+    @Path("/client/compte-epargne/supprimer/{id}")
+    public Response supprimerCompteEpargne(@PathParam("id") Short id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        CompteEpargne ce = (CompteEpargne) session.load(CompteEpargne.class, id);
+        session.beginTransaction();
+        session.delete(ce);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(ce.toString()).build();
     }
 
     @GET

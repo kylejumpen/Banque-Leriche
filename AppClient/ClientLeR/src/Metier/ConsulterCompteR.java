@@ -52,31 +52,40 @@ public class ConsulterCompteR extends CoRest {
     }
 
     public String consulterCompteCourantClient(int id) {
-        target = client.target(baseUrl + "/client/compte-courant/" + id);
+        target = client.target(baseUrl + "/compte/courant/" + id);
         response = target.request().get();
+
         String reponse = response.readEntity(String.class);
         JsonElement root = new JsonParser().parse(reponse);
-        if (root.getAsJsonObject().has("succes")) {
-            return "KO";
-        }
+       /* if (root.getAsJsonObject().has("succes")) {
+            reponse = "KO";
+        }*/
         response.close();
         return reponse;
     }
 
     public String consulterCompteEpargneClient(int id) {
-        target = client.target(baseUrl + "/client/compte-epargne/" + id);
+        target = client.target(baseUrl + "/compte/epargne/" + id);
         response = target.request().get();
         String reponse = response.readEntity(String.class);
         JsonElement root = new JsonParser().parse(reponse);
-        if (root.getAsJsonObject().has("succes")) {
+        /*if (root.getAsJsonObject().has("succes")) {
             return "KO";
-        }
+        }*/
         response.close();
         return reponse;
     }
 
-    public String supprimerCompte(int id) {
+    public String supprimerCompteCourant(int id) {
         target = client.target(baseUrl + "/client/compte-courant/supprimer/" + id);
+        response = target.request().delete();
+        String reponse = response.readEntity(String.class);
+        response.close();
+        return reponse;
+    }
+
+        public String supprimerCompteEpargne(int id) {
+        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + id);
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();

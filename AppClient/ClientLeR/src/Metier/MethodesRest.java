@@ -108,7 +108,7 @@ public class MethodesRest {
 
     }
 
-    public String supprimerCompte(int id) {
+    public String supprimerCompteCourant(int id) {
         target = client.target(baseUrl + "/client/compte-courant/supprimer/" + id);
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
@@ -116,6 +116,15 @@ public class MethodesRest {
         return reponse;
     }
 
+        public String supprimerCompteEpargne(int id) {
+        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + id);
+        response = target.request().delete();
+        String reponse = response.readEntity(String.class);
+        response.close();
+        return reponse;
+    }
+        
+        
     public void debiterCompte(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();

@@ -28,7 +28,7 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO clientBanque VALUES (1,'rochette','guillaume','grochette','rochette@gmail.com','76100',1),(2,'mouches','pauline','rochette','mouches@gmail.com','76100',1);
+INSERT INTO clientBanque VALUES (1,'banque','banque','banque','banque@gmail.com','76000',1),(2,'rochette','guillaume','grochette','rochette@gmail.com','76100',1),(3,'mouches','pauline','rochette','mouches@gmail.com','76100',1);
 COMMIT;
 
 --
@@ -36,7 +36,7 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO compteCourant VALUES (1,100,false,11,1);
+INSERT INTO compteCourant VALUES (1,100000,false,11,1);
 INSERT INTO compteCourant VALUES (2,500,false,22,2);
 INSERT INTO compteCourant VALUES (3,10,false,21,1);
 COMMIT;
@@ -46,7 +46,7 @@ COMMIT;
 --
 
 SET AUTOCOMMIT=0;
-INSERT INTO compteEpargne VALUES (1,100,false,0.4,11,1);
+INSERT INTO compteEpargne VALUES (1,1000000,false,0,11,1),(2,100,false,0.4,11,2),(3,5000,false,0.2,11,3);
 COMMIT;
 
 --

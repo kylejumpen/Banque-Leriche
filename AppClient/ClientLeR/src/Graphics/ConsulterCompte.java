@@ -6,6 +6,8 @@ import Metier.MethodesRest;
 //import Metier.MethodesRest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.util.HashMap;
 
@@ -15,7 +17,8 @@ import java.util.HashMap;
  */
 public class ConsulterCompte extends javax.swing.JPanel {
 
-    private int idCompte;
+    private int idCompteCourant;
+    private int idCompteEpargne;
     private ConsulterCompteR con;
     //private  ConsulterCompteR con;
 
@@ -23,8 +26,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
      * Creates new form ConsulterCompteR
      */
     public ConsulterCompte() {
-        initComponents();
         con = new ConsulterCompteR();
+        initComponents();
+
         supprimer.setEnabled(false);
         crediter.setEnabled(false);
         debiter.setEnabled(false);
@@ -118,21 +122,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(61, 61, 61)
-                        .addComponent(compteCourant, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(28, 28, 28)
-                                .addComponent(numeroClient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rechercher))
-                            .addComponent(jLabel3)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
@@ -142,18 +131,30 @@ public class ConsulterCompte extends javax.swing.JPanel {
                                 .addComponent(courant)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(epargne)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(compteEpargne, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(epargne)
                             .addComponent(debiter)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(supprimer))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addComponent(bloque)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bloque))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(numeroClient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rechercher))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(compteEpargne, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(compteCourant, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,20 +170,20 @@ public class ConsulterCompte extends javax.swing.JPanel {
                     .addComponent(compteCourant, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(epargne)
-                        .addComponent(courant))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addComponent(compteEpargne, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(epargne)
+                    .addComponent(courant))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(crediter)
                     .addComponent(debiter))
                 .addGap(18, 18, 18)
                 .addComponent(bloque)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(supprimer)
                 .addGap(62, 62, 62))
         );
@@ -195,9 +196,14 @@ public class ConsulterCompte extends javax.swing.JPanel {
             JOptionPane jop = new JOptionPane();
             int option = jop.showConfirmDialog(this, "Voulez-vous vraiment supprimer ce compte?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
-                con.supprimerCompte(idCompte);
-                compteEpargne.setText("");
-                compteCourant.setText("");
+                if (courant.isSelected()) {
+                    con.supprimerCompteCourant(idCompteCourant);
+                }
+                if (epargne.isSelected()) {
+                    con.supprimerCompteEpargne(idCompteEpargne);
+                }
+
+                this.rechercherActionPerformed(evt);
             }
         }
     }//GEN-LAST:event_supprimerActionPerformed
@@ -211,12 +217,16 @@ public class ConsulterCompte extends javax.swing.JPanel {
         int idClient = Integer.parseInt(numeroClient.getText());
 
         String reponse = con.consulterClientGet(idClient);
-        if (reponse.equals("KO")) {
+        JsonElement root = new JsonParser().parse(reponse);
+        if (root.getAsJsonObject().has("succes")) {
             JOptionPane.showMessageDialog(this, "Ce client n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             numeroClient.setText("");
+            compteCourant.setText("");
+            compteEpargne.setText("");
         } else {
 
             String ccourant = con.consulterCompteCourantClient(idClient);
+            JsonElement rootc = new JsonParser().parse(ccourant);
             if (ccourant.equals("KO")) {
                 compteCourant.setText("Pas de compte courant");
                 courant.setEnabled(false);
@@ -224,16 +234,20 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 HashMap<String, String> args = gson.fromJson(ccourant, new TypeToken<HashMap<String, String>>() {
                 }.getType());
                 compteCourant.setText(args.get("montant"));
+                idCompteCourant = Integer.parseInt(args.get("compteCourantId"));
             }
-            /*String cepargne = con.consulterCompteEpargneClient(idClient);
-            if (ccourant.equals("KO")) {
+            String cepargne = con.consulterCompteEpargneClient(idClient);
+            JsonElement roote = new JsonParser().parse(cepargne);
+            if (cepargne.equals("KO")) {
                 compteEpargne.setText("Pas de compte epargne");
                 epargne.setEnabled(false);
             } else {
                 HashMap<String, String> args = gson.fromJson(cepargne, new TypeToken<HashMap<String, String>>() {
                 }.getType());
                 compteEpargne.setText(args.get("montant"));
-            }*/
+                idCompteEpargne = Integer.parseInt(args.get("compteEpargneId"));
+
+            }
         }
         // } catch (Exception e) {
         //   JOptionPane.showMessageDialog(this, "Entrée invalide", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -253,10 +267,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
             if (sommeTransaction != null) {
                 somme = Integer.parseInt(sommeTransaction);
                 if (courant.isSelected()) {
-                    con.crediterCompteCourant(somme, Integer.parseInt(numeroClient.getText()));
+                    con.crediterCompteCourant(somme, idCompteCourant);
                 }
-                if (courant.isSelected()) {
-                    con.crediterCompteEpargne(somme, Integer.parseInt(numeroClient.getText()));
+                if (epargne.isSelected()) {
+                    con.crediterCompteEpargne(somme, idCompteEpargne);
                 }
 
             }
@@ -275,13 +289,14 @@ public class ConsulterCompte extends javax.swing.JPanel {
             if (sommeTransaction != null) {
                 somme = Integer.parseInt(sommeTransaction);
                 if (courant.isSelected()) {
-                    con.crediterCompteCourant(somme, Integer.parseInt(numeroClient.getText()));
+                    con.debiterCompteCourant(somme, idCompteCourant);
                 }
-                if (courant.isSelected()) {
-                    con.crediterCompteEpargne(somme, Integer.parseInt(numeroClient.getText()));
+                if (epargne.isSelected()) {
+                    con.crediterCompteEpargne(somme, idCompteEpargne);
                 }
             }
         }
+        this.rechercherActionPerformed(evt);
     }//GEN-LAST:event_debiterActionPerformed
 
     private void courantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courantActionPerformed
