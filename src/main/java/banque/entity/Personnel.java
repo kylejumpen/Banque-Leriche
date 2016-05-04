@@ -1,7 +1,9 @@
 package banque.entity;
 // Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1
 
+import banque.utils.HibernateUtil;
 import com.google.gson.Gson;
+import org.hibernate.Session;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -80,10 +82,15 @@ public class Personnel  implements java.io.Serializable {
     }
 
     public String toString() {
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        Banque banque = (Banque) session.load(Banque.class, getBanque().getBanqueId());
+        String maBanque = banque.toString();
+
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
         jsonArgs.put("personnelId", getPersonnelId().toString());
-        jsonArgs.put("banque", getBanque().toString());
+        jsonArgs.put("banque", maBanque);
         jsonArgs.put("nom", getNom());
         jsonArgs.put("motdepasse", getMotdepasse());
         jsonArgs.put("role", getRole());
