@@ -169,12 +169,16 @@ public class AccueilCo extends javax.swing.JPanel {
         } else {
             String[] parts = reponse.split("#");
             role = parts[0];
-            idBanque =Integer.parseInt(parts[1]);
+            idBanque =Integer.parseInt(parts[2]);
             System.out.println(idBanque);
-            if(reponse.equals("Employe")){
+            if(role.equals("Employe")){
                 GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
             }
+            if(role.equals("Admin")){
+                ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAdmin");
+            }else{
             ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+            }
         }
     }   
    

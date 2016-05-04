@@ -2,7 +2,9 @@ package banque.entity;
 // Generated 27 mars 2016 14:02:36 by Hibernate Tools 4.3.1
 
 
+import banque.utils.HibernateUtil;
 import com.google.gson.Gson;
+import org.hibernate.Session;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -105,10 +107,15 @@ public class CompteEpargne  implements java.io.Serializable {
     }
 
     public String toString() {
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        ClientBanque client = (ClientBanque) session.load(ClientBanque.class, getClientBanque().getClientBanqueId());
+        String monClient = client.toString();
+
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
         jsonArgs.put("compteEpargneId", getCompteEpargneId().toString());
-        jsonArgs.put("clientBanque", getClientBanque().toString());
+        jsonArgs.put("clientBanque", monClient);
         jsonArgs.put("montant", Float.toString(getMontant()));
         jsonArgs.put("bloque", Boolean.toString(getBloque()));
         jsonArgs.put("tauxInteret", Short.toString(getTauxInteret()));
