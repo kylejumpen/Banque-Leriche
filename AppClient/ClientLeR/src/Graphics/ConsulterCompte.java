@@ -237,7 +237,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 idCompteCourant = Integer.parseInt(args.get("compteCourantId"));
             }
             String cepargne = con.consulterCompteEpargneClient(idClient);
-            JsonElement roote = new JsonParser().parse(cepargne);
             if (cepargne.equals("KO")) {
                 compteEpargne.setText("Pas de compte epargne");
                 epargne.setEnabled(false);
@@ -246,7 +245,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 }.getType());
                 compteEpargne.setText(args.get("montant"));
                 idCompteEpargne = Integer.parseInt(args.get("compteEpargneId"));
-
             }
         }
         // } catch (Exception e) {

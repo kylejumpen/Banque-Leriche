@@ -17,6 +17,7 @@ import org.hibernate.*;
 
 import banque.entity.*;
 import banque.utils.*;
+import banque.security.*;
 
 @Path("banque")
 public class BanqueResource {
@@ -92,12 +93,13 @@ public class BanqueResource {
     @GET
     @Path("/client/{id}")
     @Produces("text/plain")
-    public String getClientBanque(@PathParam("id") Short id) {
+    public String getClientBanque(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decrypt(idc));
             ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
-            return client.toString();
+            return Encrypt.encrypt(client.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -167,16 +169,17 @@ public class BanqueResource {
     @GET
     @Path("/compte/courant/{id}")
     @Produces("text/plain")
-    public String getCompteCourantFromClient(@PathParam("id") Short id) {
+    public String getCompteCourantFromClient(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decrypt(idc));
             Query q = session.createQuery(
                     "FROM CompteCourant cc WHERE cc.clientBanque.clientBanqueId=:id");
             q.setParameter("id", id);
             List<?> result = q.list();
             CompteCourant cc = (CompteCourant)result.get(0);
-            return cc.toString();
+            return Encrypt.encrypt(cc.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -188,16 +191,17 @@ public class BanqueResource {
     @GET
     @Path("/compte/epargne/{id}")
     @Produces("text/plain")
-    public String getCompteEpargneFromClient(@PathParam("id") Short id) {
+    public String getCompteEpargneFromClient(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decrypt(idc));
             Query q = session.createQuery(
                     "FROM CompteEpargne ce WHERE ce.clientBanque.clientBanqueId=:id");
             q.setParameter("id", id);
             List<?> result = q.list();
             CompteEpargne ce = (CompteEpargne)result.get(0);
-            return ce.toString();
+            return Encrypt.encrypt(ce.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
