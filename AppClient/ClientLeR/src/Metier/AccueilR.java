@@ -5,6 +5,8 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import com.google.gson.*;
+
+
 /**
  *
  * @author kyle
@@ -14,18 +16,13 @@ public class AccueilR extends CoRest {
     public AccueilR(){
         super();
     }
-     
+     //secure
     public String accueilCoGet(String user, String pw) {
        try {
-        String url = baseUrl +"/personnel/"+ Integer.parseInt(user); // remplacez l'Url
+        String url = baseUrl +"/personnel/"+ encrypt(String.valueOf(Integer.parseInt(user)));
         this.target = this.client.target(url);
         this.response =this.target.request().get();
-        String responsebrut = this.response.readEntity(String.class);
-
-
-        // Bloc de verification
-       /* JsonParser parser = new JsonParser();
-        parser.parse(responsebrut); // throws JsonSyntaxException */
+        String responsebrut = decrypt(this.response.readEntity(String.class));
        JsonElement root = new JsonParser().parse(responsebrut);
        if(root.getAsJsonObject().has("succes"))
            return "KO";
@@ -38,7 +35,7 @@ public class AccueilR extends CoRest {
        return reponse;
         }catch(Exception e) {
         e.printStackTrace() ;
-        return "erreur";
+        return "KO";
         }
     }
     

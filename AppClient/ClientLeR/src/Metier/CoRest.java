@@ -1,7 +1,5 @@
 package Metier;
-//import java.io.*;
-//import java.net.*;
-//import Entity.Compte;
+import Security.*;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -11,8 +9,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import javax.ws.rs.client.Entity;
 
-
-public abstract class CoRest {
+public abstract class CoRest extends Encrypt {
     
     protected static ResteasyClient client;
     protected ResteasyWebTarget target;

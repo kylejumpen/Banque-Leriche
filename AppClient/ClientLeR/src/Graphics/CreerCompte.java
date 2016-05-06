@@ -1,7 +1,5 @@
 package Graphics;
-import Entity.Compte;
 import Metier.AccueilR;
-//import Metier.MethodesRest;
 import javax.swing.JOptionPane;
 
 
