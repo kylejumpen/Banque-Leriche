@@ -42,7 +42,7 @@ public class AccueilR extends CoRest {
         }
     }
     
-    public boolean creerClient(String nom, String prenom, String email, String mdp, String code){
+    public String creerClient(String nom, String prenom, String email, String mdp, String code){
 
         jsonArgs.put("nom", nom);
         jsonArgs.put("prenom", prenom);
@@ -55,14 +55,33 @@ public class AccueilR extends CoRest {
 
         target = client.target(baseUrl + "/client/creer");
         response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
-        maChaine = String.valueOf(response.getStatus());
+        maChaine = String.valueOf(response.readEntity(String.class));
         System.out.println(response);
         response.close();
-        if (maChaine.equals("200")) {
-            return true;
-        }
+        return maChaine;
 
-        System.out.println("Soucis de fonctionnement, code renvoyé : " + maChaine);
-        return false;
     }
+    
+    public void creerCompteCourant(String idClient){
+        jsonArgs.put("idClient", idClient);
+            String maChaine = gson.toJson(jsonArgs);
+
+            target = client.target(baseUrl + "/client/compte-courant/creer");
+            response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+        
+    }
+    
+        public void creerCompteEpargne(String idClient){
+                jsonArgs.put("idClient", idClient);
+            String maChaine = gson.toJson(jsonArgs);
+
+            target = client.target(baseUrl + "/client/compte-epargne/creer");
+            response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+    }
+    
+    
 }

@@ -1,9 +1,14 @@
 package Graphics;
+
 import Entity.Compte;
 import Metier.AccueilR;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import java.util.HashMap;
 //import Metier.MethodesRest;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -13,6 +18,7 @@ public class CreerCompte extends javax.swing.JPanel {
 
     //MethodesRest con;
     AccueilR con;
+
     /**
      * Creates new form CreateAccount
      */
@@ -83,17 +89,30 @@ public class CreerCompte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void validerAjouterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjouterCompteActionPerformed
+        Gson gson = new Gson();
         String nomClient = nom.getText();
         String prenomClient = prenom.getText();
         String emailClient = email.getText();
         String mdpClient = motdepasse.getText();
         String codeClient = codepostal.getText();
         String type = typeCompte.getSelectedItem().toString();
-        
-        if(!prenomClient.equals("") && !nomClient.equals("") && !emailClient.equals("") && !mdpClient.equals("") && !codeClient.equals(""))
-            con.creerClient(nomClient,prenomClient,emailClient, mdpClient,codeClient);
-        else
+        String reponse;
+        String idClient;
+        if (!prenomClient.equals("") && !nomClient.equals("") && !emailClient.equals("") && !mdpClient.equals("") && !codeClient.equals("")) {
+            reponse = con.creerClient(nomClient, prenomClient, emailClient, mdpClient, codeClient);
+            JsonElement rootc = new JsonParser().parse(reponse);
+            HashMap<String, String> args = gson.fromJson(reponse, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            System.out.println(reponse);
+            idClient = args.get("clientBanqueId");
+            if (type.equals("Courant")) {
+                con.creerCompteCourant(idClient);
+            } else if (type.equals("Epargne")) {
+                con.creerCompteEpargne(idClient);
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Merci de remplir tous les champs", "Alerte", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_validerAjouterCompteActionPerformed
 
 

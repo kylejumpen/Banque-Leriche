@@ -37,7 +37,7 @@ public class EchangeArgent extends javax.swing.JPanel {
         String comptesCourant = con.getComptesCourant();
         JsonElement rootc = new JsonParser().parse(comptesCourant);
          HashMap<String, String> args = gson.fromJson(comptesCourant, new TypeToken<HashMap<String, String>>() {}.getType());
-        System.out.println(args.toString());     
+        //System.out.println(args.toString());     
     }
 
     /**
