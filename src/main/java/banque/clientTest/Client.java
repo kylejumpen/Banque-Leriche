@@ -238,7 +238,30 @@ public class Client {
             response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
             System.out.println("PUT :" + response.getStatus());
             response.close();
-        } else {
+        }
+        //Param: GET-STATS-COMPTES
+        else if (args.length == 1 && args[0].equals("GET-STATS-COMPTES")) {
+            target = client.target(baseUrl + "/stats/comptes");
+            response = target.request().get();
+            System.out.println(args[0] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+        //Param: GET-STATS-CLIENTS
+        else if (args.length == 1 && args[0].equals("GET-STATS-CLIENTS")) {
+            target = client.target(baseUrl + "/stats/clients");
+            response = target.request().get();
+            System.out.println(args[0] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+        //Param: GET-STATS-OPERATIONS
+        else if (args.length == 1 && args[0].equals("GET-STATS-OPERATIONS")) {
+            target = client.target(baseUrl + "/stats/operations");
+            response = target.request().get();
+            System.out.println(args[0] + " : " + response.readEntity(String.class));
+            response.close();
+        }
+
+        else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }
     }
