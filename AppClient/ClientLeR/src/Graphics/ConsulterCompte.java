@@ -227,14 +227,13 @@ public class ConsulterCompte extends javax.swing.JPanel {
         int idClient = Integer.parseInt(numeroClient.getText());
 
         String reponse = con.consulterClientGet(idClient);
-        JsonElement root = new JsonParser().parse(reponse);
-        if (root.getAsJsonObject().has("succes")) {
+
+        if (reponse.equals("KO")) {
             JOptionPane.showMessageDialog(this, "Ce client n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             numeroClient.setText("");
             compteCourant.setText("");
             compteEpargne.setText("");
         } else {
-
             String ccourant = con.consulterCompteCourantClient(idClient);
             JsonElement rootc = new JsonParser().parse(ccourant);
             if (ccourant.equals("KO")) {
@@ -291,7 +290,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private void debiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debiterActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
             JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
-        }else if (numeroClient.getText().equals("")) {
+        } else if (numeroClient.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Aucun compte à débiter", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
 
@@ -346,7 +345,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private void bloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloqueActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
             JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
-        }else if (courant.isSelected()) {
+        } else if (courant.isSelected()) {
             con.bloquerDebloquer(idCompteCourant, "courant");
             this.rechercherActionPerformed(evt);
             this.courantActionPerformed(evt);

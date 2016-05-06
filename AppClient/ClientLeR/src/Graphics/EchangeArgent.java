@@ -4,6 +4,7 @@ import Metier.EchangeR;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -30,15 +33,26 @@ public class EchangeArgent extends javax.swing.JPanel {
     private JComboBox cbDebit;
     private JComboBox cbCredit;
     private JTextField montant;
+    JPanel pane;
 
     /**
      * Creates new form EchangeArgent
      */
     public EchangeArgent() {
-        montant = new JTextField("montant");
+        initComponents();
         con = new EchangeR();
-        //initComponents();
         //initComboBox();
+        montant = new JTextField("montant");
+
+        GridLayout grid = new GridLayout(1, 3);
+        pane = new JPanel(grid);
+        cbDebit = new JComboBox();
+        cbCredit = new JComboBox();
+
+        pane.add(cbDebit);
+        pane.add(montant);
+        pane.add(cbCredit);
+        this.add(pane, BorderLayout.NORTH);
 
         /*montant.addActionListener(new ActionListener() {
             @Override
@@ -49,7 +63,8 @@ public class EchangeArgent extends javax.swing.JPanel {
     }
 
     public void initComboBox() {
-
+        DefaultComboBoxModel dml1 = new DefaultComboBoxModel();
+        DefaultComboBoxModel dml2 = new DefaultComboBoxModel();
         ArrayList<String> comptes = new ArrayList<String>();
         Gson gson = new Gson();
         JPanel centre = new JPanel();
@@ -67,7 +82,8 @@ public class EchangeArgent extends javax.swing.JPanel {
             hash2 = gson.fromJson(jsonDeMonCompte, new TypeToken<HashMap<String, String>>() {
             }.getType());
             if (hash2.get("bloque").equals("false")) {
-                comptes.add("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
+                dml1.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
+                dml2.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
             }
         }
         it.remove(); // avoids a ConcurrentModificationException
@@ -85,21 +101,13 @@ public class EchangeArgent extends javax.swing.JPanel {
             }.getType());
             if (hash22.get("bloque").equals("false")) {
                 System.out.println(hash22.get("compteEpargneId"));
-                comptes.add("<html>epargne, Id :" + hash22.get("compteEpargneId") + ",<br>Montant:" + hash22.get("montant") + "</html>");
+                dml1.addElement("<html>epargne, Id :" + hash22.get("compteEpargneId") + ",<br>Montant:" + hash22.get("montant") + "</html>");
+                dml2.addElement("<html>epargne, Id :" + hash22.get("compteEpargneId") + ",<br>Montant:" + hash22.get("montant") + "</html>");
             }
         }
         it2.remove();
-        GridLayout grid = new GridLayout(1, 3);
-
-        String[] comptesModele = new String[comptes.size()];
-        comptesModele = comptes.toArray(comptesModele);
-        cbDebit = new JComboBox(comptesModele);
-        cbCredit = new JComboBox(comptesModele);
-        JPanel pane = new JPanel(grid);
-        pane.add(cbDebit);
-        pane.add(montant);
-        pane.add(cbCredit);
-        this.add(pane, BorderLayout.NORTH);
+        cbDebit.setModel(dml1);
+        cbCredit.setModel(dml2);
 
     }
 
@@ -146,6 +154,7 @@ public class EchangeArgent extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Les deux comptes sélécctionnés sont les mêmes", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
             con.echangerArgent(type1, id1, type2, id2, montant.getText());
+            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
         }
     }//GEN-LAST:event_validerActionPerformed
 

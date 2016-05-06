@@ -31,7 +31,7 @@ public class ConsulterCompteR extends CoRest {
             response.close();
             return decrypt(reponse);
         } catch (Exception ex) {
-            return "{\"succes\": \"false\"}";
+            return "KO";
         }
 
     }
