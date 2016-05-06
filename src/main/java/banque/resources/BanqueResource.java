@@ -279,12 +279,13 @@ public class BanqueResource {
     @GET
     @Path("/client/compte-courant/{id}")
     @Produces("text/plain")
-    public String getCompteCourant(@PathParam("id") Short id) {
+    public String getCompteCourant(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decrypt(idc));
             CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
-            return compteCourant.toString();
+            return Encrypt.encrypt(compteCourant.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -430,12 +431,13 @@ public class BanqueResource {
     @GET
     @Path("/personnel/{id}")
     @Produces("text/plain")
-    public String getPersonnel(@PathParam("id") Short id) {
+    public String getPersonnel(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decrypt(idc));
             Personnel personnel = (Personnel) session.load(Personnel.class, id);
-            return personnel.toString();
+            return Encrypt.encrypt(personnel.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

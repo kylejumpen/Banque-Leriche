@@ -1,6 +1,7 @@
 package Metier;
 
 import javax.ws.rs.client.Entity;
+import Security.*;
 
 /**
  *
@@ -12,6 +13,7 @@ public class AjoutPersonnelR extends CoRest {
         super();
     }
     
+    //secure
     public void ajouterPersonnel(String banque, String nom, String motdepasse, String role) {
         String roleEnum;
         if (role.equals("Employé")) {

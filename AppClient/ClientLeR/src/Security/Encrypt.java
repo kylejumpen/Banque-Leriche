@@ -10,12 +10,12 @@ import sun.misc.*;
 
 public class Encrypt {
     
-     private static final String ALGO = "AES";
-     /** La clef doit faire 16 bytes */
-    private static final byte[] keyValue = new byte[] {'e','a','r','a','a','o','u','&','e','a','r','a','a','o','u','z'};
+    protected static final String ALGO = "AES";
+    /** La clef doit faire 16 bytes */
+    protected static final byte[] keyValue = new byte[] {'e','a','r','a','a','o','u','&','e','a','r','a','a','o','u','z'};
     
 
-	public static String encrypt(String Data) throws Exception{
+    protected static String encrypt(String Data) throws Exception{
 	        Key key;
              key = generateKey();
 	     Cipher c = Cipher.getInstance(ALGO);
@@ -25,7 +25,7 @@ public class Encrypt {
 	     return encryptedValue;
 	    }
 
-    public static String decrypt(String encryptedData) throws Exception {
+    protected static String decrypt(String encryptedData) throws Exception {
         Key key = generateKey();
         Cipher c = Cipher.getInstance(ALGO);
         c.init(Cipher.DECRYPT_MODE, key);

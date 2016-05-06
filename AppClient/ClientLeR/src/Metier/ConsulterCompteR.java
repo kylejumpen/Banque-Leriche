@@ -1,6 +1,5 @@
 package Metier;
 
-import static Metier.MethodesRest.client;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -8,7 +7,6 @@ import java.util.HashMap;
 import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import Security.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,28 +24,31 @@ public class ConsulterCompteR extends CoRest {
     public String consulterClientGet(int id) {
 
         try {
-            target = client.target(baseUrl + "/client/" + Encrypt.encrypt((String.valueOf(id))));
+            target = client.target(baseUrl + "/client/" + encrypt((String.valueOf(id))));
             response = target.request().get();
             String reponse = response.readEntity(String.class);
-            System.out.println(reponse);
+            System.out.println("Dans le consulter clientget " +reponse);
             response.close();
-            return Encrypt.decrypt(reponse);
+            return decrypt(reponse);
         } catch (Exception ex) {
             return "{\"succes\": \"false\"}";
         }
 
     }
 
+    // Jamais utilisé ! 
+    /*
+    //secure
     public String consulterCompteGet(int id) {
-
-        target = client.target(baseUrl + "/client/compte-courant/" + id);
+        try {
+        target = client.target(baseUrl + "/client/compte-courant/" + Encrypt.encrypt(String.valueOf(id)));
         response = target.request().get();
-        String reponse = response.readEntity(String.class);
+        String reponse = Encrypt.decrypt(response.readEntity(String.class));
         JsonElement root = new JsonParser().parse(reponse);
         if (root.getAsJsonObject().has("succes")) {
             return "KO";
         }
-        //extraire montant nom et prenom     
+        
         reponse = root.getAsJsonObject().get("montant").getAsString() + "#";
 
         root = new JsonParser().parse(root.getAsJsonObject().get("clientBanque")
@@ -57,33 +58,36 @@ public class ConsulterCompteR extends CoRest {
         reponse += root.getAsJsonObject().get("prenom").getAsString();
         response.close();
         return reponse;
+        }catch(Exception ex){
+                return "KO";
+                }
 
-    }
+    } */
 
     //secure
     public String consulterCompteCourantClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/courant/" + Encrypt.encrypt(String.valueOf(id)));
+            target = client.target(baseUrl + "/compte/courant/" + encrypt(String.valueOf(id)));
             response = target.request().get();
 
-            String reponse = Encrypt.decrypt(response.readEntity(String.class));
-            /*  JsonElement root = new JsonParser().parse(reponse);
+            String reponse = decrypt(response.readEntity(String.class));
+            JsonElement root = new JsonParser().parse(reponse);
        if (root.getAsJsonObject().has("succes")) {
-            reponse = "KO";
-        }*/
+            return "KO";
+        }
             response.close();
             return reponse;
         } catch (Exception ex) {
-            return "{\"succes\": \"false\"}";
+            return "KO";
         }
     }
 
     //secure
     public String consulterCompteEpargneClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/epargne/" + Encrypt.encrypt(String.valueOf(id)));
+            target = client.target(baseUrl + "/compte/epargne/" + encrypt(String.valueOf(id)));
             response = target.request().get();
-            String reponse = Encrypt.decrypt(response.readEntity(String.class));
+            String reponse = decrypt(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
