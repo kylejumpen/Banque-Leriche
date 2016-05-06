@@ -37,4 +37,13 @@ public class EchangeR extends CoRest {
         response.close();
      
     }
+    
+    public String getComptesCourant(){
+            target = client.target(baseUrl + "/liste/comptes-courant");
+            response = target.request().get();
+            String reponse = response.readEntity(String.class);
+            System.out.println(reponse);
+            response.close();
+            return reponse;
+    }
 }
