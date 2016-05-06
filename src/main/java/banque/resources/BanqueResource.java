@@ -305,7 +305,7 @@ public class BanqueResource {
             int i = 0;
             for (CompteCourant temp : comptes) {
                 i++;
-                jsonArgs.put("banque-" + i, temp.toString());
+                jsonArgs.put("compte-" + i, temp.toString());
             }
             return gson.toJson(jsonArgs);
         } catch (Exception e) {
@@ -328,7 +328,7 @@ public class BanqueResource {
             int i = 0;
             for (CompteEpargne temp : comptes) {
                 i++;
-                jsonArgs.put("banque-" + i, temp.toString());
+                jsonArgs.put("compte-" + i, temp.toString());
             }
             return gson.toJson(jsonArgs);
         } catch (Exception e) {
