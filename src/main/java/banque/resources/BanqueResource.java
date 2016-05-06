@@ -329,8 +329,10 @@ public class BanqueResource {
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
             int i = 0;
             for (CompteEpargne temp : comptes) {
-                i++;
-                jsonArgs.put("compte-" + i, temp.toString());
+                if(temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
+                    i++;
+                    jsonArgs.put("compte-" + i, temp.toString());
+                }
             }
             return gson.toJson(jsonArgs);
         } catch (Exception e) {
