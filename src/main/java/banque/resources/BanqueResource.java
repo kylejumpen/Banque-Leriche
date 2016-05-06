@@ -294,9 +294,9 @@ public class BanqueResource {
     }
 //    LISTES _____
     @GET
-    @Path("/liste/comptes-courant")
+    @Path("/liste/comptes-courant/{id}")
     @Produces("text/plain")
-    public String getListesComptesCourant() {
+    public String getListesComptesCourant(@PathParam("id") Short idBanque) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             List<CompteCourant> comptes = session.createCriteria(CompteCourant.class).list();
@@ -304,8 +304,10 @@ public class BanqueResource {
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
             int i = 0;
             for (CompteCourant temp : comptes) {
-                i++;
-                jsonArgs.put("compte-" + i, temp.toString());
+                if(temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
+                    i++;
+                    jsonArgs.put("compte-" + i, temp.toString());
+                }
             }
             return gson.toJson(jsonArgs);
         } catch (Exception e) {
@@ -317,9 +319,9 @@ public class BanqueResource {
     }
 
     @GET
-    @Path("/liste/comptes-epargne")
+    @Path("/liste/comptes-epargne/{id}")
     @Produces("text/plain")
-    public String getListesComptesEpargne() {
+    public String getListesComptesEpargne(@PathParam("id") Short idBanque) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();

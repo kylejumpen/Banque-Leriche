@@ -1,5 +1,6 @@
 package banque.clientTest;
 
+import com.google.gson.reflect.TypeToken;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -15,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import java.lang.Short;
 import java.lang.System;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Client {
 
@@ -122,11 +124,42 @@ public class Client {
             response.close();
             session.close();
         }
-        //Param: LISTE-CC
-        else if (args.length == 1 && args[0].equals("LISTE-CC")) {
-            target = client.target(baseUrl + "/liste/comptes-courant");
+        //Param: LISTE-CC idBanque
+        else if (args.length == 2 && args[0].equals("LISTE-CC")) {
+            target = client.target(baseUrl + "/liste/comptes-courant/" + args[1]);
             response = target.request().get();
-            System.out.println(args[0] + " : " + response.readEntity(String.class));
+
+            String rep = response.readEntity(String.class);
+            HashMap<String, String> hash1 = gson.fromJson(rep, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            HashMap<String, String> hash2;
+            HashMap<String, String> hash3;
+
+            //On itère sur les différents comptes pour obtenir le json de chaque compte
+            Iterator it = hash1.entrySet().iterator();
+            while (it.hasNext()) {
+                HashMap.Entry pair = (HashMap.Entry)it.next();
+                String jsonDeMonCompte = (String) pair.getValue();
+                hash2 = gson.fromJson(jsonDeMonCompte, new TypeToken<HashMap<String, String>>() {
+                }.getType());
+                System.out.println("Id du compte : " + hash2.get("compteCourantId"));
+                System.out.println("Montant : " + hash2.get("montant"));
+                System.out.println("Iban : " + hash2.get("iban"));
+                System.out.println("Bloqué : " + hash2.get("bloque"));
+
+                String jsonDeMonClient = hash2.get("clientBanque");
+                hash3 = gson.fromJson(jsonDeMonClient, new TypeToken<HashMap<String, String>>() {
+                }.getType());
+                System.out.println("Client banque id : " + hash3.get("clientBanqueId"));
+//              Ainsi de suite avec les attributs qui t'interessent
+//              On peut encore descendre d'un niveau puisqu'un client possède un attribut Banque
+                System.out.println(" ");
+
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+
+
+//            System.out.println(args[0] + " : " + rep);
             response.close();
         }
         //Param: LISTE-CE
