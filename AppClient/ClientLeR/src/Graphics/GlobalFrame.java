@@ -1,18 +1,13 @@
 package Graphics;
 
-import com.google.gson.Gson;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.ws.rs.core.Response;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 /**
  *
@@ -24,14 +19,17 @@ public class GlobalFrame extends javax.swing.JFrame {
     private AjoutPersonnel paneAjoutPersonnel;
     private AccueilCo paneAccueil;
     private AdminMenu paneAdmin;
+    private CreerCompteClient paneCreerCompteClient;
     private AjouterBanque paneAjoutBanque;
     public static GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
     private CreerCompte paneCreerCompte;
     private EchangeArgent paneEchangeArgent;
     private JPanel menu;
-    private JButton retourAccueil;
+    public static JButton retourAccueil;
     public ArrayList<String> oldPanel;
+    public static JLabel idPersonnel;
+    public static JLabel idBanquePersonnel;
 
     /**
      * Creates new form GlobalFrame
@@ -43,6 +41,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         cards.setLayout(new CardLayout());
         paneAjoutBanque = new AjouterBanque();
         paneAdmin = new AdminMenu();
+        paneCreerCompteClient = new CreerCompteClient();
         paneAjoutPersonnel = new AjoutPersonnel();
         paneAccueil = new AccueilCo();
         paneGererCompte = new GererCompte();
@@ -50,6 +49,9 @@ public class GlobalFrame extends javax.swing.JFrame {
         paneCreerCompte = new CreerCompte();
         paneEchangeArgent = new EchangeArgent();
         retourAccueil = new JButton("Retour");
+        retourAccueil.setVisible(false);
+        idPersonnel = new JLabel("");
+        idBanquePersonnel = new JLabel("");
         retourAccueil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,8 +60,11 @@ public class GlobalFrame extends javax.swing.JFrame {
         });
         menu = new JPanel();
         menu.add(retourAccueil, BorderLayout.EAST);
+        menu.add(idPersonnel, BorderLayout.EAST);
+        menu.add(idBanquePersonnel, BorderLayout.EAST);
         //Ajouter toutes les cartes au Layout
         cards.add(paneAjoutBanque,"paneAjoutBanque");
+        cards.add(paneCreerCompteClient,"paneCreerCompteClient");
         cards.add(paneAccueil, "paneAccueil");
         cards.add(paneAdmin,"paneAdmin");
         cards.add(paneGererCompte, "paneGererCompte");
