@@ -120,6 +120,7 @@ public class GererCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_creerCompteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+GlobalFrame.paneEchangeArgent.initComboBox();
 ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneEchangeArgent");           }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ajoutPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutPersonnelActionPerformed

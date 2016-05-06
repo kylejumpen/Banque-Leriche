@@ -6,6 +6,7 @@ package Graphics;
  */
 import Metier.AdminR;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 public class AjouterBanque extends javax.swing.JPanel {
 
@@ -85,9 +86,12 @@ public class AjouterBanque extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+if(!nom.getText().equals("") && !ville.getText().equals("")){
         con.ajouterBanque(nom.getText(), ville.getText());
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAdmin");
+}else{
+JOptionPane.showMessageDialog(this, "Merci de remplir tous les champs", "Alerte", JOptionPane.ERROR_MESSAGE);
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

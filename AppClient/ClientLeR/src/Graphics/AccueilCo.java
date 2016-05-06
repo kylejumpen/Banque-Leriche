@@ -159,11 +159,11 @@ public class AccueilCo extends javax.swing.JPanel {
         String password = jPasswordField1.getText();
         String reponse = con.accueilCoGet(username, password); // ici je prend le role seulement
         if (reponse.equals("KO")) {
-            JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             jTextField1.setText("");
             jPasswordField1.setText("");
         } else if (reponse.equals("mdp")) {
-            JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
             String[] parts = reponse.split("#");

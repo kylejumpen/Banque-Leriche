@@ -197,7 +197,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
-        if (numeroClient.getText().equals("")) {
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else if (numeroClient.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Aucun compte à supprimer", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane jop = new JOptionPane();
@@ -218,8 +220,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
         courant.setEnabled(true);
         epargne.setEnabled(true);
-        courant.setSelected(false);
-        epargne.setSelected(false);
+        buttonGroup1.clearSelection();
 
         Gson gson = new Gson();
         // try {
@@ -288,7 +289,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_crediterActionPerformed
 
     private void debiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debiterActionPerformed
-        if (numeroClient.getText().equals("")) {
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        }else if (numeroClient.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Aucun compte à débiter", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
 
@@ -341,7 +344,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_epargneActionPerformed
 
     private void bloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloqueActionPerformed
-        if (courant.isSelected()) {
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        }else if (courant.isSelected()) {
             con.bloquerDebloquer(idCompteCourant, "courant");
             this.rechercherActionPerformed(evt);
             this.courantActionPerformed(evt);

@@ -24,7 +24,7 @@ public class GlobalFrame extends javax.swing.JFrame {
     public static GererCompte paneGererCompte;
     private ConsulterCompte paneConsulterCompte;
     private CreerCompte paneCreerCompte;
-    private EchangeArgent paneEchangeArgent;
+    public static EchangeArgent paneEchangeArgent;
     private JPanel menu;
     public static JButton retourAccueil;
     public ArrayList<String> oldPanel;
