@@ -185,7 +185,7 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return "KO";
+        return this.failure;
     }
 
     @GET
@@ -207,13 +207,13 @@ public class BanqueResource {
         } finally {
             session.close();
         }
-        return "KO";
+        return this.failure;
     }
 
     @POST
     @Path("/client/compte-courant/creer")
     @Consumes("application/xml")
-    public Response creerCompte(String chaine) {
+    public Response creerCompteCourant(String chaine) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -221,7 +221,7 @@ public class BanqueResource {
         HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
         }.getType());
 
-        int iban = BanqueUtil.genererIban();
+        int iban = BanqueUtil.genererIban("courant");
         ClientBanque clientCC = (ClientBanque) session.load(ClientBanque.class, Short.parseShort(args.get("idClient")));
         CompteCourant compteCourant = new CompteCourant(clientCC, iban);
 
@@ -229,6 +229,27 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(compteCourant.toString()).build();
+    }
+
+    @POST
+    @Path("/client/compte-epargne/creer")
+    @Consumes("application/xml")
+    public Response creerCompteEpargne(String chaine) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Gson gson = new Gson();
+        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        int iban = BanqueUtil.genererIban("epargne");
+        ClientBanque clientCC = (ClientBanque) session.load(ClientBanque.class, Short.parseShort(args.get("idClient")));
+        CompteEpargne compteEpargne = new CompteEpargne(clientCC, iban);
+
+        session.save(compteEpargne);
+        session.getTransaction().commit();
+        session.close();
+        return Response.status(200).entity(compteEpargne.toString()).build();
     }
 
     @DELETE
@@ -271,7 +292,7 @@ public class BanqueResource {
         }
         return this.failure;
     }
-
+//    LISTES _____
     @GET
     @Path("/liste/comptes-courant")
     @Produces("text/plain")
@@ -317,6 +338,33 @@ public class BanqueResource {
         }
         return this.failure;
     }
+    //    BLOQUER
+    @PUT
+    @Path("/client/compte/bloquer")
+    @Consumes("application/xml")
+    public Response bloquerCompte(String chaine) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Gson gson = new Gson();
+        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        if(args.get("type").equals("courant")) {
+            CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompte")));
+            cc.setBloque(!cc.getBloque());
+            session.update(cc);
+        } else {
+            CompteEpargne ce = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompte")));
+            ce.setBloque(!ce.getBloque());
+            session.update(ce);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return Response.status(200).entity(chaine).build();
+    }
 
 
     //OPERATIONS _______________________________________________________________________
@@ -340,22 +388,30 @@ public class BanqueResource {
 
         if (args.get("typeCompteADebiter").equals("courant")) {
             CompteCourant compteADebiter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteADebiter")));
-            compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
-            session.update(compteADebiter);
+            if(!compteADebiter.getBloque()) {
+                compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
+                session.update(compteADebiter);
+            }
         } else {
             CompteEpargne compteADebiter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteADebiter")));
-            compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
-            session.update(compteADebiter);
+            if(!compteADebiter.getBloque()) {
+                compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
+                session.update(compteADebiter);
+            }
         }
 
         if (args.get("typeCompteACrediter").equals("courant")) {
             CompteCourant compteACrediter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteACrediter")));
-            compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
-            session.update(compteACrediter);
+            if(!compteACrediter.getBloque()) {
+                compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
+                session.update(compteACrediter);
+            }
         } else {
             CompteEpargne compteACrediter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteACrediter")));
-            compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
-            session.update(compteACrediter);
+            if(!compteACrediter.getBloque()) {
+                compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
+                session.update(compteACrediter);
+            }
         }
 
         session.save(operation);
@@ -442,4 +498,5 @@ public class BanqueResource {
 
         return Response.status(200).entity(chaine).build();
     }
+
 }

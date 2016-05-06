@@ -111,6 +111,17 @@ public class Client {
             System.out.println("DELETE : " + response.getStatus());
             response.close();
         }
+        //Param: CREER-COMPTE-COURANT idClient
+        else if (args.length == 2 && args[0].equals("CREER-COMPTE-EPARGNE")) {
+            jsonArgs.put("idClient", args[1]);
+            maChaine = gson.toJson(jsonArgs);
+
+            target = client.target(baseUrl + "/client/compte-epargne/creer");
+            response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+            session.close();
+        }
         //Param: LISTE-CC
         else if (args.length == 1 && args[0].equals("LISTE-CC")) {
             target = client.target(baseUrl + "/liste/comptes-courant");
@@ -183,8 +194,18 @@ public class Client {
             System.out.println(args[1] + " : " + response.readEntity(String.class));
             response.close();
         }
+        //Param: BLOQUER idCompte type
+        else if(args.length == 3 && args[0].equals("BLOQUER")) {
+            target = client.target(baseUrl + "/client/compte/bloquer");
 
-        else {
+            jsonArgs.put("idCompte", args[1]);
+            jsonArgs.put("type", args[2]);
+            maChaine = gson.toJson(jsonArgs);
+
+            response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            System.out.println("PUT :" + response.getStatus());
+            response.close();
+        } else {
             System.out.println("Le premier paramètre est mauvais ou le nb de paramètre n'est pas bon");
         }
     }

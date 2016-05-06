@@ -23,18 +23,21 @@ public class CompteEpargne  implements java.io.Serializable {
      private float montant;
      private Boolean bloque;
      private Short tauxInteret;
-     private short iban;
+     private int iban;
      private Set credits = new HashSet(0);
 
     public CompteEpargne() {
     }
 
 
-    public CompteEpargne(ClientBanque clientBanque, short iban) {
+    public CompteEpargne(ClientBanque clientBanque, int iban) {
         this.clientBanque = clientBanque;
         this.iban = iban;
+        this.bloque = false;
+        this.tauxInteret = 10;
+        this.montant = 0;
     }
-    public CompteEpargne(ClientBanque clientBanque, float montant, Boolean bloque, Short tauxInteret, short iban, Set credits) {
+    public CompteEpargne(ClientBanque clientBanque, float montant, Boolean bloque, Short tauxInteret, int iban, Set credits) {
        this.clientBanque = clientBanque;
        this.montant = montant;
        this.bloque = bloque;
@@ -89,11 +92,11 @@ public class CompteEpargne  implements java.io.Serializable {
     }
 
     @XmlElement
-    public short getIban() {
+    public int getIban() {
         return this.iban;
     }
 
-    public void setIban(short iban) {
+    public void setIban(int iban) {
         this.iban = iban;
     }
 
