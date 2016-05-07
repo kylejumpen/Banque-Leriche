@@ -1,5 +1,6 @@
 package Metier;
 
+import Graphics.GlobalFrame;
 import javax.ws.rs.client.Entity;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -49,7 +50,9 @@ public class AccueilR extends CoRest {
         jsonArgs.put("mdp", mdp);
         jsonArgs.put("email", email);
         jsonArgs.put("codePostal", code);
-        jsonArgs.put("idBanque", "1");
+
+        String[] parts = GlobalFrame.idBanquePersonnel.getText().split(":");
+        jsonArgs.put("idBanque", parts[1]);
 
         String maChaine = gson.toJson(jsonArgs);
         try{
