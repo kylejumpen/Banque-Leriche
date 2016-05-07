@@ -396,7 +396,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         Operation operation = new Operation(
@@ -437,7 +438,8 @@ public class BanqueResource {
         session.save(operation);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(operation.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(operation.toString())).build();
+	}catch(Exception e){ return Response.status(500).build();}
     }
 
 
