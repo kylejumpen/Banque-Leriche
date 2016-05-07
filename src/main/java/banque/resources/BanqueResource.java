@@ -56,7 +56,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         ClientBanque clientBanque = new ClientBanque(
@@ -73,7 +74,8 @@ public class BanqueResource {
         session.save(clientBanque);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(clientBanque.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(clientBanque.toString())).build();
+}catch(Exception e){ return Response.status(500).build();}
     }
 
     @DELETE
@@ -97,9 +99,9 @@ public class BanqueResource {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
-            short id = Short.parseShort(Encrypt.decrypt(idc));
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
             ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
-            return Encrypt.encrypt(client.toString());
+            return Encrypt.encryptData(client.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -137,7 +139,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         Banque banque = new Banque(
@@ -149,11 +152,14 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(banque.toString()).build();
+	}catch(Exception e) { return Response.status(500).build();}
     }
 
     @DELETE
     @Path("/supprimer/{id}")
-    public Response supprimerBanque(@PathParam("id") Short id) {
+    public Response supprimerBanque(@PathParam("id") String idc) {
+	 try {
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
         session = HibernateUtil.getSessionFactory().openSession();
         Banque banque = (Banque) session.load(Banque.class, id);
         session.beginTransaction();
@@ -161,7 +167,9 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(banque.toString()).build();
+	}catch(Exception e){ return Response.status(500).build(); }
     }
+
 
 
     //COMPTE _______________________________________________________________________
@@ -172,13 +180,13 @@ public class BanqueResource {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
-            short id = Short.parseShort(Encrypt.decrypt(idc));
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
             Query q = session.createQuery(
                     "FROM CompteCourant cc WHERE cc.clientBanque.clientBanqueId=:id");
             q.setParameter("id", id);
             List<?> result = q.list();
-            CompteCourant cc = (CompteCourant) result.get(0);
-            return Encrypt.encrypt(cc.toString());
+            CompteCourant cc = (CompteCourant)result.get(0);
+            return Encrypt.encryptData(cc.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -194,13 +202,13 @@ public class BanqueResource {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
-            short id = Short.parseShort(Encrypt.decrypt(idc));
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
             Query q = session.createQuery(
                     "FROM CompteEpargne ce WHERE ce.clientBanque.clientBanqueId=:id");
             q.setParameter("id", id);
             List<?> result = q.list();
-            CompteEpargne ce = (CompteEpargne) result.get(0);
-            return Encrypt.encrypt(ce.toString());
+            CompteEpargne ce = (CompteEpargne)result.get(0);
+            return Encrypt.encryptData(ce.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -253,37 +261,44 @@ public class BanqueResource {
 
     @DELETE
     @Path("/client/compte-courant/supprimer/{id}")
-    public Response supprimerCompteCourant(@PathParam("id") Short id) {
+    public Response supprimerCompteCourant(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
-        CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, id);
-        session.beginTransaction();
-        session.delete(cc);
-        session.getTransaction().commit();
-        session.close();
-        return Response.status(200).entity(cc.toString()).build();
+	try {
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
+            CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, id);
+            session.beginTransaction();
+            session.delete(cc);
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(200).entity(cc.toString()).build();
+	    }catch(Exception e){ return Response.status(500).build();}
     }
 
     @DELETE
     @Path("/client/compte-epargne/supprimer/{id}")
-    public Response supprimerCompteEpargne(@PathParam("id") Short id) {
+    public Response supprimerCompteEpargne(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
+	try {
+	     short id = Short.parseShort(Encrypt.decryptId(idc));
         CompteEpargne ce = (CompteEpargne) session.load(CompteEpargne.class, id);
         session.beginTransaction();
         session.delete(ce);
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(ce.toString()).build();
+        }catch(Exception e){ return Response.status(500).build();}
     }
 
     @GET
     @Path("/client/compte-courant/{id}")
     @Produces("text/plain")
-    public String getCompteCourant(@PathParam("id") Short id) {
+    public String getCompteCourant(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
             CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
-            return compteCourant.toString();
+            return Encrypt.encryptData(compteCourant.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -431,12 +446,13 @@ public class BanqueResource {
     @GET
     @Path("/personnel/{id}")
     @Produces("text/plain")
-    public String getPersonnel(@PathParam("id") Short id) {
+    public String getPersonnel(@PathParam("id") String idc) {
         session = HibernateUtil.getSessionFactory().openSession();
 
         try {
+	    short id = Short.parseShort(Encrypt.decryptId(idc));
             Personnel personnel = (Personnel) session.load(Personnel.class, id);
-            return personnel.toString();
+            return Encrypt.encryptData(personnel.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -454,7 +470,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         Banque banque = (Banque) session.load(Banque.class, Short.parseShort(args.get("idBanque")));
@@ -470,6 +487,9 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(personnel.toString()).build();
+	}catch(Exception e){
+	return Response.status(500).build();
+	}
     }
 
 

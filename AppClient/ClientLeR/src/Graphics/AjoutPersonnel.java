@@ -1,8 +1,9 @@
 package Graphics;
 
 import Metier.AjoutPersonnelR;
-import Metier.MethodesRest;
+//import Metier.MethodesRest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,15 +11,15 @@ import java.awt.CardLayout;
  */
 public class AjoutPersonnel extends javax.swing.JPanel {
 
-    private MethodesRest con;
-    //private AjoutPersonnelR con;
+    //private MethodesRest con;
+    private AjoutPersonnelR con;
 
     /**
      * Creates new form AjoutPersonnel
      */
     public AjoutPersonnel() {
-        //con = new AjoutPersonnelR();
-        con = new MethodesRest();
+        con = new AjoutPersonnelR();
+        // con = new MethodesRest();
         initComponents();
 
     }
@@ -109,9 +110,12 @@ public class AjoutPersonnel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
+        if(!banque.getText().equals("") && !nom.getText().equals("") && !motdepasse.getText().equals("")){
         con.ajouterPersonnel(banque.getText(), nom.getText(), motdepasse.getText(), role.getSelectedItem().toString());
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
-
+        }else{
+            JOptionPane.showMessageDialog(this, "Merci de remplir tous les champs", "Alerte", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_validerActionPerformed
 
 

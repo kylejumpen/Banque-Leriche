@@ -15,14 +15,15 @@ public class AccueilCo extends javax.swing.JPanel {
     public int idBanque;
     //private MethodesRest con;
     private AccueilR con;
+
     /**
      * Creates new form AccueilCo
      */
     public AccueilCo() {
         initComponents();
         //con = new MethodesRest();
-         con = new AccueilR();
-        
+        con = new AccueilR();
+
     }
 
     /**
@@ -152,36 +153,37 @@ public class AccueilCo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_connexionActionPerformed
 */
-    
-    
-    /*Kyle */ 
-    private void connexionActionPerformed(java.awt.event.ActionEvent evt) {                                          
+ /*Kyle */
+    private void connexionActionPerformed(java.awt.event.ActionEvent evt) {
         String username = jTextField1.getText();
         String password = jPasswordField1.getText();
         String reponse = con.accueilCoGet(username, password); // ici je prend le role seulement
         if (reponse.equals("KO")) {
-            JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             jTextField1.setText("");
             jPasswordField1.setText("");
         } else if (reponse.equals("mdp")) {
-            JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
             jPasswordField1.setText("");
         } else {
             String[] parts = reponse.split("#");
             role = parts[0];
-            idBanque =Integer.parseInt(parts[2]);
+            idBanque = Integer.parseInt(parts[2]);
             System.out.println(idBanque);
-            if(role.equals("Employe")){
+            GlobalFrame.idPersonnel.setText("Votre id est :" + jTextField1.getText());
+            GlobalFrame.idBanquePersonnel.setText("Votre banque est :" + idBanque);
+            if (role.equals("Employe")) {
                 GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
             }
-            if(role.equals("Admin")){
+            if (role.equals("Admin")) {
                 ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAdmin");
-            }else{
-            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+            } else {
+                ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
+                GlobalFrame.retourAccueil.setVisible(true);
             }
         }
-    }   
-   
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connexion;
     private javax.swing.JButton jButton1;

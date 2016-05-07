@@ -19,6 +19,8 @@ public class ConsulterCompte extends javax.swing.JPanel {
 
     private int idCompteCourant;
     private int idCompteEpargne;
+    private String bloqueCompteCourant;
+    private String bloqueCompteEpargne;
     private ConsulterCompteR con;
     //private  ConsulterCompteR con;
 
@@ -114,6 +116,11 @@ public class ConsulterCompte extends javax.swing.JPanel {
         });
 
         bloque.setText("Bloquer le compte");
+        bloque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bloqueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -190,7 +197,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
-        if (numeroClient.getText().equals("")) {
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else if (numeroClient.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Aucun compte à supprimer", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane jop = new JOptionPane();
@@ -211,20 +220,20 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
         courant.setEnabled(true);
         epargne.setEnabled(true);
+        buttonGroup1.clearSelection();
 
         Gson gson = new Gson();
         // try {
         int idClient = Integer.parseInt(numeroClient.getText());
 
         String reponse = con.consulterClientGet(idClient);
-        JsonElement root = new JsonParser().parse(reponse);
-        if (root.getAsJsonObject().has("succes")) {
+
+        if (reponse.equals("KO")) {
             JOptionPane.showMessageDialog(this, "Ce client n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
             numeroClient.setText("");
             compteCourant.setText("");
             compteEpargne.setText("");
         } else {
-
             String ccourant = con.consulterCompteCourantClient(idClient);
             JsonElement rootc = new JsonParser().parse(ccourant);
             if (ccourant.equals("KO")) {
@@ -235,6 +244,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 }.getType());
                 compteCourant.setText(args.get("montant"));
                 idCompteCourant = Integer.parseInt(args.get("compteCourantId"));
+                bloqueCompteCourant = args.get("bloque");
             }
             String cepargne = con.consulterCompteEpargneClient(idClient);
             if (cepargne.equals("KO")) {
@@ -245,6 +255,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 }.getType());
                 compteEpargne.setText(args.get("montant"));
                 idCompteEpargne = Integer.parseInt(args.get("compteEpargneId"));
+                bloqueCompteEpargne = args.get("bloque");
             }
         }
         // } catch (Exception e) {
@@ -277,7 +288,9 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_crediterActionPerformed
 
     private void debiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debiterActionPerformed
-        if (numeroClient.getText().equals("")) {
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else if (numeroClient.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Aucun compte à débiter", "Alerte", JOptionPane.ERROR_MESSAGE);
         } else {
 
@@ -298,22 +311,52 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_debiterActionPerformed
 
     private void courantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courantActionPerformed
-        if (courant.isSelected()) {
+        if (courant.isSelected() && bloqueCompteCourant.equals("false")) {
             bloque.setEnabled(true);
+            bloque.setText("Bloquer");
             supprimer.setEnabled(true);
             crediter.setEnabled(true);
             debiter.setEnabled(true);
+        } else if (courant.isSelected() && bloqueCompteCourant.equals("true")) {
+            bloque.setEnabled(true);
+            bloque.setText("Débloquer");
+            supprimer.setEnabled(true);
+            crediter.setEnabled(false);
+            debiter.setEnabled(false);
         }
     }//GEN-LAST:event_courantActionPerformed
 
     private void epargneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epargneActionPerformed
-        if (epargne.isSelected()) {
-            bloque.setEnabled(false);
+        if (epargne.isSelected() && bloqueCompteEpargne.equals("false")) {
+            bloque.setEnabled(true);
+            bloque.setText("Bloquer");
+            supprimer.setEnabled(true);
+            crediter.setEnabled(true);
+            debiter.setEnabled(true);
+        } else if (epargne.isSelected() && bloqueCompteEpargne.equals("true")) {
+            bloque.setEnabled(true);
+            bloque.setText("Débloquer");
+            supprimer.setEnabled(true);
+            crediter.setEnabled(false);
+            debiter.setEnabled(false);
         }
-        supprimer.setEnabled(true);
-        crediter.setEnabled(true);
-        debiter.setEnabled(true);
     }//GEN-LAST:event_epargneActionPerformed
+
+    private void bloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloqueActionPerformed
+        if (!courant.isSelected() && !epargne.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
+        } else if (courant.isSelected()) {
+            con.bloquerDebloquer(idCompteCourant, "courant");
+            this.rechercherActionPerformed(evt);
+            this.courantActionPerformed(evt);
+        } else if (epargne.isSelected()) {
+            con.bloquerDebloquer(idCompteEpargne, "epargne");
+            this.rechercherActionPerformed(evt);
+            this.epargneActionPerformed(evt);
+        }
+        this.rechercherActionPerformed(evt);
+
+    }//GEN-LAST:event_bloqueActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

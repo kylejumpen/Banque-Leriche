@@ -1,6 +1,7 @@
 package Metier;
 
 import javax.ws.rs.client.Entity;
+import Security.*;
 
 /**
  *
@@ -12,6 +13,7 @@ public class AjoutPersonnelR extends CoRest {
         super();
     }
     
+    //secure
     public void ajouterPersonnel(String banque, String nom, String motdepasse, String role) {
         String roleEnum;
         if (role.equals("Employé")) {
@@ -28,8 +30,10 @@ public class AjoutPersonnelR extends CoRest {
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(baseUrl + "/personnel/creer");
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        try{
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
+        }catch(Exception e){System.out.println(e);}
 
     }
 

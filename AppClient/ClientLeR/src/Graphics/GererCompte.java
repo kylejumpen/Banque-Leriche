@@ -32,8 +32,9 @@ public class GererCompte extends javax.swing.JPanel {
         consulterCompte = new javax.swing.JButton();
         consulterStatistiques = new javax.swing.JButton();
         creerCompte = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         ajoutPersonnel = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         consulterCompte.setText("Consulter un Compte");
         consulterCompte.addActionListener(new java.awt.event.ActionListener() {
@@ -44,17 +45,10 @@ public class GererCompte extends javax.swing.JPanel {
 
         consulterStatistiques.setText("Consulter les Statistiques");
 
-        creerCompte.setText("Créer un Compte");
+        creerCompte.setText("Créer un Client");
         creerCompte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 creerCompteActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Effectuer un echange d'argent ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -65,6 +59,20 @@ public class GererCompte extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setText("Créer un Compte");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Echange d'argent");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,11 +80,14 @@ public class GererCompte extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(consulterStatistiques)
-                    .addComponent(creerCompte)
                     .addComponent(consulterCompte)
-                    .addComponent(jButton1)
-                    .addComponent(ajoutPersonnel))
-                .addGap(313, 313, 313))
+                    .addComponent(ajoutPersonnel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(creerCompte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,10 +97,12 @@ public class GererCompte extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addComponent(consulterStatistiques)
                 .addGap(31, 31, 31)
-                .addComponent(creerCompte)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(creerCompte)
+                    .addComponent(jButton2))
+                .addGap(26, 26, 26)
+                .addComponent(jButton3)
+                .addGap(30, 30, 30)
                 .addComponent(ajoutPersonnel)
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -106,13 +119,23 @@ public class GererCompte extends javax.swing.JPanel {
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneCreerCompte");       
     }//GEN-LAST:event_creerCompteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneEchangeArgent");           }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    
     private void ajoutPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutPersonnelActionPerformed
 ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneAjoutPersonnel");                                      
 
     }//GEN-LAST:event_ajoutPersonnelActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneCreerCompteClient");                                      
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+GlobalFrame.paneEchangeArgent.initComboBox();     
+((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneEchangeArgent"); 
+        //GlobalFrame.cards.remove(paneEchangeArgent);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -120,6 +143,7 @@ public class GererCompte extends javax.swing.JPanel {
     private javax.swing.JButton consulterCompte;
     private javax.swing.JButton consulterStatistiques;
     private javax.swing.JButton creerCompte;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }
