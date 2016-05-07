@@ -95,8 +95,10 @@ public class CreerCompteClient extends javax.swing.JPanel {
         if (!idClient.getText().equals("")) {
             if (type.getSelectedItem().equals("Courant")) {
                 String reponse1 = con.consulterCompteCourantClient(Integer.parseInt(idClient.getText()));
+                System.out.println(reponse1);
                 if (reponse1.equals("KO")) {
                     con.creerCompteCourant(idClient.getText());
+                    idClient.setText("");
                     ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneGererCompte");
                 } else {
                     JOptionPane.showMessageDialog(this, "Ce client possède déjà un compte courant", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -105,6 +107,7 @@ public class CreerCompteClient extends javax.swing.JPanel {
                 String reponse2 = con.consulterCompteEpargneClient(Integer.parseInt(idClient.getText()));
                 if (reponse2.equals("KO")) {
                     con.creerCompteEpargne(idClient.getText());
+                    idClient.setText("");
                     ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneGererCompte");                                      
 
                 } else {

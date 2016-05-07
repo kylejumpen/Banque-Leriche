@@ -95,11 +95,13 @@ public class AccueilR extends CoRest {
             response = target.request().get();
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
+            response.close(); 
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
+            }else{
+                return reponse;
             }
-            response.close();
-            return reponse;
+              
         } catch (Exception ex) {
             return "KO";
         }
@@ -113,11 +115,12 @@ public class AccueilR extends CoRest {
 
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
+            response.close();
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
-            }
-            response.close();
+            }else{
             return reponse;
+            }
         } catch (Exception ex) {
             return "KO";
         }

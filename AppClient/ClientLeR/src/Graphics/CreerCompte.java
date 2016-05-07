@@ -1,7 +1,5 @@
 package Graphics;
 
-
-
 import Metier.AccueilR;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -110,8 +108,18 @@ public class CreerCompte extends javax.swing.JPanel {
             idClient = args.get("clientBanqueId");
             if (type.equals("Courant")) {
                 con.creerCompteCourant(idClient);
+                nom.setText("");
+                prenom.setText("");
+                email.setText("");
+                motdepasse.setText("");
+                codepostal.setText("");
             } else if (type.equals("Epargne")) {
                 con.creerCompteEpargne(idClient);
+                nom.setText("");
+                prenom.setText("");
+                email.setText("");
+                motdepasse.setText("");
+                codepostal.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Merci de remplir tous les champs", "Alerte", JOptionPane.ERROR_MESSAGE);
