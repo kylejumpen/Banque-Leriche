@@ -117,7 +117,7 @@ public class ConsulterCompteR extends CoRest {
         return reponse;
     }
 
-    // to secure
+    // secure
     public void debiterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -127,15 +127,16 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
-
+	try{
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
+	}catch(Exception e){System.out.println(e);}
     }
     
-    //to secure
+    //secure
     public void debiterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -145,34 +146,37 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "epargne");
         jsonArgs.put("montant", String.valueOf(montant));
-
+	try{
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
+	}catch(Exception e){System.out.println(e);}
     }
     
-    //to secure
+    //secure
     public void crediterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
+	
         jsonArgs.put("type", "credit");
         jsonArgs.put("idCompteADebiter", "1");
         jsonArgs.put("typeCompteADebiter", "courant");
         jsonArgs.put("idCompteACrediter", String.valueOf(compte));
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
-
+	try{
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
 
         this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
+	}catch(Exception e){System.out.println(e);}
     }
     
-    //to secure
+    //secure
     public void crediterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -185,13 +189,14 @@ public class ConsulterCompteR extends CoRest {
 
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
-
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+	try{
+        this.target = this.client.target(baseUrl + "/client/compte/operer"); 
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
+	}catch(Exception e){System.out.println(e);}
     }
     
-    //to secure
+    //secure
     public void bloquerDebloquer(int compte, String type) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -200,11 +205,11 @@ public class ConsulterCompteR extends CoRest {
 
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
-
+        try{
         this.target = this.client.target(baseUrl + "/client/compte/bloquer"); // URL a remplacer
-        this.response = this.target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        this.response = this.target.request().put(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
-
+        }catch(Exception e){System.out.println(e);}
     }
 
 }

@@ -38,21 +38,25 @@ public class EchangeR extends CoRest {
 
     }
     
-    //to-Secure
+    //Secure
     public String getComptesCourant(int id) {
-        target = client.target(baseUrl + "/liste/comptes-courant/" + id);
+        target = client.target(baseUrl + "/liste/comptes-courant/" + encryptId(id));
         response = target.request().get();
+        try{
         String rep = response.readEntity(String.class);
         response.close();
-        return rep;
+        return decryptData(rep);
+        }catch(Exception e){return e.getMessage();}
     }
     
-    // to-Secure
+    //Secure
     public String getComptesEpargne(int id) {
-    target = client.target(baseUrl + "/liste/comptes-epargne/" + id);
+    target = client.target(baseUrl + "/liste/comptes-epargne/" + encryptId(id));
     response = target.request().get();
+    try{
     String rep = response.readEntity(String.class);
     response.close();
-    return rep;
+    return decryptData(rep);
+    }catch(Exception e){return e.getMessage();}
     }
 }

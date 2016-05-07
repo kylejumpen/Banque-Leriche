@@ -226,7 +226,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         int iban = BanqueUtil.genererIban("courant");
@@ -237,6 +238,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(compteCourant.toString()).build();
+	}catch(Exception e){return Response.status(500).build();}
     }
 
     @POST
@@ -247,7 +249,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         int iban = BanqueUtil.genererIban("epargne");
@@ -258,6 +261,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(compteEpargne.toString()).build();
+	}catch(Exception e){ return Response.status(500).build();}
     }
 
     @DELETE
@@ -312,9 +316,10 @@ public class BanqueResource {
     @GET
     @Path("/liste/comptes-courant/{id}")
     @Produces("text/plain")
-    public String getListesComptesCourant(@PathParam("id") Short idBanque) {
+    public String getListesComptesCourant(@PathParam("id") String idBanquec) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
+	    short idBanque = Short.parseShort(Encrypt.decryptId(idBanquec));
             List<CompteCourant> comptes = session.createCriteria(CompteCourant.class).list();
             Gson gson = new Gson();
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -325,7 +330,7 @@ public class BanqueResource {
                     jsonArgs.put("compte-" + i, temp.toString());
                 }
             }
-            return gson.toJson(jsonArgs);
+            return Encrypt.encryptData(gson.toJson(jsonArgs));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -337,9 +342,10 @@ public class BanqueResource {
     @GET
     @Path("/liste/comptes-epargne/{id}")
     @Produces("text/plain")
-    public String getListesComptesEpargne(@PathParam("id") Short idBanque) {
+    public String getListesComptesEpargne(@PathParam("id") String idBanquec) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
+	    short idBanque = Short.parseShort(Encrypt.decryptId(idBanquec));
             List<CompteEpargne> comptes = session.createCriteria(CompteEpargne.class).list();
             Gson gson = new Gson();
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -350,7 +356,7 @@ public class BanqueResource {
                     jsonArgs.put("compte-" + i, temp.toString());
                 }
             }
-            return gson.toJson(jsonArgs);
+            return Encrypt.encryptData(gson.toJson(jsonArgs));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -368,7 +374,8 @@ public class BanqueResource {
         session.beginTransaction();
 
         Gson gson = new Gson();
-        HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
+	try{
+        HashMap<String, String> args = gson.fromJson(Encrypt.decryptData(chaine), new TypeToken<HashMap<String, String>>() {
         }.getType());
 
         if (args.get("type").equals("courant")) {
@@ -384,7 +391,8 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
 
-        return Response.status(200).entity(chaine).build();
+        return Response.status(200).entity(Encrypt.encryptData(chaine)).build();
+	}catch(Exception e){return Response.status(500).build();}
     }
 
 
