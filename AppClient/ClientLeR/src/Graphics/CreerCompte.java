@@ -107,7 +107,6 @@ public class CreerCompte extends javax.swing.JPanel {
             JsonElement rootc = new JsonParser().parse(reponse);
             HashMap<String, String> args = gson.fromJson(reponse, new TypeToken<HashMap<String, String>>() {
             }.getType());
-            System.out.println(reponse);
             idClient = args.get("clientBanqueId");
             if (type.equals("Courant")) {
                 con.creerCompteCourant(idClient);

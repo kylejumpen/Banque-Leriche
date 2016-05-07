@@ -17,6 +17,7 @@ public class EchangeR extends CoRest {
         super();
     }
 
+    //Secure
     public void echangerArgent(String typeDebiteur, String debiteur,String typeCrediteur,  String crediteur, String montant) {
 
         this.jsonArgs.put("type", "credit");
@@ -29,12 +30,15 @@ public class EchangeR extends CoRest {
         String maChaine; //Transformation en chaine de caractère
         maChaine = this.gson.toJson(jsonArgs);
         this.target = this.client.target(baseUrl + "/client/compte/operer"); //vérifier l'url
-        response = target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+        try{
+        response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         System.out.println("Statut de l'échange : " + String.valueOf(response.getStatus()));
         response.close();
+        }catch(Exception e){System.out.println(e);}
 
     }
-
+    
+    //to-Secure
     public String getComptesCourant(int id) {
         target = client.target(baseUrl + "/liste/comptes-courant/" + id);
         response = target.request().get();
@@ -43,11 +47,12 @@ public class EchangeR extends CoRest {
         return rep;
     }
     
-        public String getComptesEpargne(int id) {
-        target = client.target(baseUrl + "/liste/comptes-epargne/" + id);
-        response = target.request().get();
-        String rep = response.readEntity(String.class);
-        response.close();
-        return rep;
+    // to-Secure
+    public String getComptesEpargne(int id) {
+    target = client.target(baseUrl + "/liste/comptes-epargne/" + id);
+    response = target.request().get();
+    String rep = response.readEntity(String.class);
+    response.close();
+    return rep;
     }
 }

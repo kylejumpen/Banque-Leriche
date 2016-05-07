@@ -22,26 +22,34 @@ public class AdminR extends CoRest{
     }
     
     
-    
+    //Secure
     public String supprimerBanque(int id) {
-        target = client.target(baseUrl + "/supprimer/" + id);
+        target = client.target(baseUrl + "/supprimer/" + encryptId(id));
         response = target.request().delete();
-        String reponse = response.readEntity(String.class);
+        try{
+        String reponse = decryptData(response.readEntity(String.class));
         System.out.println(response.getStatusInfo());
         response.close();
         return reponse;
+        }catch(Exception e)
+        {
+           return response.getStatusInfo().toString();
+        }
     }
-    
-        public void ajouterBanque(String nom, String ville) {
+        
+    //Secure
+    public void ajouterBanque(String nom, String ville) {
 
-        jsonArgs.put("nom", nom);
-        jsonArgs.put("ville", ville);
+    jsonArgs.put("nom", nom);
+    jsonArgs.put("ville", ville);
 
-        String maChaine; //Transformation en chaine de caractère
-        maChaine = gson.toJson(jsonArgs);
-        this.target = this.client.target(baseUrl + "/creer");
-        this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
-        response.close();
+    String maChaine; //Transformation en chaine de caractère
+    maChaine = gson.toJson(jsonArgs);
+    this.target = this.client.target(baseUrl + "/creer");
+    try{
+    this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+    response.close();
+    }catch(Exception e){ System.out.println(e);}
     }
     
 }

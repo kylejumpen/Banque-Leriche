@@ -24,12 +24,12 @@ public class ConsulterCompteR extends CoRest {
     public String consulterClientGet(int id) {
 
         try {
-            target = client.target(baseUrl + "/client/" + encrypt((String.valueOf(id))));
+            target = client.target(baseUrl + "/client/" + encryptId((id)));
             response = target.request().get();
             String reponse = response.readEntity(String.class);
             System.out.println("Dans le consulter clientget " +reponse);
             response.close();
-            return decrypt(reponse);
+            return decryptData(reponse);
         } catch (Exception ex) {
             return "KO";
         }
@@ -41,9 +41,9 @@ public class ConsulterCompteR extends CoRest {
     //secure
     public String consulterCompteGet(int id) {
         try {
-        target = client.target(baseUrl + "/client/compte-courant/" + Encrypt.encrypt(String.valueOf(id)));
+        target = client.target(baseUrl + "/client/compte-courant/" + Encrypt.encryptData(String.valueOf(id)));
         response = target.request().get();
-        String reponse = Encrypt.decrypt(response.readEntity(String.class));
+        String reponse = Encrypt.decryptData(response.readEntity(String.class));
         JsonElement root = new JsonParser().parse(reponse);
         if (root.getAsJsonObject().has("succes")) {
             return "KO";
@@ -67,10 +67,10 @@ public class ConsulterCompteR extends CoRest {
     //secure
     public String consulterCompteCourantClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/courant/" + encrypt(String.valueOf(id)));
+            target = client.target(baseUrl + "/compte/courant/" + encryptId(id));
             response = target.request().get();
 
-            String reponse = decrypt(response.readEntity(String.class));
+            String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
        if (root.getAsJsonObject().has("succes")) {
             return "KO";
@@ -85,9 +85,9 @@ public class ConsulterCompteR extends CoRest {
     //secure
     public String consulterCompteEpargneClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/epargne/" + encrypt(String.valueOf(id)));
+            target = client.target(baseUrl + "/compte/epargne/" + encryptId(id));
             response = target.request().get();
-            String reponse = decrypt(response.readEntity(String.class));
+            String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
@@ -99,22 +99,25 @@ public class ConsulterCompteR extends CoRest {
         }
     }
 
+    //secure
     public String supprimerCompteCourant(int id) {
-        target = client.target(baseUrl + "/client/compte-courant/supprimer/" + id);
+        target = client.target(baseUrl + "/client/compte-courant/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
         return reponse;
     }
 
+    //secure
     public String supprimerCompteEpargne(int id) {
-        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + id);
+        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
         return reponse;
     }
 
+    // to secure
     public void debiterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -131,7 +134,8 @@ public class ConsulterCompteR extends CoRest {
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         response.close();
     }
-
+    
+    //to secure
     public void debiterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -148,7 +152,8 @@ public class ConsulterCompteR extends CoRest {
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         response.close();
     }
-
+    
+    //to secure
     public void crediterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -166,7 +171,8 @@ public class ConsulterCompteR extends CoRest {
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         response.close();
     }
-
+    
+    //to secure
     public void crediterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -184,7 +190,8 @@ public class ConsulterCompteR extends CoRest {
         this.response = this.target.request().post(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
         response.close();
     }
-
+    
+    //to secure
     public void bloquerDebloquer(int compte, String type) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();

@@ -15,7 +15,7 @@ public class Encrypt {
     protected static final byte[] keyValue = new byte[] {'e','a','r','a','a','o','u','&','e','a','r','a','a','o','u','z'};
     
 
-    protected static String encrypt(String Data) throws Exception{
+    protected static String encryptData(String Data) throws Exception{
 	        Key key;
              key = generateKey();
 	     Cipher c = Cipher.getInstance(ALGO);
@@ -25,7 +25,7 @@ public class Encrypt {
 	     return encryptedValue;
 	    }
 
-    protected static String decrypt(String encryptedData) throws Exception {
+    protected static String decryptData(String encryptedData) throws Exception {
         Key key = generateKey();
         Cipher c = Cipher.getInstance(ALGO);
         c.init(Cipher.DECRYPT_MODE, key);
@@ -34,12 +34,20 @@ public class Encrypt {
         String decryptedValue = new String(decValue);
         return decryptedValue;
     }
+    
+    public static String encryptId(int id) {
+        //foutre des pourcentages
+        String partun="";
+        if(id % 2 == 0)
+         return "" + (id * 5 +128)+"%1";
+        else
+         return "" +(id*(-18) +189)+"%0";   
+        
+    }
+      
     private static Key generateKey() throws Exception {
         Key key = new SecretKeySpec(keyValue, ALGO);
         return key;
-}
-
-    
-    
+    }    
 }
 
