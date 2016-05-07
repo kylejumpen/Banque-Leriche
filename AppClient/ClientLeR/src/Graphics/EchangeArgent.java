@@ -62,18 +62,17 @@ public class EchangeArgent extends javax.swing.JPanel {
         });*/
     }
 
-    public void initComboBox() {
+    public void initComboBox(int idBanque) {
         DefaultComboBoxModel dml1 = new DefaultComboBoxModel();
         DefaultComboBoxModel dml2 = new DefaultComboBoxModel();
         ArrayList<String> comptes = new ArrayList<String>();
         Gson gson = new Gson();
         JPanel centre = new JPanel();
         centre.setLayout(new BorderLayout());
-        String rep = con.getComptesCourant(1);
+        String rep = con.getComptesCourant(idBanque);
         HashMap<String, String> hash1 = gson.fromJson(rep, new TypeToken<HashMap<String, String>>() {
         }.getType());
         HashMap<String, String> hash2;
-        System.out.println(hash1.toString());
         //On itère sur les différents comptes pour obtenir le json de chaque compte
         Iterator it = hash1.entrySet().iterator();
         while (it.hasNext()) {
@@ -85,10 +84,11 @@ public class EchangeArgent extends javax.swing.JPanel {
                 dml1.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
                 dml2.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
             }
+            it.remove();// avoids a ConcurrentModificationException
         }
-        it.remove(); // avoids a ConcurrentModificationException
+         
 
-        String rep2 = con.getComptesEpargne(1);
+        String rep2 = con.getComptesEpargne(idBanque);
         HashMap<String, String> hash12 = gson.fromJson(rep2, new TypeToken<HashMap<String, String>>() {
         }.getType());
         HashMap<String, String> hash22;
@@ -104,8 +104,9 @@ public class EchangeArgent extends javax.swing.JPanel {
                 dml1.addElement("<html>epargne, Id :" + hash22.get("compteEpargneId") + ",<br>Montant:" + hash22.get("montant") + "</html>");
                 dml2.addElement("<html>epargne, Id :" + hash22.get("compteEpargneId") + ",<br>Montant:" + hash22.get("montant") + "</html>");
             }
+            it2.remove();
         }
-        it2.remove();
+        
         cbDebit.setModel(dml1);
         cbCredit.setModel(dml2);
 

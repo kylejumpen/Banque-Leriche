@@ -25,6 +25,7 @@ public class GlobalFrame extends javax.swing.JFrame {
     private ConsulterCompte paneConsulterCompte;
     private CreerCompte paneCreerCompte;
     public static EchangeArgent paneEchangeArgent;
+    public static Statistiques paneStats;
     private JPanel menu;
     public static JButton retourAccueil;
     public ArrayList<String> oldPanel;
@@ -44,6 +45,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         paneCreerCompteClient = new CreerCompteClient();
         paneAjoutPersonnel = new AjoutPersonnel();
         paneAccueil = new AccueilCo();
+        paneStats = new Statistiques();
         paneGererCompte = new GererCompte();
         paneConsulterCompte = new ConsulterCompte();
         paneCreerCompte = new CreerCompte();
@@ -67,6 +69,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         cards.add(paneCreerCompteClient,"paneCreerCompteClient");
         cards.add(paneAccueil, "paneAccueil");
         cards.add(paneAdmin,"paneAdmin");
+        cards.add(paneStats,"paneStats");
         cards.add(paneGererCompte, "paneGererCompte");
         cards.add(paneConsulterCompte, "paneConsulterCompte");
         cards.add(paneCreerCompte, "paneCreerCompte");

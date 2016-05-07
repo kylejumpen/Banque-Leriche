@@ -44,6 +44,11 @@ public class GererCompte extends javax.swing.JPanel {
         });
 
         consulterStatistiques.setText("Consulter les Statistiques");
+        consulterStatistiques.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consulterStatistiquesActionPerformed(evt);
+            }
+        });
 
         creerCompte.setText("Créer un Client");
         creerCompte.addActionListener(new java.awt.event.ActionListener() {
@@ -109,33 +114,39 @@ public class GererCompte extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void consulterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterCompteActionPerformed
-                //Montrer la carte consulter compte
-        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneConsulterCompte");
+        //Montrer la carte consulter compte
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneConsulterCompte");
     }//GEN-LAST:event_consulterCompteActionPerformed
 
     private void creerCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerCompteActionPerformed
         // TODO add your handling code here:
         //Montrer la carte creer compte
-        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneCreerCompte");       
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneCreerCompte");
     }//GEN-LAST:event_creerCompteActionPerformed
 
-    
-    
+
     private void ajoutPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutPersonnelActionPerformed
-((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneAjoutPersonnel");                                      
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAjoutPersonnel");
 
     }//GEN-LAST:event_ajoutPersonnelActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneCreerCompteClient");                                      
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneCreerCompteClient");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-GlobalFrame.paneEchangeArgent.initComboBox();     
-((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards,"paneEchangeArgent"); 
+        String[] parts = GlobalFrame.idBanquePersonnel.getText().split(":");
+System.out.println("id banque"+parts[1]);
+        GlobalFrame.paneEchangeArgent.initComboBox(Integer.parseInt(parts[1]));
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneEchangeArgent");
         //GlobalFrame.cards.remove(paneEchangeArgent);
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void consulterStatistiquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterStatistiquesActionPerformed
+        GlobalFrame.paneStats.initStats();
+        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneStats");
+    }//GEN-LAST:event_consulterStatistiquesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
