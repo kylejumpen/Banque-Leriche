@@ -74,6 +74,7 @@ public class BanqueResource {
         session.save(clientBanque);
         session.getTransaction().commit();
         session.close();
+	//MailUtil.sendEmail("smtp.gmail.com", 587, "banque.inforep@gmail.com", "florian.leriche@neuf.fr", "Testance", "Envoyance de mail via java dans la fonctionnellance des familles");
         return Response.status(200).entity(Encrypt.encryptData(clientBanque.toString())).build();
 }catch(Exception e){ return Response.status(500).build();}
     }
