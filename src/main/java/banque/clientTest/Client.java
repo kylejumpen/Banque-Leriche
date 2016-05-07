@@ -216,10 +216,11 @@ public class Client {
         }
         //Param: EPARGNER
         else if(args.length == 1 && args[0].equals("EPARGNER")) {
-            target = client.target(baseUrl + "/epargner");
-            maChaine = "coucou";
-            response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
-            System.out.println("PUT :" + response.getStatus());
+            target = client.target(baseUrl + "/epargner/kmdZMQDkmgseg54seges3qz4gKFEgkqse");
+//            maChaine = "coucou";
+//            response = target.request().put(Entity.entity(maChaine, "application/xml;charset=UTF-8"));
+            response = target.request().get();
+            System.out.println("GET :" + response.getStatus());
             response.close();
         } else if(args.length == 2 && args[0].equals("GET-COMPTE-CLIENT")) {
             target = client.target(baseUrl + "/compte/courant/" + args[1]);

@@ -485,10 +485,10 @@ public class BanqueResource {
         return Response.status(200).entity(personnel.toString()).build();
     }
 
-    @PUT
-    @Path("/epargner")
-    @Consumes("application/xml")
-    public Response epargner(String chaine) {
+    @GET
+    @Path("/epargner/{key}")
+    @Produces("text/plain")
+    public String epargner(@PathParam("key") String key) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -501,7 +501,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
 
-        return Response.status(200).entity(chaine).build();
+        return "voila";
     }
 
     //    STATISTIQUES
