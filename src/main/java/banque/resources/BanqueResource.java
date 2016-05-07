@@ -306,7 +306,8 @@ public class BanqueResource {
         }
         return this.failure;
     }
-//    LISTES _____
+
+    //    LISTES _____
     @GET
     @Path("/liste/comptes-courant/{id}")
     @Produces("text/plain")
@@ -318,7 +319,7 @@ public class BanqueResource {
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
             int i = 0;
             for (CompteCourant temp : comptes) {
-                if(temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
+                if (temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
                     i++;
                     jsonArgs.put("compte-" + i, temp.toString());
                 }
@@ -343,7 +344,7 @@ public class BanqueResource {
             HashMap<String, String> jsonArgs = new HashMap<String, String>();
             int i = 0;
             for (CompteEpargne temp : comptes) {
-                if(temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
+                if (temp.getClientBanque().getBanque().getBanqueId().equals(idBanque)) {
                     i++;
                     jsonArgs.put("compte-" + i, temp.toString());
                 }
@@ -356,6 +357,7 @@ public class BanqueResource {
         }
         return this.failure;
     }
+
     //    BLOQUER
     @PUT
     @Path("/client/compte/bloquer")
@@ -368,7 +370,7 @@ public class BanqueResource {
         HashMap<String, String> args = gson.fromJson(chaine, new TypeToken<HashMap<String, String>>() {
         }.getType());
 
-        if(args.get("type").equals("courant")) {
+        if (args.get("type").equals("courant")) {
             CompteCourant cc = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompte")));
             cc.setBloque(!cc.getBloque());
             session.update(cc);
@@ -406,13 +408,13 @@ public class BanqueResource {
 
         if (args.get("typeCompteADebiter").equals("courant")) {
             CompteCourant compteADebiter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteADebiter")));
-            if(!compteADebiter.getBloque()) {
+            if (!compteADebiter.getBloque()) {
                 compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
                 session.update(compteADebiter);
             }
         } else {
             CompteEpargne compteADebiter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteADebiter")));
-            if(!compteADebiter.getBloque()) {
+            if (!compteADebiter.getBloque()) {
                 compteADebiter.setMontant(compteADebiter.getMontant() - Integer.parseInt(args.get("montant")));
                 session.update(compteADebiter);
             }
@@ -420,13 +422,13 @@ public class BanqueResource {
 
         if (args.get("typeCompteACrediter").equals("courant")) {
             CompteCourant compteACrediter = (CompteCourant) session.load(CompteCourant.class, Short.parseShort(args.get("idCompteACrediter")));
-            if(!compteACrediter.getBloque()) {
+            if (!compteACrediter.getBloque()) {
                 compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
                 session.update(compteACrediter);
             }
         } else {
             CompteEpargne compteACrediter = (CompteEpargne) session.load(CompteEpargne.class, Short.parseShort(args.get("idCompteACrediter")));
-            if(!compteACrediter.getBloque()) {
+            if (!compteACrediter.getBloque()) {
                 compteACrediter.setMontant(compteACrediter.getMontant() + Integer.parseInt(args.get("montant")));
                 session.update(compteACrediter);
             }
@@ -485,7 +487,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(personnel.toString()).build();
-	}catch(Exception e){ 
+	}catch(Exception e){
 	return Response.status(500).build();
 	}
     }
@@ -503,10 +505,10 @@ public class BanqueResource {
         return Response.status(200).entity(personnel.toString()).build();
     }
 
-    @PUT
-    @Path("/epargner")
-    @Consumes("application/xml")
-    public Response epargner(String chaine) {
+    @GET
+    @Path("/epargner/{key}")
+    @Produces("text/plain")
+    public String epargner(@PathParam("key") String key) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -519,7 +521,76 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
 
-        return Response.status(200).entity(chaine).build();
+        return "voila";
+    }
+
+    //    STATISTIQUES
+    @GET
+    @Path("/stats/comptes")
+    @Produces("text/plain")
+    public String getNbComptes() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            List<CompteCourant> comptesC = session.createCriteria(CompteCourant.class).list();
+            List<CompteEpargne> comptesE = session.createCriteria(CompteEpargne.class).list();
+            int nbCourant = comptesC.size();
+            int nbEpargne = comptesE.size();
+            int total = nbCourant + nbEpargne;
+
+            Gson gson = new Gson();
+            HashMap<String, String> jsonArgs = new HashMap<String, String>();
+            jsonArgs.put("courants", Integer.toString(nbCourant));
+            jsonArgs.put("epargnes", Integer.toString(nbEpargne));
+            jsonArgs.put("total", Integer.toString(total));
+            return gson.toJson(jsonArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
+    }
+
+    @GET
+    @Path("/stats/clients")
+    @Produces("text/plain")
+    public String getNbClients() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            List<ClientBanque> clients = session.createCriteria(ClientBanque.class).list();
+            int nbClients = clients.size();
+
+            Gson gson = new Gson();
+            HashMap<String, String> jsonArgs = new HashMap<String, String>();
+            jsonArgs.put("clients", Integer.toString(nbClients));
+            return gson.toJson(jsonArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
+    }
+
+    @GET
+    @Path("/stats/operations")
+    @Produces("text/plain")
+    public String getNbOperations() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            List<Operation> operations = session.createCriteria(Operation.class).list();
+            int nbOperations = operations.size();
+
+            Gson gson = new Gson();
+            HashMap<String, String> jsonArgs = new HashMap<String, String>();
+            jsonArgs.put("operations", Integer.toString(nbOperations));
+            return gson.toJson(jsonArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return this.failure;
     }
 
 }
