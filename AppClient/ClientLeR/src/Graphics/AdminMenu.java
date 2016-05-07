@@ -78,7 +78,7 @@ public class AdminMenu extends javax.swing.JPanel {
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
         JOptionPane jop1 = new JOptionPane();
         int idBanque;
-        String banqueSuppression = JOptionPane.showInputDialog(this, "Banque à supprmer", "Suppression");
+        String banqueSuppression = JOptionPane.showInputDialog(this, "Id de la banque à supprimer", "Id");
         if (banqueSuppression != null) {
             idBanque = Integer.parseInt(banqueSuppression);
             con.supprimerBanque(idBanque);
