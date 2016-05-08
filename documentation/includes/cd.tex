@@ -1,0 +1,84 @@
+Dans cette partie, chaque package va être décrit. Les attributs et méthodes de chaque classes seront précisées. Le corps des méthodes complexes seront  détaillées grâce à du pseudo-code et commentées.
+
+\section{Package utilisateurs}
+
+\subsection{Banque}
+
+La classe Banque représente une Banque. Une banque possède un nom, une ville et un numéro de banque.
+ L'appartenance à une banque des employés permet de définir leur droits sur les comptes bancaires des clients de
+ la banque.
+
+\subsection{Personnel}
+
+La classe Personnel représente une personne travaillant dans une des banques de la fédération.
+Un personnel possède un nom, un rôle (\color{orange}{Employe, Gerant ou} \color{green}{Admin}),
+un identifiant et un mot de passe.
+En fonction du rôle et du numéro de banque, on peut déduire les droits du personnel.
+
+\subsection{ClientBanque}
+
+La classe ClientBanque représente un client de la banque possédant un compte Bancaire dans une des banques
+de la fédération. Un client de banque possède un nom, un prénom qui permettent d'identifier un et un seul client,
+un code postal, un mot de passe, \color{green}{une adresse email} \color{red}{et un numéro de compte} et un numéro de banque.
+
+\section{Package compte}
+
+\subsection{CompteCourant}
+
+La classe CompteCourant représente un compte courant possédé par un client de la banque.
+Un compte courant possède un montant, un propriétaire  (un nom et un prénom), un booléen bloqué permettant de bloquer
+le compte par exemple en cas de perte de carte bleue, un numéro de compte, un IBAN permettant d'encaisser des chèques
+sur le compte.
+
+\subsection{CompteEpargne}
+
+La classe CompteEpargne représente un compte épargne possédé par un client de la banque.
+\color{red}{Cette classe hérite de la classe CompteCourant puisque ces deux classes partagent un grand nombre d'attributs. }
+\color{green}{Un compte épargne possède les mêmes attributs que le compte courant mais} possède en plus un taux d’intérêt.
+Le montant d'un compte épargne augmente chaque année en fonction du taux d’intérêt \color{green}{de façon automatique}.
+\color{red}{Sur un compte épargne, il est possible d'effectuer un crédit. Ce crédit sera remboursé chaque mois, en fonction du taux du crédit, grâce à l'argent contenu dans le compte.}
+
+\section{Package transactions}
+
+\subsection{Operation}
+
+La classe Operation représente un opération qui peut un être : créditer ou débiter le compte. Un transaction
+possède un montant \color{orange}{(toujours positif), un type (débit ou crédit), un numéro de compte créditeur
+et un numéro de compte débiteur}. \color{green}{Une opération entre la banque et un client se symbolisera pas un
+virement effectué entre le compte du client et le compte de la banque qui a un numéro précis et fix.}
+
+\subsection{\color{red}{EchangeDArgent}}
+\color{red}{La classe EchangeDArgent représente un échange d'argent entre deux comptes via un chèque ou un virement.
+Un échange d'argent possède un montant, un numéro de compte de bénéficiaire, un numéro de compte de débiteur et un
+type (chèque ou virement).
+}
+
+\subsection{\color{red}{Credit}}
+\color{red}{La classe Credit représente un crédit, c'est à dire un emprunt réalisé à partir d'un compte épargne.
+Un crédit possède un montant, une durée (durée de remboursement), une date d'emprunt et un taux.}
+
+%\section{Package vues}
+%
+%\subsection{VuePersonnel}
+%La classe VuePersonnel représente la vue chargée de fournir une représentation graphique des données concernant le personnel de la banque. Elle devra en outre permettre d'informer le contrôleur dans le cas d'un ajout ou d'une suppression d'un membre du personnel.
+%\subsection{VueClientBanque}
+%La classe VueClientBanque représente la vue chargée de fournir une représentation graphique des données concernant les clients de la banque. Elle devra en outre permettre d'informer le contrôleur dans le cas d'un ajout d'un client dans la banque.
+%
+%\subsection{VueCompteCourant}
+%La classe VueCompteCourant représente la vue chargée de fournir une représentation graphique des données concernant les comptes courants recensés dans la banque. Elle devra en outre permettre d'informer le contrôleur dans le cas où l'utilisateur souhaite effectuer une opération bancaire.
+%
+%\subsection{VueCompteEpargne}
+%La classe VueCompteEpargne représente la vue chargée de fournir une représentation graphique des données concernant les comptes épargnes recensés dans la banque. Elle devra en outre permettre d'informer le contrôleur dans le cas où l'utilisateur souhaite créer un nouveau crédit.
+
+\section{Package controleur}
+
+
+\subsection{ControleurClient}
+Le contrôleur ControleurClient doit permettre de solliciter le contrôleur serveur afin d'appeler les méthodes adéquates.
+Il devra permettre de récupérer les informations dans le but de les empaqueter \color{red}{en RMI}
+ \color{green}{en JSON afin de récuperer ces informations en REST}.
+
+\subsection{ControleurServeur}
+Le contrôleur ControleurServeur permet d'interpréter les actions de l'utilisateur et d'appeler les méthodes du modèle
+dans le but de le mettre à jour. Il permet la gestion des ressources humaines de la banque, des diverses opérations
+bancaires ainsi que des comptes bancaires.
