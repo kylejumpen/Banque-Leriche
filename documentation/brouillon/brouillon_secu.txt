@@ -1,0 +1,28 @@
+\section{sécu}
+\subsection{Description}
+Afin d'assurer la sécurité de notre application nous avons décidé de mettre en place un cryptage des flux entre l'application cliente et l'application serveur.
+L'idendifiant des ressources est également cryptée ne permettant pas 
+à une personne quelconque de consulter la ressource.
+En somme deux algorithmes de cryptage sont utilisées : 
+- Un algorithme pour crypter les données.
+- Un algorithme pour crypter les identifiants de ressources.
+
+Cet algorithme de cryptage nous permet d'envoyer les données avec pour en-tête "text/plain". 
+En effet seul nous (concepteurs de l'application) savons que les ressources envoyées sont sous format json. Envoyer les données avec pour en-tête "application/xml" donnerait des indications sur le contenu de la donnée à un potentiel attaquant.
+Si jamais une personne venait à découvrir l'algorithme de cryptage des identifiants de ressources, il faudrait encore qu'elle brise l'algorithme de cryptage des données.
+
+\subsection{Cryptage des données}
+Pour assurer le cryptage des données nous avons utilisé l'algorithme de crpytage AES. Nous avons choisi d'utiliser celui-ci car il est très connu pour sa robustesse et sa grande utilisation fait objet d'une documentation approfondie  nous ayons permis de le prendre en main assez rapidement.
+Si jamais une personne venait à découvrir l'algorithme utilisé pour chiffrer les données, encore faudrait-il qu'elle découvre la clef de chiffrement pour pouvoir décrypter les données.
+
+Difficultés rencontrées : 
+Lorsque nous avons commencé à crypter les données, nous utilisions le même algorithme pour chiffrer les identifiants de ressources et les données qu'elles contenaient.
+NOus avons alors rencontré des problèmes car avec la clef de chiffrage choisie l'identifiant "5" était traduit par une expression de type "aza/4qd/ddqe&".
+Du à la présence de caractère "/" le serveur cherchait à parser vers une ressource qui n'en était pas une.
+C'est dans ce contexte que nous avons décidé de mettre en place notre propre algorithme de cryptage d'identifiant de ressource.
+
+\subsection{Cryptage des identifiants}
+
+Nous avons mis en place notre propre algorithme de cryptage d'identifiant mais nous aurions très bien pu utilisé un algorithme de cryptage n'utilisant pas le caractère spécial "/".
+C'est un algorithme de cryptage qui prend un identifiant "entier", le transforme mathématiquement et ajoute un chiffre permettant de connaitre la parité de l'identifiant initiallement envoyé.
+Le serveur dispose uniquement de la méthode pour décrypter l'identifiant là où le client dispose uniquement de la méthode pour crypter l'identifiant.
