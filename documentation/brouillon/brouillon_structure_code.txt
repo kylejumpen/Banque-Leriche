@@ -1,0 +1,32 @@
+\Section{Application Cliente}
+\SubSection{Description}
+
+Au début du projet nous avions pour idée d'effectuer une application cliente comprenant uniquement quatre vues. 
+Nous nous étions dans l'optique d'appliquer le patron de conception "Modèle-Vue-Contrôleur".
+Nous avons finalement jugé plus intéressant de détacher les vues des entités nécessaire côté server afin de permettre un potentiel développement d'un client dans un autre language. 
+Nous avons également ajouter des "vues".
+Notre application cliente est une interface graphique faisant étant d'un "CardLayout" auquel sont ajoutés différents JPanel (comparable à des vues). 
+\hline
+Comme visible sur le diagramme de classe il y a un package "Metier".
+Celui-ci permet d'établir la connection avec l'application server.
+\hline
+Il y a également un package Security permettant utilisé par le package Metier, il permet le cryptage/décryptage des données envoyées/reçues.
+Ce package sera détaillé dans ultérieurement dans la partie **faire un lien**.
+
+\Subsection{Interface Graphique}
+
+A la tienne Pauline :)
+Idée : Expliquer le découpage en JPanel, cardlayout
+,Jframe, l'illustrer par des images. Expliquer les problèmes rencontrées. Faire une transition sur l'utilité du Package métier.
+
+\Subsection{Partie métier}
+Ce package permet de faire la jonction entre l'application cliente et l'application serveur. 
+En effet à partir des données récupérées via l'interface graphique, c'est ce package qui permet de faire les requêtes
+nécessaires au server. Ce package permet de faire suivre les réponse aux classe du package de l'Interface graphique
+qui les met en forme.
+Chaque classe graphique ayant besoin de requêtes qui lui sont spécifiques, nous avons décid de nommées chaque classe
+par le me nom que son correspondant graphique en lui ajoutant le suffixe R.
+Ce package es dépendant du package sécurité car les données se doivent d'être envoyé crypté pour pouvoir être interprété
+par le serveur.
+
+
