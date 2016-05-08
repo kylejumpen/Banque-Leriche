@@ -18,6 +18,9 @@
 \maketitle
 \tableofcontents
 \chapter{Introduction}
+
+    \include{includes/intro}
+
 %	Dans le cadre du projet d'informatique répartie nous allons concevoir une application répartie permettant la gestion d'une fédération bancaire. Ce présent document de conception a pour objectif de définir l'architecture logicielle de notre application.
 %En premier lieu voici les fonctionnalités principales de notre applications :
 %	\begin{itemize}
@@ -31,36 +34,40 @@
 %	Pour finir, cette application devra pouvoir fonctionner sous windows et Linux et fonctionnera par le biais d'une architecture client/serveur dans laquelle les clients seront les postes et le serveur sera une unique unité centrale par banque.
 
 \chapter{Specifications}
-\section{Besoins Détaillés}
 
-\subsection{Spécifications Fonctionnelles}
-
-\subsubsection{F1 Utilisateurs}
+   \include{includes/spec}
 
 
-{\color{orange}{L’application devra permettre de distinguer les différents employés selon le service de la banque auquel ils sont affectés. Il faudra faire attention au fait que cette fédération contient plusieurs banques. Une différentiation au niveau des droits de chaque service devra être faite afin que chaque service puisse échanger des informations avec d’autre service mais garde sa part de confidentialité. Exemple : Le service Ressources Humaines peut envoyer des bilans sur l’effectif total des personnes présentes dans la banque. Le service Ressources Humaines doit pouvoir garder confidentiellement les données concernant le salaire de chaque employé.}}
-{\color{green}{L'application permettra de distinguer les employés selon leur rôle: employé, gérant d'une banque ou administrateur de la fédération. Un gérant à la possibilité d'ajouter un nouvel employé ou gérant. L'administrateur de la fédération peut supprimer ou ajouter une banque. La fédération contient plusieurs banques, les 
-employés et gérants d'une banque ne peuvent pas consulter ni effectuer d'opération sur les comptes des clients n'appartenant pas à leur banque. Nous avons choisis d'effectuer
-cette modification au niveau des rôles pour simplifier l'application. En effet la gestion d'une banque est déjà très complexes, il aurait été difficile pour nous de gérer différents services au sein de chaque banque.}}
-
-
-\subsubsection{F2 Gestion des comptes client}
-
-Tout les services pourront avoir accès à cette fonctionnalité. Celle-ci devra permettre l’édition de compte à partir desquels nous ferons des virements.Nous pourrons également bloquer et débloquer les comptes. {\color{red}{Cette fonctionnalité permettra également de gérer les prêts des clients, ainsi nous devrons être capable de voir où en est la personne dans ses mensualités, quelle somme il lui reste à rembourser.}} {\color{green}{Nous avons décidé de ne pas gérer les prêts. Nous avons eu un manque de temps et la difficulté de cette fonctionnalité étant semblable à celle des comptes épargne, nous avons jugé peu utile de la créer. Le compte épargne gagne de l'argent tous les mois en fonction d'un taux.}} Il est à noter que la fédération dispose de plusieurs types de compte : compte courant et compte épargne. Il devra également être possible de créer un compte et de le clôturer au moment voulu.
-
-\subsubsection{F3 Envoi de courriels}
-
-Cette fonctionnalité devra permettre l’envoi de courriel au sein de la fédération bancaire.
-
-\subsubsection{F4 Gestion de chèques}
-
-{\color{red}{Cette fonctionnalité devra permettre à chaque service d’effectuer un traitement manuel lors de la réception d’un chèque. La traçabilité est un aspect important de cette fonctionnalité. Ainsi on devra pouvoir savoir de qui vient le chèque et la date à laquelle il a été déposé ainsi que l’employé qui a traité la demande.}}
-{\color{green}{Cette fonctionnalité étant similaire à la fonctionnalité permettant de faire de virements, nous avons décidé de ne pas l'implémenter car nous manquions de temps.}}
-
-\subsubsection{F5 Statistiques}
-
-{\color{orange}{Cette fonctionnalité sera accessible à tous les services de chaque banque. Elle devra permettre de suivre le nombre de dépôts de chèques, le nombre de virements à effectuer et la valeur totale du flux monétaire journalier ayant transité.}}
-{\color{green}{Nous avons fait des statistiques mais pas celles annoncées, nous avons calculé le nombre de clients de la fédération, le nombre d'opérations effectuées, le nombre de comptes courants et épargnes des banques de la fédération.}}
+%\section{Besoins Détaillés}
+%
+%\subsection{Spécifications Fonctionnelles}
+%
+%\subsubsection{F1 Utilisateurs}
+%
+%
+%{\color{orange}{L’application devra permettre de distinguer les différents employés selon le service de la banque auquel ils sont affectés. Il faudra faire attention au fait que cette fédération contient plusieurs banques. Une différentiation au niveau des droits de chaque service devra être faite afin que chaque service puisse échanger des informations avec d’autre service mais garde sa part de confidentialité. Exemple : Le service Ressources Humaines peut envoyer des bilans sur l’effectif total des personnes présentes dans la banque. Le service Ressources Humaines doit pouvoir garder confidentiellement les données concernant le salaire de chaque employé.}}
+%{\color{green}{L'application permettra de distinguer les employés selon leur rôle: employé, gérant d'une banque ou administrateur de la fédération. Un gérant à la possibilité d'ajouter un nouvel employé ou gérant. L'administrateur de la fédération peut supprimer ou ajouter une banque. La fédération contient plusieurs banques, les
+%employés et gérants d'une banque ne peuvent pas consulter ni effectuer d'opération sur les comptes des clients n'appartenant pas à leur banque. Nous avons choisis d'effectuer
+%cette modification au niveau des rôles pour simplifier l'application. En effet la gestion d'une banque est déjà très complexes, il aurait été difficile pour nous de gérer différents services au sein de chaque banque.}}
+%
+%
+%\subsubsection{F2 Gestion des comptes client}
+%
+%Tout les services pourront avoir accès à cette fonctionnalité. Celle-ci devra permettre l’édition de compte à partir desquels nous ferons des virements.Nous pourrons également bloquer et débloquer les comptes. {\color{red}{Cette fonctionnalité permettra également de gérer les prêts des clients, ainsi nous devrons être capable de voir où en est la personne dans ses mensualités, quelle somme il lui reste à rembourser.}} {\color{green}{Nous avons décidé de ne pas gérer les prêts. Nous avons eu un manque de temps et la difficulté de cette fonctionnalité étant semblable à celle des comptes épargne, nous avons jugé peu utile de la créer. Le compte épargne gagne de l'argent tous les mois en fonction d'un taux.}} Il est à noter que la fédération dispose de plusieurs types de compte : compte courant et compte épargne. Il devra également être possible de créer un compte et de le clôturer au moment voulu.
+%
+%\subsubsection{F3 Envoi de courriels}
+%
+%Cette fonctionnalité devra permettre l’envoi de courriel au sein de la fédération bancaire.
+%
+%\subsubsection{F4 Gestion de chèques}
+%
+%{\color{red}{Cette fonctionnalité devra permettre à chaque service d’effectuer un traitement manuel lors de la réception d’un chèque. La traçabilité est un aspect important de cette fonctionnalité. Ainsi on devra pouvoir savoir de qui vient le chèque et la date à laquelle il a été déposé ainsi que l’employé qui a traité la demande.}}
+%{\color{green}{Cette fonctionnalité étant similaire à la fonctionnalité permettant de faire de virements, nous avons décidé de ne pas l'implémenter car nous manquions de temps.}}
+%
+%\subsubsection{F5 Statistiques}
+%
+%{\color{orange}{Cette fonctionnalité sera accessible à tous les services de chaque banque. Elle devra permettre de suivre le nombre de dépôts de chèques, le nombre de virements à effectuer et la valeur totale du flux monétaire journalier ayant transité.}}
+%{\color{green}{Nous avons fait des statistiques mais pas celles annoncées, nous avons calculé le nombre de clients de la fédération, le nombre d'opérations effectuées, le nombre de comptes courants et épargnes des banques de la fédération.}}
 
 
 \subsubsection{F6 Gestion de prêt}
@@ -96,6 +103,8 @@ Ce lot à délivrer pour le 11 mai 2016 devra implémenter les fonctionnalités 
 
 
 \chapter{Conception préliminaire}
+
+    \include{includes/cp}
 
 %Cette partie contient de nombreux diagrammes permettant de décrire notre application.
 %\section{Diagramme de modèle du domaine}
@@ -141,6 +150,8 @@ Ce lot à délivrer pour le 11 mai 2016 devra implémenter les fonctionnalités 
 
 
 \chapter{Conception détaillée}
+
+    \include{includes/cd}
 
 %Dans cette partie, chaque package va être décrit. Les attributs et méthodes de chaque classes seront précisées. Le corps des méthodes complexes seront  détaillées grâce à du pseudo-code et commentées.
 %
@@ -205,9 +216,11 @@ Ce lot à délivrer pour le 11 mai 2016 devra implémenter les fonctionnalités 
 %détail des méthodes
 
 \chapter{Implémentation et tests}
+    \include{includes/imp}
 
 
 \chapter{Conclusion et perspectives}
+    \include{includes/conclu}
 
 \end{document}\grid
 \grid
