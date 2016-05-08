@@ -3,30 +3,30 @@
 
 Au début du projet nous avions pour idée d'effectuer une application cliente comprenant uniquement quatre vues. 
 Nous nous étions dans l'optique d'appliquer le patron de conception "Modèle-Vue-Contrôleur".
-Nous avons finalement jugé plus intéressant de détacher les vues des entités nécessaire côté server afin de permettre un potentiel développement d'un client dans un autre language. 
+Nous avons finalement jugé plus intéressant de détacher les vues des entités nécessaires côté serveur afin de permettre un potentiel développement d'un client dans un autre language. 
 Nous avons également ajouter des "vues".
-Notre application cliente est une interface graphique faisant étant d'un "CardLayout" auquel sont ajoutés différents JPanel (comparable à des vues). 
+Notre application cliente est une interface graphique /*je ne parlerai pas du cardlayout ici je parlerais pltot simplement de swing*/faisant étant d'un "CardLayout" auquel sont ajoutés différents JPanel (comparable à des vues). 
 \hline
 Comme visible sur le diagramme de classe il y a un package "Metier".
-Celui-ci permet d'établir la connection avec l'application server.
+Celui-ci permet d'établir la connexsion avec l'application serveur.
 \hline
-Il y a également un package Security permettant utilisé par le package Metier, il permet le cryptage/décryptage des données envoyées/reçues.
-Ce package sera détaillé dans ultérieurement dans la partie **faire un lien**.
+Il y a également un package Security utilisé par le package Metier, il permet le cryptage/décryptage des données envoyées/reçues.
+Ce package sera détaillé ultérieurement dans la partie **faire un lien**.
 
 \Subsection{Interface Graphique}
 
-A la tienne Pauline :)
-Idée : Expliquer le découpage en JPanel, cardlayout
-,Jframe, l'illustrer par des images. Expliquer les problèmes rencontrées. Faire une transition sur l'utilité du Package métier.
+Pour réaliser notre application, nous avons décidé d'utiliser la bibliothèque graphique Swing proposée par Java. Nous avons créé une JFrame qui contient un JPanel dont le Layout est CardLayout. Il est possible d'ajouter de nombreux composants à un CardLayout et de les rendre visible lorsqu'on le souhaite. Nous avons créé un JPanel par vue et nous avons ajouté tous les JPanel au CradLayout. Il nous est ainsi très simple de passer d'un JPanel à un autre lors d'un événement comme par exemple lors de l'appui sur un boutton. \\
+Les vues permettent à l'utilisateur de visualiser les données mais aussi de modifier les données en éditant ou créant des comptes par exemple. Nous avons ajouté un grand nombre de pop-ups à notre application afin d'avertir l'utilisateur lorsqu'il entre des données éronnées mais aussi afin de réduire le nombre de vues. En effet l'action créditer un compte, par exemple, ne possède pas de vue. Lorsque l'utilisateur veut créditer un compte, un pop-up s'ouvre afin de lui demander le montant. Les vues interagissent avec les classes de package Metier décrit ci-dessous. Elles appellent les méthodes contenues dans ce package et permettent à l'utilisateur d'obtenir un affichage simple et compréhensible des données.
+
 
 \Subsection{Partie métier}
 Ce package permet de faire la jonction entre l'application cliente et l'application serveur. 
 En effet à partir des données récupérées via l'interface graphique, c'est ce package qui permet de faire les requêtes
-nécessaires au server. Ce package permet de faire suivre les réponse aux classe du package de l'Interface graphique
+nécessaires au server. Ce package permet de faire suivre les réponses aux classes du package de l'Interface graphique
 qui les met en forme.
-Chaque classe graphique ayant besoin de requêtes qui lui sont spécifiques, nous avons décid de nommées chaque classe
-par le me nom que son correspondant graphique en lui ajoutant le suffixe R.
-Ce package es dépendant du package sécurité car les données se doivent d'être envoyé crypté pour pouvoir être interprété
+Chaque classe graphique ayant besoin de requêtes qui lui sont spécifiques, nous avons décidé de nommer chaque classe
+par le même nom que son correspondant graphique en lui ajoutant le suffixe R.
+Ce package es dépendant du package sécurité car les données se doivent d'être envoyées cryptées pour pouvoir être interprétées
 par le serveur.
 
 
