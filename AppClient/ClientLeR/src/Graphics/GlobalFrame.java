@@ -79,7 +79,7 @@ public class GlobalFrame extends javax.swing.JFrame {
         this.add(menu, BorderLayout.NORTH);
         this.setSize(400, 400);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Accueil Banque Le Riche");
+        this.setTitle("Banque Le Riche");
         //Montrer la carte Accueil
         ((CardLayout) cards.getLayout()).show(cards, "paneAccueil");
         //initComponents();
