@@ -29,7 +29,7 @@ public class EchangeR extends CoRest {
 
         String maChaine; //Transformation en chaine de caractère
         maChaine = this.gson.toJson(jsonArgs);
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); //vérifier l'url
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); //vérifier l'url
         try{
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         System.out.println("Statut de l'échange : " + String.valueOf(response.getStatus()));
@@ -40,7 +40,7 @@ public class EchangeR extends CoRest {
     
     //Secure
     public String getComptesCourant(int id) {
-        target = client.target(baseUrl + "/liste/comptes-courant/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/liste/comptes-courant/" + encryptId(id));
         response = target.request().get();
         try{
         String rep = response.readEntity(String.class);
@@ -51,7 +51,7 @@ public class EchangeR extends CoRest {
     
     //Secure
     public String getComptesEpargne(int id) {
-    target = client.target(baseUrl + "/liste/comptes-epargne/" + encryptId(id));
+    target = client.target(getBaseUrl() + "/liste/comptes-epargne/" + encryptId(id));
     response = target.request().get();
     try{
     String rep = response.readEntity(String.class);

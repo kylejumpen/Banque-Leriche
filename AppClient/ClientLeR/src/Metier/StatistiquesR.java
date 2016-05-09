@@ -12,7 +12,7 @@ package Metier;
 public class StatistiquesR extends CoRest {
 
     public String getNbClients() {
-        target = client.target(baseUrl + "/stats/clients");
+        target = client.target(getBaseUrl() + "/stats/clients");
         response = target.request().get();
         String rep = response.readEntity(String.class);
         response.close();
@@ -20,7 +20,7 @@ public class StatistiquesR extends CoRest {
     }
 
     public String getNbOperations() {
-        target = client.target(baseUrl + "/stats/operations");
+        target = client.target(getBaseUrl() + "/stats/operations");
         response = target.request().get();
         String rep = response.readEntity(String.class);
         response.close();
@@ -28,7 +28,7 @@ public class StatistiquesR extends CoRest {
     }
 
     public String getNbComptes() {
-        target = client.target(baseUrl + "/stats/comptes");
+        target = client.target(getBaseUrl() + "/stats/comptes");
         response = target.request().get();
         String rep = response.readEntity(String.class);
         response.close();

@@ -17,10 +17,14 @@ public class AccueilR extends CoRest {
         super();
     }
     
+    public void check(){
+        System.out.println(baseUrl);
+    }
+    
     //secure
     public String accueilCoGet(String user, String pw) {
         try {
-            String url = baseUrl + "/personnel/" + encryptId((Integer.parseInt(user)));
+            String url = getBaseUrl() + "/personnel/" + encryptId((Integer.parseInt(user)));
             System.out.println(url);
             this.target = this.client.target(url);
             this.response = this.target.request().get();
@@ -56,7 +60,7 @@ public class AccueilR extends CoRest {
 
         String maChaine = gson.toJson(jsonArgs);
         try{
-        target = client.target(baseUrl + "/client/creer");
+        target = client.target(getBaseUrl() + "/client/creer");
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         maChaine = decryptData(response.readEntity(String.class));
         response.close();
@@ -72,7 +76,7 @@ public class AccueilR extends CoRest {
         jsonArgs.put("idClient", idClient);
         String maChaine = gson.toJson(jsonArgs);
         try{
-        target = client.target(baseUrl + "/client/compte-courant/creer");
+        target = client.target(getBaseUrl() + "/client/compte-courant/creer");
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         System.out.println("POST : " + response.getStatus());
         response.close();
@@ -85,7 +89,7 @@ public class AccueilR extends CoRest {
         String maChaine = gson.toJson(jsonArgs);
 
         try{
-        target = client.target(baseUrl + "/client/compte-epargne/creer");
+        target = client.target(getBaseUrl() + "/client/compte-epargne/creer");
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         System.out.println("POST : " + response.getStatus());
         response.close();
@@ -95,7 +99,7 @@ public class AccueilR extends CoRest {
     //secure
     public String consulterCompteEpargneClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/epargne/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/epargne/" + encryptId(id));
             response = target.request().get();
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
@@ -114,7 +118,7 @@ public class AccueilR extends CoRest {
     //secure
     public String consulterCompteCourantClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/courant/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/courant/" + encryptId(id));
             response = target.request().get();
 
             String reponse = decryptData(response.readEntity(String.class));

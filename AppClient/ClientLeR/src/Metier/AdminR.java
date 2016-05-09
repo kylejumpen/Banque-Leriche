@@ -19,7 +19,7 @@ public class AdminR extends CoRest{
     
     //Secure
     public String supprimerBanque(int id) {
-        target = client.target(baseUrl + "/supprimer/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/supprimer/" + encryptId(id));
         response = target.request().delete();
         try{
         String reponse = decryptData(response.readEntity(String.class));
@@ -40,7 +40,7 @@ public class AdminR extends CoRest{
 
     String maChaine; //Transformation en chaine de caractère
     maChaine = gson.toJson(jsonArgs);
-    this.target = this.client.target(baseUrl + "/creer");
+    this.target = this.client.target(getBaseUrl() + "/creer");
     try{
     this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
     response.close();
