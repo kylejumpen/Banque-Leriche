@@ -41,7 +41,6 @@ public class EchangeR extends CoRest {
         this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); //vérifier l'url
         try{
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        System.out.println("Statut de l'échange : " + String.valueOf(response.getStatus()));
         response.close();
         }catch(Exception e){System.out.println(e);}
 

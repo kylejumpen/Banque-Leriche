@@ -84,8 +84,9 @@ public class EchangeArgent extends javax.swing.JPanel {
             it.remove();
         }
          
-
+        
         String rep2 = con.getComptesEpargne(idBanque);
+        
         HashMap<String, String> hash12 = gson.fromJson(rep2, new TypeToken<HashMap<String, String>>() {
         }.getType());
         HashMap<String, String> hash22;

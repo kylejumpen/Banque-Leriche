@@ -357,7 +357,7 @@ public class BanqueResource {
                     jsonArgs.put("compte-" + i, temp.toString());
                 }
             }
-            return Encrypt.encryptData(Encrypt.encryptData(gson.toJson(jsonArgs)));
+            return Encrypt.encryptData(gson.toJson(jsonArgs));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
