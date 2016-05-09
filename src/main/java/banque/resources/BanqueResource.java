@@ -82,7 +82,7 @@ public class BanqueResource {
     @DELETE
     @Path("/client/supprimer/{id}")
     public Response supprimerClient(@PathParam("id") Short id) {
-
+	try{
         session = HibernateUtil.getSessionFactory().openSession();
         ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
         session.beginTransaction();
@@ -90,6 +90,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(Encrypt.encryptData(client.toString())).build();
+	}catch(Exception e){ return Response.status(500).build();}
     }
 
 
@@ -507,6 +508,7 @@ public class BanqueResource {
     @DELETE
     @Path("/personnel/supprimer/{id}")
     public Response supprimerPersonnel(@PathParam("id") Short id) {
+	try{
         session = HibernateUtil.getSessionFactory().openSession();
         Personnel personnel = (Personnel) session.load(Personnel.class, id);
         session.beginTransaction();
@@ -514,6 +516,7 @@ public class BanqueResource {
         session.getTransaction().commit();
         session.close();
         return Response.status(200).entity(Encrypt.encryptData(personnel.toString())).build();
+	}catch(Exception e){return Response.status(500).build();}
     }
 
     @GET
