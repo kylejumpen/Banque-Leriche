@@ -27,7 +27,7 @@ public class AjoutPersonnelR extends CoRest {
         jsonArgs.put("role", role);
         jsonArgs.put("idBanque", banque);
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(getBaseUrl() + "/personnel/creer");
         try{

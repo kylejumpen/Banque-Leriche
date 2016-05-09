@@ -3,7 +3,6 @@ package Graphics;
 import javax.swing.JOptionPane;
 import Metier.ConsulterCompteR;
 import Metier.MethodesRest;
-//import Metier.MethodesRest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -22,7 +21,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private String bloqueCompteCourant;
     private String bloqueCompteEpargne;
     private ConsulterCompteR con;
-    //private  ConsulterCompteR con;
 
     /**
      * Creates new form ConsulterCompteR
@@ -37,7 +35,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
         bloque.setEnabled(false);
         courant.setEnabled(false);
         epargne.setEnabled(false);
-        //con = new ConsulterCompteR();
 
     }
 

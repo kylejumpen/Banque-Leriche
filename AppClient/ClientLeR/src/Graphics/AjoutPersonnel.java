@@ -1,7 +1,6 @@
 package Graphics;
 
 import Metier.AjoutPersonnelR;
-//import Metier.MethodesRest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 
@@ -11,7 +10,6 @@ import javax.swing.JOptionPane;
  */
 public class AjoutPersonnel extends javax.swing.JPanel {
 
-    //private MethodesRest con;
     private AjoutPersonnelR con;
 
     /**
@@ -19,7 +17,6 @@ public class AjoutPersonnel extends javax.swing.JPanel {
      */
     public AjoutPersonnel() {
         con = new AjoutPersonnelR();
-        // con = new MethodesRest();
         initComponents();
 
     }

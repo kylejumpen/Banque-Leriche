@@ -38,7 +38,7 @@ public class AdminR extends CoRest{
     jsonArgs.put("nom", nom);
     jsonArgs.put("ville", ville);
 
-    String maChaine; //Transformation en chaine de caractère
+    String maChaine;
     maChaine = gson.toJson(jsonArgs);
     this.target = this.client.target(getBaseUrl() + "/creer");
     try{
