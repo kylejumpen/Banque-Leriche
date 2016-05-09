@@ -2,7 +2,6 @@ package Graphics;
 
 import Metier.AccueilR;
 import Metier.AdminR;
-//import Metier.MethodesRest;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import Metier.CoRest;
@@ -14,7 +13,6 @@ public class AccueilCo extends javax.swing.JPanel {
 
     public String role;
     public int idBanque;
-    //private MethodesRest con;
     private AccueilR con;
 
     /**
@@ -22,7 +20,6 @@ public class AccueilCo extends javax.swing.JPanel {
      */
     public AccueilCo() {
         initComponents();
-        //con = new MethodesRest();
         con = new AccueilR();
 
     }
@@ -158,29 +155,7 @@ public class AccueilCo extends javax.swing.JPanel {
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /*Pauline
-    private void connexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionActionPerformed
-        String username = jTextField1.getText();
-        String password = jPasswordField1.getText();
-        String reponse = con.accueilCoGet(username, password);
-        if (reponse.equals("KO")) {
-            JOptionPane.showMessageDialog(null, "Ce compte n'existe pas", "Alerte", JOptionPane.ERROR_MESSAGE);
-            jTextField1.setText("");
-            jPasswordField1.setText("");
-        } else if (reponse.equals("mdp")) {
-            JOptionPane.showMessageDialog(null, "Mot de passe incorrecte", "Alerte", JOptionPane.ERROR_MESSAGE);
-            jPasswordField1.setText("");
-        } else {
-    //Changer en json et set id banque
-            String[] parts = reponse.split("-");
-            role = parts[3];
-            if(role.equals("Employe")){
-                GlobalFrame.paneGererCompte.ajoutPersonnel.setEnabled(false);
-            }
-            ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneGererCompte");
-        }
-    }//GEN-LAST:event_connexionActionPerformed
-*/
+
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
@@ -192,7 +167,7 @@ public class AccueilCo extends javax.swing.JPanel {
         String password = jPasswordField1.getText();
         
         if(!jTextField2.getText().isEmpty() && !jTextField3.getText().isEmpty())
-            CoRest.setBaseUrl("http://"+jTextField2.getText()+":"+jTextField3.getText());
+            CoRest.setBaseUrl("http://"+jTextField2.getText()+":"+jTextField3.getText()+"/Banque-1.0/banque");
             
         String reponse = con.accueilCoGet(username, password); // ici je prend le role seulement
         if (reponse.equals("KO")) {

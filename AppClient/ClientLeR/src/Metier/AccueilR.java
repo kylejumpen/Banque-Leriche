@@ -17,15 +17,10 @@ public class AccueilR extends CoRest {
         super();
     }
     
-    public void check(){
-        System.out.println(baseUrl);
-    }
-    
     //secure
     public String accueilCoGet(String user, String pw) {
         try {
             String url = getBaseUrl() + "/personnel/" + encryptId((Integer.parseInt(user)));
-            System.out.println(url);
             this.target = this.client.target(url);
             this.response = this.target.request().get();
             String responsebrut = decryptData(this.response.readEntity(String.class));
@@ -71,14 +66,13 @@ public class AccueilR extends CoRest {
         }
     }
     
-    //Secure
+    //secure
     public void creerCompteCourant(String idClient) {
         jsonArgs.put("idClient", idClient);
         String maChaine = gson.toJson(jsonArgs);
         try{
         target = client.target(getBaseUrl() + "/client/compte-courant/creer");
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        System.out.println("POST : " + response.getStatus());
         response.close();
         }catch(Exception e){System.out.println(e); }
     }
@@ -91,7 +85,6 @@ public class AccueilR extends CoRest {
         try{
         target = client.target(getBaseUrl() + "/client/compte-epargne/creer");
         response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        System.out.println("POST : " + response.getStatus());
         response.close();
         }catch(Exception e){System.out.println(e);}
     }

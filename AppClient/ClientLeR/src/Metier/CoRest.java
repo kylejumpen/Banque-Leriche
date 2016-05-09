@@ -39,7 +39,6 @@ public abstract class CoRest extends Encrypt {
      */
     public static void setBaseUrl(String aBaseUrl) {
         baseUrl = aBaseUrl;
-        System.out.println("Ici se trouve l'url de base qui devient : "+ baseUrl);
     }
     
 }
