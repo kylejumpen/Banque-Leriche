@@ -30,7 +30,7 @@ public class ConsulterCompteR extends CoRest {
     public String consulterClientGet(int id) {
 
         try {
-            target = client.target(baseUrl + "/client/" + encryptId((id)));
+            target = client.target(getBaseUrl() + "/client/" + encryptId((id)));
             response = target.request().get();
             String reponse = response.readEntity(String.class);
             System.out.println("Dans le consulter clientget " + reponse);
@@ -42,6 +42,7 @@ public class ConsulterCompteR extends CoRest {
 
     }
 
+<<<<<<< HEAD
     // Jamais utilisé ! 
     /*
     //secure
@@ -69,6 +70,8 @@ public class ConsulterCompteR extends CoRest {
                 }
 
     } */
+=======
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     //secure
     /**
      * Permet de consulter le compte courant d'un client
@@ -78,7 +81,7 @@ public class ConsulterCompteR extends CoRest {
      */
     public String consulterCompteCourantClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/courant/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/courant/" + encryptId(id));
             response = target.request().get();
 
             String reponse = decryptData(response.readEntity(String.class));
@@ -102,7 +105,7 @@ public class ConsulterCompteR extends CoRest {
      */
     public String consulterCompteEpargneClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/epargne/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/epargne/" + encryptId(id));
             response = target.request().get();
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
@@ -124,7 +127,7 @@ public class ConsulterCompteR extends CoRest {
      * @return les informations sur le compte supprimé
      */
     public String supprimerCompteCourant(int id) {
-        target = client.target(baseUrl + "/client/compte-courant/supprimer/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/client/compte-courant/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
@@ -139,7 +142,7 @@ public class ConsulterCompteR extends CoRest {
      * @return les informations sur le compte supprimé
      */
     public String supprimerCompteEpargne(int id) {
-        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/client/compte-epargne/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
@@ -162,6 +165,7 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
+<<<<<<< HEAD
         try {
             String maChaine; //Transformation en chaine de caractère
             maChaine = gson.toJson(jsonArgs);
@@ -171,6 +175,15 @@ public class ConsulterCompteR extends CoRest {
         } catch (Exception e) {
             System.out.println(e);
         }
+=======
+	try{
+        String maChaine; 
+        maChaine = gson.toJson(jsonArgs);
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        response.close();
+	}catch(Exception e){System.out.println(e);}
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     }
 
     //secure
@@ -189,6 +202,7 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "epargne");
         jsonArgs.put("montant", String.valueOf(montant));
+<<<<<<< HEAD
         try {
             String maChaine; //Transformation en chaine de caractère
             maChaine = gson.toJson(jsonArgs);
@@ -198,6 +212,15 @@ public class ConsulterCompteR extends CoRest {
         } catch (Exception e) {
             System.out.println(e);
         }
+=======
+	try{
+        String maChaine; //Transformation en chaine de caractère
+        maChaine = gson.toJson(jsonArgs);
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        response.close();
+	}catch(Exception e){System.out.println(e);}
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     }
 
     //secure
@@ -217,6 +240,7 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", String.valueOf(compte));
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
+<<<<<<< HEAD
         try {
             String maChaine; //Transformation en chaine de caractère
             maChaine = gson.toJson(jsonArgs);
@@ -227,6 +251,16 @@ public class ConsulterCompteR extends CoRest {
         } catch (Exception e) {
             System.out.println(e);
         }
+=======
+	try{
+        String maChaine; 
+        maChaine = gson.toJson(jsonArgs);
+
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        response.close();
+	}catch(Exception e){System.out.println(e);}
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     }
 
     //secure
@@ -246,8 +280,9 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("typeCompteACrediter", "epargne");
         jsonArgs.put("montant", String.valueOf(montant));
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
+<<<<<<< HEAD
         try {
             this.target = this.client.target(baseUrl + "/client/compte/operer");
             this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
@@ -255,6 +290,13 @@ public class ConsulterCompteR extends CoRest {
         } catch (Exception e) {
             System.out.println(e);
         }
+=======
+	try{
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
+        this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        response.close();
+	}catch(Exception e){System.out.println(e);}
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     }
 
     //secure
@@ -269,8 +311,9 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("type", type);
         jsonArgs.put("idCompte", String.valueOf(compte));
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
+<<<<<<< HEAD
         try {
             this.target = this.client.target(baseUrl + "/client/compte/bloquer"); // URL a remplacer
             this.response = this.target.request().put(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
@@ -278,6 +321,13 @@ public class ConsulterCompteR extends CoRest {
         } catch (Exception e) {
             System.out.println(e);
         }
+=======
+        try{
+        this.target = this.client.target(getBaseUrl() + "/client/compte/bloquer"); // URL a remplacer
+        this.response = this.target.request().put(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        response.close();
+        }catch(Exception e){System.out.println(e);}
+>>>>>>> 31b1b945c1fb3ca0b962cd0cdc18f6720ce37c86
     }
 
 }

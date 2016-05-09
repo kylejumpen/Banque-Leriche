@@ -20,7 +20,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private String bloqueCompteCourant;
     private String bloqueCompteEpargne;
     private ConsulterCompteR con;
-    //private  ConsulterCompteR con;
 
     /**
      * Creates new form ConsulterCompteR
@@ -35,7 +34,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
         bloque.setEnabled(false);
         courant.setEnabled(false);
         epargne.setEnabled(false);
-        //con = new ConsulterCompteR();
 
     }
 

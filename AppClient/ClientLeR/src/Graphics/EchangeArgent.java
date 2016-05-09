@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-//import Metier.MethodesRest;
 
 /**
  *
@@ -28,7 +27,6 @@ import javax.swing.JTextField;
  */
 public class EchangeArgent extends javax.swing.JPanel {
 
-    //private MethodesRest con;
     private EchangeR con;
     private JComboBox cbDebit;
     private JComboBox cbCredit;
@@ -73,7 +71,6 @@ public class EchangeArgent extends javax.swing.JPanel {
         HashMap<String, String> hash1 = gson.fromJson(rep, new TypeToken<HashMap<String, String>>() {
         }.getType());
         HashMap<String, String> hash2;
-        //On itère sur les différents comptes pour obtenir le json de chaque compte
         Iterator it = hash1.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
@@ -84,7 +81,7 @@ public class EchangeArgent extends javax.swing.JPanel {
                 dml1.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
                 dml2.addElement("<html>courant, Id :" + hash2.get("compteCourantId") + ",<br>Montant:" + hash2.get("montant") + "</html>");
             }
-            it.remove();// avoids a ConcurrentModificationException
+            it.remove();
         }
          
 
@@ -92,7 +89,7 @@ public class EchangeArgent extends javax.swing.JPanel {
         HashMap<String, String> hash12 = gson.fromJson(rep2, new TypeToken<HashMap<String, String>>() {
         }.getType());
         HashMap<String, String> hash22;
-        //On itère sur les différents comptes epargne pour obtenir le json de chaque compte
+
         Iterator it2 = hash12.entrySet().iterator();
         while (it2.hasNext()) {
             HashMap.Entry pair2 = (HashMap.Entry) it2.next();

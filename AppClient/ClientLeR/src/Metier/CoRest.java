@@ -16,13 +16,30 @@ public abstract class CoRest extends Encrypt {
     protected Response response;
     protected HashMap<String, String> jsonArgs ;
     protected Gson gson;
-    protected final static String baseUrl = "http://localhost:8001/Banque-1.0/banque"; //172.18.21.221
+    protected static String baseUrl;
+
     
     
     public CoRest(){
         this.client = new ResteasyClientBuilder().build();
         this.jsonArgs =  new HashMap<String, String>();
         this.gson = new Gson();
+        this.baseUrl = "http://localhost:8001/Banque-1.0/banque";//172.18.21.221
+    }
+    
+    
+    /**
+     * @return the baseUrl
+     */
+    public static String getBaseUrl() {
+        return baseUrl;
+    }
+
+    /**
+     * @param aBaseUrl the baseUrl to set
+     */
+    public static void setBaseUrl(String aBaseUrl) {
+        baseUrl = aBaseUrl;
     }
     
 }
