@@ -16,7 +16,7 @@ public abstract class CoRest extends Encrypt {
     protected Response response;
     protected HashMap<String, String> jsonArgs ;
     protected Gson gson;
-    protected final static String baseUrl = "http://localhost:8001/Banque-1.0/banque";
+    protected final static String baseUrl = "http://localhost:8001/Banque-1.0/banque"; //172.18.21.221
     
     
     public CoRest(){

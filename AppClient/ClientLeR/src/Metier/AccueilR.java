@@ -16,10 +16,19 @@ public class AccueilR extends CoRest {
     public AccueilR() {
         super();
     }
-    
+
     //secure
+    /**
+     * Permet à un employé, gérant ou administrateur de la fédération de se
+     * connecter
+     *
+     * @param user identifiant de l'utilisateur
+     * @param pw mot de passe de l'utilisateur
+     * @return KO si les informations entrées sont fausses, mdp sinon
+     */
     public String accueilCoGet(String user, String pw) {
         try {
+            System.out.println(baseUrl);
             String url = baseUrl + "/personnel/" + encryptId((Integer.parseInt(user)));
             System.out.println(url);
             this.target = this.client.target(url);
@@ -43,6 +52,16 @@ public class AccueilR extends CoRest {
     }
 
     //secure
+    /**
+     * Permet de créer un client
+     *
+     * @param nom nom du client
+     * @param prenom prenom du client
+     * @param email email du client
+     * @param mdp mot de passe du client
+     * @param code code postal du client
+     * @return les informations sur le client créé sous forme de JSON
+     */
     public String creerClient(String nom, String prenom, String email, String mdp, String code) {
 
         jsonArgs.put("nom", nom);
@@ -55,63 +74,89 @@ public class AccueilR extends CoRest {
         jsonArgs.put("idBanque", parts[1]);
 
         String maChaine = gson.toJson(jsonArgs);
-        try{
-        target = client.target(baseUrl + "/client/creer");
-        response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        maChaine = decryptData(response.readEntity(String.class));
-        response.close();
-        return maChaine;
-        }catch(Exception e){
+        try {
+            target = client.target(baseUrl + "/client/creer");
+            response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+            maChaine = decryptData(response.readEntity(String.class));
+            response.close();
+            return maChaine;
+        } catch (Exception e) {
             System.err.println(e);
             return maChaine;
         }
     }
-    
+
     //Secure
+    /**
+     * Permet de créer un compte courant à un client
+     *
+     * @param idClient id du client pour lequel on veut créer le compte
+     */
     public void creerCompteCourant(String idClient) {
         jsonArgs.put("idClient", idClient);
         String maChaine = gson.toJson(jsonArgs);
-        try{
-        target = client.target(baseUrl + "/client/compte-courant/creer");
-        response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        System.out.println("POST : " + response.getStatus());
-        response.close();
-        }catch(Exception e){System.out.println(e); }
+        try {
+            target = client.target(baseUrl + "/client/compte-courant/creer");
+            response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-    
+
     //secure
+    /**
+     * Permet de créer un compte epargne à un client
+     *
+     * @param idClient id du client pour lequel on veut créer le compte
+     */
     public void creerCompteEpargne(String idClient) {
         jsonArgs.put("idClient", idClient);
         String maChaine = gson.toJson(jsonArgs);
 
-        try{
-        target = client.target(baseUrl + "/client/compte-epargne/creer");
-        response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-        System.out.println("POST : " + response.getStatus());
-        response.close();
-        }catch(Exception e){System.out.println(e);}
+        try {
+            target = client.target(baseUrl + "/client/compte-epargne/creer");
+            response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+            System.out.println("POST : " + response.getStatus());
+            response.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-    
+
     //secure
+    /**
+     * Permet d'obtenir les informations sur le compte epargne d'un client
+     *
+     * @param id id du client dont on veux consulter le compte
+     * @return Les informations sur le compte epargne
+     */
     public String consulterCompteEpargneClient(int id) {
         try {
             target = client.target(baseUrl + "/compte/epargne/" + encryptId(id));
             response = target.request().get();
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
-            response.close(); 
+            response.close();
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
-            }else{
+            } else {
                 return reponse;
             }
-              
+
         } catch (Exception ex) {
             return "KO";
         }
     }
-    
+
     //secure
+    /**
+     * Permet d'obtenir les informations sur le compte courant d'un client
+     *
+     * @param id id du client dont on veux consulter le compte
+     * @return Les informations sur le compte courant
+     */
     public String consulterCompteCourantClient(int id) {
         try {
             target = client.target(baseUrl + "/compte/courant/" + encryptId(id));
@@ -122,8 +167,8 @@ public class AccueilR extends CoRest {
             response.close();
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
-            }else{
-            return reponse;
+            } else {
+                return reponse;
             }
         } catch (Exception ex) {
             return "KO";
