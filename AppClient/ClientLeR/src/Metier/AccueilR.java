@@ -79,10 +79,11 @@ public class AccueilR extends CoRest {
             response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
             maChaine = decryptData(response.readEntity(String.class));
             response.close();
-            return maChaine;
-        } catch (Exception e) {
+        } catch (Exception e) {     
         }
+        return maChaine;
     }
+    
 
     //Secure
     /**
