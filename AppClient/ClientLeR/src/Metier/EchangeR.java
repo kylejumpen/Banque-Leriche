@@ -18,7 +18,16 @@ public class EchangeR extends CoRest {
     }
 
     //Secure
-    public void echangerArgent(String typeDebiteur, String debiteur,String typeCrediteur,  String crediteur, String montant) {
+    /**
+     * Permet d'effectuer un echange d'argent entre deux comptes
+     *
+     * @param typeDebiteur type du compte debiteur (courant ou epargne)
+     * @param debiteur compte debiteur
+     * @param typeCrediteur type du compte crediteur (courant ou epargne)
+     * @param crediteur compte crediteur
+     * @param montant montant à échanger entre les comptes
+     */
+    public void echangerArgent(String typeDebiteur, String debiteur, String typeCrediteur, String crediteur, String montant) {
 
         this.jsonArgs.put("type", "credit");
         jsonArgs.put("idCompteADebiter", debiteur);
@@ -37,26 +46,42 @@ public class EchangeR extends CoRest {
         }catch(Exception e){System.out.println(e);}
 
     }
-    
+
     //Secure
+    /**
+     * Permet d'obtenir les informations les comptes courant d'une banque
+     *
+     * @param id id de la banque dont on veux consulter les comptes courants
+     * @return les informations sur les comptes courants
+     */
     public String getComptesCourant(int id) {
         target = client.target(getBaseUrl() + "/liste/comptes-courant/" + encryptId(id));
         response = target.request().get();
-        try{
-        String rep = response.readEntity(String.class);
-        response.close();
-        return decryptData(rep);
-        }catch(Exception e){return e.getMessage();}
+        try {
+            String rep = response.readEntity(String.class);
+            response.close();
+            return decryptData(rep);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
-    
+
     //Secure
+    /**
+     * Permet d'obtenir les informations les comptes epargne d'une banque
+     * @param id id de la banque dont on veux consulter les comptes epargnes
+     * @return les informations sur les comptes epargnes
+     */
     public String getComptesEpargne(int id) {
-    target = client.target(getBaseUrl() + "/liste/comptes-epargne/" + encryptId(id));
-    response = target.request().get();
-    try{
-    String rep = response.readEntity(String.class);
-    response.close();
-    return decryptData(rep);
-    }catch(Exception e){return e.getMessage();}
-    }
+
+        target = client.target(baseUrl + "/liste/comptes-epargne/" + encryptId(id));
+        response = target.request().get();
+        try {
+            String rep = response.readEntity(String.class);
+            response.close();
+            return decryptData(rep);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+}
 }

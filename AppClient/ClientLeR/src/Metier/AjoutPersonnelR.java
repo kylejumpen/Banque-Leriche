@@ -14,6 +14,13 @@ public class AjoutPersonnelR extends CoRest {
     }
     
     //secure
+    /**
+     * Permet d'ajouter un membre du personel à la banque
+     * @param banque banque dans laquelle on veux ajouter un membre
+     * @param nom nom du membre
+     * @param motdepasse mot de passe du membre
+     * @param role role du membre: Employe, Gerant, Admin
+     */
     public void ajouterPersonnel(String banque, String nom, String motdepasse, String role) {
         String roleEnum;
         if (role.equals("Employé")) {

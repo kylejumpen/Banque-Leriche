@@ -18,6 +18,11 @@ public class AdminR extends CoRest{
     
     
     //Secure
+    /**
+     * Permet de supprimer une banque
+     * @param id id de la banque à supprimer
+     * @return statut de la requete
+     */
     public String supprimerBanque(int id) {
         target = client.target(getBaseUrl() + "/supprimer/" + encryptId(id));
         response = target.request().delete();
@@ -33,6 +38,11 @@ public class AdminR extends CoRest{
     }
         
     //Secure
+    /**
+     * Permet d'ajouter une banque
+     * @param nom nom de la banque à ajouter
+     * @param ville ville de la banque à ajouter
+     */
     public void ajouterBanque(String nom, String ville) {
 
     jsonArgs.put("nom", nom);
