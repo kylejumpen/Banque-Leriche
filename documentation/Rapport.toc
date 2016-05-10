@@ -1,0 +1,78 @@
+\select@language {french}
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {chapter}{\numberline {2}Specifications}{4}
+\contentsline {section}{\numberline {2.1}Besoins D\IeC {\'e}taill\IeC {\'e}s}{4}
+\contentsline {subsection}{\numberline {2.1.1}Sp\IeC {\'e}cifications Fonctionnelles}{4}
+\contentsline {subsubsection}{F1 Utilisateurs}{4}
+\contentsline {subsubsection}{F2 Gestion des comptes client}{4}
+\contentsline {subsubsection}{F3 Envoi de courriels}{4}
+\contentsline {subsubsection}{F4 Gestion de ch\IeC {\`e}ques}{4}
+\contentsline {subsubsection}{F5 Statistiques}{4}
+\contentsline {subsubsection}{F6 Gestion de pr\IeC {\^e}t}{5}
+\contentsline {subsection}{\numberline {2.1.2}Constitution des Lots}{5}
+\contentsline {subsubsection}{Lot 1}{5}
+\contentsline {subsubsection}{Lot 2}{5}
+\contentsline {subsubsection}{Lot 3}{5}
+\contentsline {subsection}{\numberline {2.1.3}Diagramme de Cas d'Utilisation}{5}
+\contentsline {subsection}{\numberline {2.1.4}Sp\IeC {\'e}cifications d'Interface}{5}
+\contentsline {subsection}{\numberline {2.1.5}Sp\IeC {\'e}cifications Op\IeC {\'e}rationnelles}{5}
+\contentsline {subsubsection}{Performances}{5}
+\contentsline {subsubsection}{S\IeC {\'e}curit\IeC {\'e}, Int\IeC {\'e}grit\IeC {\'e} et S\IeC {\^u}ret\IeC {\'e}}{6}
+\contentsline {subsubsection}{Base de Donn\IeC {\'e}es}{6}
+\contentsline {section}{\numberline {2.2}{\color {orange}{Annexes}}}{6}
+\contentsline {subsection}{\numberline {2.2.1}Vue de connexion}{6}
+\contentsline {subsection}{\numberline {2.2.2}Vues de l'administrateur}{7}
+\contentsline {subsection}{\numberline {2.2.3}Vues de des G\IeC {\'e}rants et des Employ\IeC {\'e}s}{7}
+\contentsline {subsection}{\numberline {2.2.4}Vue uniquement visible par les G\IeC {\'e}rants}{9}
+\contentsline {chapter}{\numberline {3}Conception pr\IeC {\'e}liminaire}{10}
+\contentsline {section}{\numberline {3.1}Diagramme de mod\IeC {\`e}le du domaine}{10}
+\contentsline {section}{\numberline {3.2}Diagramme d'activit\IeC {\'e} de navigation}{11}
+\contentsline {section}{\numberline {3.3}Diagrammes d'interaction}{12}
+\contentsline {subsection}{\numberline {3.3.1}Cas d'utilisation : Se connecter}{12}
+\contentsline {subsection}{\numberline {3.3.2}Cas d'utilisation : Cr\IeC {\'e}er un compte}{12}
+\contentsline {section}{\numberline {3.4}{\color {orange}{Diagramme de classes de conception pr\IeC {\'e}liminaire}}}{13}
+\contentsline {chapter}{\numberline {4}Conception d\IeC {\'e}taill\IeC {\'e}e}{15}
+\contentsline {section}{\numberline {4.1}Package utilisateurs}{15}
+\contentsline {subsection}{\numberline {4.1.1}Banque}{15}
+\contentsline {subsection}{\numberline {4.1.2}Personnel}{15}
+\contentsline {subsection}{\numberline {4.1.3}ClientBanque}{15}
+\contentsline {section}{\numberline {4.2}Package compte}{15}
+\contentsline {subsection}{\numberline {4.2.1}CompteCourant}{15}
+\contentsline {subsection}{\numberline {4.2.2}CompteEpargne}{15}
+\contentsline {section}{\numberline {4.3}Package transactions}{15}
+\contentsline {subsection}{\numberline {4.3.1}Operation}{15}
+\contentsline {subsection}{\numberline {4.3.2}{\color {red}{EchangeDArgent}}}{16}
+\contentsline {subsection}{\numberline {4.3.3}{\color {red}{Credit}}}{16}
+\contentsline {section}{\numberline {4.4}{\color {orange}{Package vues}}}{16}
+\contentsline {subsection}{\numberline {4.4.1}{\color {red}{VuePersonnel}}}{16}
+\contentsline {subsection}{\numberline {4.4.2}{\color {red}{VueClientBanque}}}{16}
+\contentsline {subsection}{\numberline {4.4.3}{\color {red}{VueCompteCourant}}}{16}
+\contentsline {subsection}{\numberline {4.4.4}{\color {red}{VueCompteEpargne}}}{16}
+\contentsline {section}{\numberline {4.5}Package controleur}{16}
+\contentsline {subsection}{\numberline {4.5.1}ControleurClient}{16}
+\contentsline {subsection}{\numberline {4.5.2}ControleurServeur}{16}
+\contentsline {chapter}{\numberline {5}Impl\IeC {\'e}mentation et tests}{18}
+\contentsline {section}{\numberline {5.1}Application Serveur}{19}
+\contentsline {subsection}{\numberline {5.1.1}Description}{19}
+\contentsline {section}{\numberline {5.2}Application Cliente}{20}
+\contentsline {subsection}{\numberline {5.2.1}Description}{20}
+\contentsline {subsection}{\numberline {5.2.2}Interface Graphique}{20}
+\contentsline {subsection}{\numberline {5.2.3}Partie m\IeC {\'e}tier}{20}
+\contentsline {section}{\numberline {5.3}S\IeC {\'e}curit\IeC {\'e}}{21}
+\contentsline {subsection}{\numberline {5.3.1}Description}{21}
+\contentsline {subsection}{\numberline {5.3.2}Cryptage des donn\IeC {\'e}es}{21}
+\contentsline {subsection}{\numberline {5.3.3}Cryptage des identifiants}{21}
+\contentsline {section}{\numberline {5.4}Test}{22}
+\contentsline {subsection}{\numberline {5.4.1}Test 1 : S'identifier}{22}
+\contentsline {subsection}{\numberline {5.4.2}Test 2 : Cr\IeC {\'e}er un client}{22}
+\contentsline {subsection}{\numberline {5.4.3}Test 3 : Consulter un compte}{22}
+\contentsline {subsection}{\numberline {5.4.4}Test 4 : \IeC {\'E}change d'argent}{22}
+\contentsline {subsection}{\numberline {5.4.5}Test 5 : Bloquer un compte}{22}
+\contentsline {subsection}{\numberline {5.4.6}Test 6 : Ajouter un nouveau membre }{22}
+\contentsline {subsection}{\numberline {5.4.7}Test 7 : Consulter les Statistiques}{23}
+\contentsline {subsection}{\numberline {5.4.8}Test 8 : Cr\IeC {\'e}er un compte }{23}
+\contentsline {subsection}{\numberline {5.4.9}Test 9 : Cr\IeC {\'e}diter/D\IeC {\'e}biter le compte}{23}
+\contentsline {subsection}{\numberline {5.4.10}Test 10 : Ajouter une banque}{23}
+\contentsline {subsection}{\numberline {5.4.11}Test 11 : Supprimer une banque}{23}
+\contentsline {subsection}{\numberline {5.4.12}Test 12 : Portabilit\IeC {\'e} de l'application}{23}
+\contentsline {chapter}{\numberline {6}Conclusion et perspectives}{24}
