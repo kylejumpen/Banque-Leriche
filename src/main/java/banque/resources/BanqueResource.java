@@ -72,14 +72,15 @@ public class BanqueResource {
     @DELETE
     @Path("/client/supprimer/{id}")
     public Response supprimerClient(@PathParam("id") Short id) {
-
+	try{
         session = HibernateUtil.getSessionFactory().openSession();
         ClientBanque client = (ClientBanque) session.load(ClientBanque.class, id);
         session.beginTransaction();
         session.delete(client);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(client.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(client.toString())).build();
+	}catch(Exception e){ return Response.status(500).build();}
     }
 
     /**
@@ -155,7 +156,7 @@ public class BanqueResource {
         session.save(banque);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(banque.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(banque.toString())).build();
 	}catch(Exception e) { return Response.status(500).build();}
     }
 
@@ -175,7 +176,7 @@ public class BanqueResource {
         session.delete(banque);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(banque.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(banque.toString())).build();
 	}catch(Exception e){ return Response.status(500).build(); }
     }
 
@@ -259,7 +260,7 @@ public class BanqueResource {
         session.save(compteCourant);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(compteCourant.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(compteCourant.toString())).build();
 	}catch(Exception e){return Response.status(500).build();}
     }
 
@@ -287,7 +288,7 @@ public class BanqueResource {
         session.save(compteEpargne);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(compteEpargne.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(compteEpargne.toString())).build();
 	}catch(Exception e){ return Response.status(500).build();}
     }
 
@@ -307,7 +308,7 @@ public class BanqueResource {
             session.delete(cc);
             session.getTransaction().commit();
             session.close();
-            return Response.status(200).entity(cc.toString()).build();
+            return Response.status(200).entity(Encrypt.encryptData(cc.toString())).build();
 	    }catch(Exception e){ return Response.status(500).build();}
     }
 
@@ -327,7 +328,7 @@ public class BanqueResource {
         session.delete(ce);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(ce.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(ce.toString())).build();
         }catch(Exception e){ return Response.status(500).build();}
     }
 
@@ -567,7 +568,7 @@ public class BanqueResource {
         session.save(personnel);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(personnel.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(personnel.toString())).build();
 	}catch(Exception e){
 	return Response.status(500).build();
 	}
@@ -581,13 +582,15 @@ public class BanqueResource {
     @DELETE
     @Path("/personnel/supprimer/{id}")
     public Response supprimerPersonnel(@PathParam("id") Short id) {
+	try{
         session = HibernateUtil.getSessionFactory().openSession();
         Personnel personnel = (Personnel) session.load(Personnel.class, id);
         session.beginTransaction();
         session.delete(personnel);
         session.getTransaction().commit();
         session.close();
-        return Response.status(200).entity(personnel.toString()).build();
+        return Response.status(200).entity(Encrypt.encryptData(personnel.toString())).build();
+	}catch(Exception e){return Response.status(500).build();}
     }
 
     /**

@@ -21,13 +21,19 @@ public class ConsulterCompteR extends CoRest {
     }
 
     //secure
+    /**
+     * Permet d'obtenir les informations sur un client
+     *
+     * @param id id du client à consulter
+     * @return Les informations du client
+     */
     public String consulterClientGet(int id) {
 
         try {
-            target = client.target(baseUrl + "/client/" + encryptId((id)));
+            target = client.target(getBaseUrl() + "/client/" + encryptId((id)));
             response = target.request().get();
             String reponse = response.readEntity(String.class);
-            System.out.println("Dans le consulter clientget " +reponse);
+            System.out.println("Dans le consulter clientget " + reponse);
             response.close();
             return decryptData(reponse);
         } catch (Exception ex) {
@@ -36,45 +42,23 @@ public class ConsulterCompteR extends CoRest {
 
     }
 
-    // Jamais utilisé ! 
-    /*
     //secure
-    public String consulterCompteGet(int id) {
-        try {
-        target = client.target(baseUrl + "/client/compte-courant/" + Encrypt.encryptData(String.valueOf(id)));
-        response = target.request().get();
-        String reponse = Encrypt.decryptData(response.readEntity(String.class));
-        JsonElement root = new JsonParser().parse(reponse);
-        if (root.getAsJsonObject().has("succes")) {
-            return "KO";
-        }
-        
-        reponse = root.getAsJsonObject().get("montant").getAsString() + "#";
-
-        root = new JsonParser().parse(root.getAsJsonObject().get("clientBanque")
-                .getAsString());
-
-        reponse += (root.getAsJsonObject().get("nom").getAsString() + "#");
-        reponse += root.getAsJsonObject().get("prenom").getAsString();
-        response.close();
-        return reponse;
-        }catch(Exception ex){
-                return "KO";
-                }
-
-    } */
-
-    //secure
+    /**
+     * Permet de consulter le compte courant d'un client
+     *
+     * @param id id du client dont on veux consulter le compte courant
+     * @return Les informations sur le compte courant du client
+     */
     public String consulterCompteCourantClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/courant/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/courant/" + encryptId(id));
             response = target.request().get();
 
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
-       if (root.getAsJsonObject().has("succes")) {
-            return "KO";
-        }
+            if (root.getAsJsonObject().has("succes")) {
+                return "KO";
+            }
             response.close();
             return reponse;
         } catch (Exception ex) {
@@ -83,9 +67,15 @@ public class ConsulterCompteR extends CoRest {
     }
 
     //secure
+    /**
+     * Permet de consulter le compte epargne d'un client
+     *
+     * @param id id du client dont on veux consulter le compte epargne
+     * @return Les informations sur le compte epargne du client
+     */
     public String consulterCompteEpargneClient(int id) {
         try {
-            target = client.target(baseUrl + "/compte/epargne/" + encryptId(id));
+            target = client.target(getBaseUrl() + "/compte/epargne/" + encryptId(id));
             response = target.request().get();
             String reponse = decryptData(response.readEntity(String.class));
             JsonElement root = new JsonParser().parse(reponse);
@@ -100,8 +90,14 @@ public class ConsulterCompteR extends CoRest {
     }
 
     //secure
+    /**
+     * Permet de supprimer un compte courant
+     *
+     * @param id id du compte courant à supprimer
+     * @return les informations sur le compte supprimé
+     */
     public String supprimerCompteCourant(int id) {
-        target = client.target(baseUrl + "/client/compte-courant/supprimer/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/client/compte-courant/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
@@ -109,8 +105,14 @@ public class ConsulterCompteR extends CoRest {
     }
 
     //secure
+    /**
+     * Permet de supprimer un compte epargne
+     *
+     * @param id id du compte epargne à supprimer
+     * @return les informations sur le compte supprimé
+     */
     public String supprimerCompteEpargne(int id) {
-        target = client.target(baseUrl + "/client/compte-epargne/supprimer/" + encryptId(id));
+        target = client.target(getBaseUrl() + "/client/compte-epargne/supprimer/" + encryptId(id));
         response = target.request().delete();
         String reponse = response.readEntity(String.class);
         response.close();
@@ -118,6 +120,12 @@ public class ConsulterCompteR extends CoRest {
     }
 
     // secure
+    /**
+     * Permet de débiter un compte courant
+     *
+     * @param montant montant à débiter
+     * @param compte compte à débiter
+     */
     public void debiterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -127,16 +135,24 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
+
 	try{
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
 	}catch(Exception e){System.out.println(e);}
+
     }
-    
+
     //secure
+    /**
+     * Permet de débiter un compte epargne
+     *
+     * @param montant montant à débiter
+     * @param compte compte à débiter
+     */
     public void debiterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -146,37 +162,51 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("idCompteACrediter", "1");
         jsonArgs.put("typeCompteACrediter", "epargne");
         jsonArgs.put("montant", String.valueOf(montant));
+
 	try{
         String maChaine; //Transformation en chaine de caractère
         maChaine = gson.toJson(jsonArgs);
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
 	}catch(Exception e){System.out.println(e);}
     }
-    
+
     //secure
+    /**
+     * Permet de créditer un compte courant
+     *
+     * @param montant montant à créditer
+     * @param compte compte à créditer
+     */
     public void crediterCompteCourant(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
-	
+
         jsonArgs.put("type", "credit");
         jsonArgs.put("idCompteADebiter", "1");
         jsonArgs.put("typeCompteADebiter", "courant");
         jsonArgs.put("idCompteACrediter", String.valueOf(compte));
         jsonArgs.put("typeCompteACrediter", "courant");
         jsonArgs.put("montant", String.valueOf(montant));
+
 	try{
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
 
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); // URL a remplacer
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
 	}catch(Exception e){System.out.println(e);}
     }
-    
+
     //secure
+    /**
+     * Permet de créditer un compte epargne
+     *
+     * @param montant montant à créditer
+     * @param compte compte à créditer
+     */
     public void crediterCompteEpargne(int montant, int compte) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
@@ -187,26 +217,34 @@ public class ConsulterCompteR extends CoRest {
         jsonArgs.put("typeCompteACrediter", "epargne");
         jsonArgs.put("montant", String.valueOf(montant));
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
+
 	try{
-        this.target = this.client.target(baseUrl + "/client/compte/operer"); 
+        this.target = this.client.target(getBaseUrl() + "/client/compte/operer"); 
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
 	}catch(Exception e){System.out.println(e);}
+
     }
-    
+
     //secure
+    /**
+     * Permet de bloquer/débloquer un compte en fonction de son état actuel 
+     * @param compte compte à bloquer/débloquer
+     * @param type type du compte à bloquer/débloquer (courant ou epargne)
+     */
     public void bloquerDebloquer(int compte, String type) {
         Gson gson = new Gson();
         HashMap<String, String> jsonArgs = new HashMap<String, String>();
         jsonArgs.put("type", type);
         jsonArgs.put("idCompte", String.valueOf(compte));
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
+
         try{
-        this.target = this.client.target(baseUrl + "/client/compte/bloquer"); // URL a remplacer
+        this.target = this.client.target(getBaseUrl() + "/client/compte/bloquer"); // URL a remplacer
         this.response = this.target.request().put(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
         }catch(Exception e){System.out.println(e);}

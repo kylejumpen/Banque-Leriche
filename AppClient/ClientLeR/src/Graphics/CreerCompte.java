@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import java.util.HashMap;
-//import Metier.MethodesRest;
 
 import Metier.AccueilR;
 
@@ -18,7 +17,6 @@ import javax.swing.JOptionPane;
  */
 public class CreerCompte extends javax.swing.JPanel {
 
-    //MethodesRest con;
     AccueilR con;
 
     /**
@@ -26,7 +24,6 @@ public class CreerCompte extends javax.swing.JPanel {
      */
     public CreerCompte() {
         initComponents();
-        //con = new MethodesRest();
         con = new AccueilR();
     }
 

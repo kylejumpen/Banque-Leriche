@@ -1,0 +1,232 @@
+\newpage
+\section{Application Serveur}
+\subsection{Description}
+Pour commencer, nous avons décidé de mettre en place une architecture REST pour notre application. La contrainte client serveur nous a imposé
+une séparation des responsabilités entre le serveur d'application et les divers clients. 
+Nous avons décidé d'utiliser resteasy, un projet JBOSS fournissant un framework dans le but de concevoir des applications java RESTful et des web services RESTful.\\
+Il s'agit d'une implémentation de la spécification JAX-RS utilisant le protocol HTTP.
+Ensuite, dans le but de stocker nos données nous avons choisi de mettre en place une base de données gérer via le sgbd MySQL. De plus, afin de rester concentrer
+sur un paradigme de programmation objet nous avons décidé d'avoir recours à l'ORM Hibernate. 
+\\
+Hibernate est un framework open source qui permet de gérer la persistance des objets en base de données relationnelle.
+Son principal avantage est de masquer la logique relationnelle aux développeurs et de leur permettre de se concentrer
+sur un seul paradigme de programmation, à savoir objet. En effet, ce dernier permet de représenter les tables de base 
+de données en objet. De plus, il est plus facile pour application java de manipuler des objets java que d'utiliser
+des drivers dans le but d'accéder aux champs de la base de données. Ensuite, Hibernate est une surcouche qui donc 
+un coût en ressource. Cependant il offre une bonne gestion de cache qui permet un gain en performance. Enfin, ce dernier
+possède un système de session assurant l'unicité et la cohérence des objets, accompagné d'un système transactionnel.
+\\
+La création de l'interface homme machine de notre application ayant été déléguée, nous avons décidé de créer un client de test dans un terminal, dépourvue de toute interface visuelle dans l'optique de tester nos requêtes et nos méthodes crééés côté serveur en totale indépendance avec le client.
+
+
+
+
+\newpage
+\section{Application Cliente}
+\subsection{Description}
+
+Au début du projet nous avions pour idée d'effectuer une application cliente comprenant uniquement quatre vues. 
+Nous étions dans l'optique d'appliquer le patron de conception "Modèle-Vue-Contrôleur".
+Nous avons finalement jugé plus intéressant de détacher les vues des entités nécessaires côté serveur afin de permettre un potentiel développement d'un client dans un autre langage. 
+\hline
+Comme visible sur le diagramme de classe il y a un package "Metier".
+Celui-ci permet d'établir la connexsion avec l'application serveur.
+\hline
+Il y a également un package Security utilisé par le package Metier, il permet le cryptage/décryptage des données envoyées/reçues.
+Ce package sera détaillé ultérieurement dans la partie **faire un lien**.
+Dans le cadre de ce projet nous n'avons pas renforcé la vérification côté client car nous voulions investir un maximum de temps sur la partie distribution de la technologie.
+
+\subsection{Interface Graphique}
+
+Pour réaliser notre application, nous avons décidé d'utiliser la bibliothèque graphique Swing proposée par Java. Nous avons créé une JFrame qui contient un JPanel dont le Layout est CardLayout. Il est possible d'ajouter de nombreux composants à un CardLayout et de les rendre visible lorsqu'on le souhaite.
+ Nous avons créé un JPanel par vue et nous avons ajouté tous les JPanel au CradLayout. Il nous est ainsi très simple de passer d'un JPanel à un autre lors d'un événement comme par exemple lors de l'appui sur un boutton. \\
+Les vues permettent à l'utilisateur de visualiser les données mais aussi de modifier les données en éditant ou créant des comptes par exemple. Nous avons ajouté un grand nombre de pop-ups à notre application afin d'avertir l'utilisateur lorsqu'il entre des données éronnées mais aussi afin de réduire le nombre de vues. En effet l'action créditer un compte, par exemple, ne possède pas de vue.\\ 
+Lorsque l'utilisateur veut créditer un compte, un pop-up s'ouvre afin de lui demander le montant. Les vues interagissent avec les classes de package Metier décrit ci-dessous. Elles appellent les méthodes contenues dans ce package et permettent à l'utilisateur d'obtenir un affichage simple et compréhensible des données.
+
+
+\subsection{Partie métier}
+Ce package permet de faire la jonction entre l'application cliente et l'application serveur. 
+En effet à partir des données récupérées via l'interface graphique, c'est ce package qui permet de faire les requêtes nécessaires au serveur. Ce package permet ensuite de faire suivre les réponses du serveur aux classes du package de l'interface graphique qui les met en forme.
+Chaque classe graphique ayant besoin de requêtes qui lui sont spécifiques, nous avons décidé de nommer chaque classe par le même nom que son correspondant graphique en lui ajoutant le suffixe R. \\
+Les requêtes ont été effectué grâce à la librairie Java RestEasy.
+Ce package est dépendant du package sécurité car les données se doivent d'être envoyées cryptées pour pouvoir être interprétées par le serveur.\\
+
+
+\newpage
+\section{Sécurité}
+
+\subsection{Description}
+Afin d'assurer la sécurité de notre application nous avons décidé de mettre en place un cryptage des flux entre l'application cliente et l'application serveur.
+L'idendifiant des ressources est également cryptée empêchant ainsi à une personne quelconque de consulter une ressource.
+En somme deux algorithmes de cryptage sont utilisées : 
+\begin{itemize}
+\item Un algorithme pour crypter les données.
+\item Un algorithme pour crypter les identifiants de ressources.
+\end{itemize}
+Cet algorithme de cryptage nous permet d'envoyer les données avec pour en-tête "text/plain". 
+En effet seul nous (concepteurs de l'application) savons que les ressources envoyées sont sous format json. Envoyer les données avec pour en-tête "application/xml" donnerait des indications sur le contenu de la donnée à un potentiel attaquant.
+Si jamais une personne venait à découvrir l'algorithme de cryptage des identifiants de ressource, il faudrait encore qu'elle brise l'algorithme de cryptage des données.
+
+\subsection{Cryptage des données}
+Pour assurer le cryptage des données nous avons utilisé l'algorithme de crpytage AES. Nous avons choisi d'utiliser celui-ci car il est très connu pour sa robustesse et sa grande utilisation fait objet d'une documentation approfondie  nous ayons permis de le prendre en main assez rapidement.
+Si jamais une personne venait à découvrir l'algorithme utilisé pour chiffrer les données, encore faudrait-il qu'elle découvre la clef de chiffrement pour pouvoir décrypter les données.
+
+Difficultés rencontrées : \\
+Lorsque nous avons commencé à crypter les données, nous utilisions le même algorithme pour chiffrer les identifiants de ressources et les données qu'elles contenaient.
+Nous avons alors rencontré des problèmes car avec la clef de chiffrage choisie l'identifiant "5" était traduit par une expression de type "aza/4qd/ddqe&".
+Du à la présence de caractère "/" le serveur cherchait à parser vers une ressource qui n'en était pas une.\\
+C'est dans ce contexte que nous avons décidé de mettre en place notre propre algorithme de cryptage d'identifiant de ressource.
+
+\subsection{Cryptage des identifiants}
+
+Nous avons mis en place notre propre algorithme de cryptage d'identifiant mais nous aurions très bien pu utilisé un algorithme de cryptage n'utilisant pas le caractère spécial "/".\\
+C'est un algorithme de cryptage qui prend un identifiant "entier", le transforme mathématiquement et ajoute un chiffre permettant de connaître la parité de l'identifiant initialement envoyé.
+Le serveur dispose uniquement de la méthode pour décrypter l'identifiant là où le client dispose uniquement de la méthode pour crypter l'identifiant.
+
+\newpage
+\section{Test}
+
+Cette partie fait état des différents tests de validation effectués.
+Attention : Les flux de données étant cryptées, la volonté de vouloir tester l'application serveur indépendamment de l'application cliente nécessite d'utiliser la classe Encrypt.
+
+\subsection{Test 1 : S'identifier}
+
+Ce test permet de vérifier que la connexion au serveur est fonctionnelle.
+Celle-ci s'effectue via une requête de type GET à l'URL suivante **URL**.
+La vérification du mot de passe s'effectue côté client. 
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+\\
+Cas de réussite : Le serveur renvoie un status 200 de la requête HTTP et récupération du fichier JSON crypté. Ce test peut s'effectuer via l'interface graphique en essayant de se connecter via l'accueil.\\
+\\
+Cas d'échec : Le serveur renvoie un status 200 mais les données JSON récupérées signale un échec de la transaction reçue.
+L'application cliente permet de récupérer le mot de passe à partir de la ressource reçue. Si le mot de passe ne concorde pas une fenêtre apparaît pour signifier le problème.
+Si la ressource demandée n'existe pas,  une fenêtre apparaît pour signifier le problème.
+
+\subsection{Test 2 : Créer un client}
+
+Ce test permet de vérifier que la création d'un client est fonctionnelle.
+Celle-ci s'effectue via une requête de type POST à l'URL suivante **URL** .
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+\\
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le nouveau client. Un nouveau client est entré dans la base de données.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de créer un client conjointement avec son compte épargne/courant.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 3 : Consulter un compte}
+
+Ce test permet de vérifier que la consultation d'un compte est fonctionnelle.
+Celle-ci s'effectue via une requête de type GET à l’URL suivante **URL**.
+L'identifiant de la ressource du compte est cryptée.
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+\\
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le compte en question.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de consulter un compte.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 4 : Échange d'argent}
+
+Ce test permet de vérifier que le transfert d'argent d'un compte à un autre est fonctionnelle.
+Celui-ci s'effectue via une requête de type POST à l’URL suivante **URL**.
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+\\
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les comptes en questions.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'échanger de l'argent.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 5 : Bloquer un compte}
+
+Ce test permet de vérifier que le blocage d'un compte est fonctionnelle.
+Celui-ci s'effectue via une requête de type PUT à l’URL suivante **URL**.
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+\\
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les comptes en questions.
+Il faut se connecter en ayant un compte de type employé/gérant. Il faut ensuite cliquer sur consulter un compte. Après avoir rentré un id client, l'option "bloquer un compte" est proposée.
+\\
+Cas d'échec :  Le serveur renvoie un status de type 500.
+
+\subsection{Test 6 : Ajouter un nouveau membre }
+
+Ce test permet de vérifier que l'ajout d'un membre du personnel est fonctionnelle.
+Celle-ci s'effectue via une requête de type POST à l'URL suivante **URL** .
+\\
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+
+\\
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le nouveau client. Un nouveau membre du personnel est ajouté dans la base de données.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
+Attention : Le champs banque attends l'id de la banque auquel le nouveau membre sera ajouté.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 7 : Consulter les Statistiques}
+Ce test permet de vérifier que la consultation de statistiques est fonctionnelle .
+Celle-ci s'effectue via grâce des requêtes de types GET aux URL suivante **URL** .
+
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de consulter les statistiques de sa banque.
+
+Cas de réussite : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les statistiques.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 8 : Créer un compte }
+
+Ce test permet de vérifier que l'ajout d'un compte à un client existant est fonctionnelle .
+Celle-ci s'effectue via grâce des requêtes de types GET aux URL suivante **URL** .
+
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le client concerné. Un nouveau compte est entré dans la base de données.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de créer un compte.
+Attention : Il faut rentrer l'id du client.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 9 : Créditer/Débiter le compte}
+
+Ce test permet de vérifier que l'ajout d'un compte à un client existant est fonctionnelle .
+Celle-ci s'effectue via grâce à une requête de type POST à l'URL suivante **URL** .
+
+L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
+
+Cas de réussite : Le serveur renvoie un status de type 200.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de consulter les comptes des clients.
+L'interface propose ensuite de créditer/débiter un compte.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 10 : Ajouter une banque}
+
+Le test permet de vérifier que l'ajout d'une banque est fonctionnelle .
+Celle-ci s'effectue via grâce à une requête de type POST à l'URL suivante **URL** .
+
+Cas de réussite :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant la banque créé. Une nouvelle banque est entrée dans la base de données.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin permettant de créer une banque.
+Attention : Il faut rentrer l'id du client.
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+
+\subsection{Test 11 : Supprimer une banque}
+
+Le test permet de vérifier que l'ajout d'une banque est fonctionnelle .
+Celle-ci s'effectue via grâce à une requête de type DELETE à l'URL suivante **URL** .
+
+Cas de réussite :Le serveur renvoie un status de type 200.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin permettant de supprimer une banque. La banque est supprimée de la base de données.
+
+\\
+Cas d'échec : Le serveur renvoie un status de type 500.
+
+\subsection{Test 12 : Portabilité de l'application}
+
+Tout les tests décrits antérieurement ont été exécutés sur  Linux et sur Windows 7.

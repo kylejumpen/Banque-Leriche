@@ -14,6 +14,13 @@ public class AjoutPersonnelR extends CoRest {
     }
     
     //secure
+    /**
+     * Permet d'ajouter un membre du personel à la banque
+     * @param banque banque dans laquelle on veux ajouter un membre
+     * @param nom nom du membre
+     * @param motdepasse mot de passe du membre
+     * @param role role du membre: Employe, Gerant, Admin
+     */
     public void ajouterPersonnel(String banque, String nom, String motdepasse, String role) {
         String roleEnum;
         if (role.equals("Employé")) {
@@ -27,9 +34,9 @@ public class AjoutPersonnelR extends CoRest {
         jsonArgs.put("role", role);
         jsonArgs.put("idBanque", banque);
 
-        String maChaine; //Transformation en chaine de caractère
+        String maChaine; 
         maChaine = gson.toJson(jsonArgs);
-        this.target = this.client.target(baseUrl + "/personnel/creer");
+        this.target = this.client.target(getBaseUrl() + "/personnel/creer");
         try{
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();

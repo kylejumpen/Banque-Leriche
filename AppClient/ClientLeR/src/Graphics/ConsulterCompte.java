@@ -2,8 +2,6 @@ package Graphics;
 
 import javax.swing.JOptionPane;
 import Metier.ConsulterCompteR;
-import Metier.MethodesRest;
-//import Metier.MethodesRest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -22,7 +20,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
     private String bloqueCompteCourant;
     private String bloqueCompteEpargne;
     private ConsulterCompteR con;
-    //private  ConsulterCompteR con;
 
     /**
      * Creates new form ConsulterCompteR
@@ -37,7 +34,6 @@ public class ConsulterCompte extends javax.swing.JPanel {
         bloque.setEnabled(false);
         courant.setEnabled(false);
         epargne.setEnabled(false);
-        //con = new ConsulterCompteR();
 
     }
 
@@ -234,6 +230,22 @@ public class ConsulterCompte extends javax.swing.JPanel {
             compteCourant.setText("");
             compteEpargne.setText("");
         } else {
+            JsonElement rootclient = new JsonParser().parse(reponse);
+            HashMap<String, String> argsClient = gson.fromJson(reponse, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            String banque = argsClient.get("banque");
+            HashMap<String, String> argsBanque = gson.fromJson(banque, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+            String idBanqueClient = argsBanque.get("banqueId");
+            String parts[] = GlobalFrame.idBanquePersonnel.getText().split(":");
+            if (!idBanqueClient.equals(parts[1])) {
+                bloque.setEnabled(false);
+                supprimer.setEnabled(false);
+                crediter.setEnabled(false);
+                debiter.setEnabled(false);
+                courant.setEnabled(false);
+                epargne.setEnabled(false);
+            }
             String ccourant = con.consulterCompteCourantClient(idClient);
             JsonElement rootc = new JsonParser().parse(ccourant);
             if (ccourant.equals("KO")) {
@@ -257,6 +269,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 idCompteEpargne = Integer.parseInt(args.get("compteEpargneId"));
                 bloqueCompteEpargne = args.get("bloque");
             }
+
         }
         // } catch (Exception e) {
         //   JOptionPane.showMessageDialog(this, "Entrée invalide", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -303,7 +316,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
                     con.debiterCompteCourant(somme, idCompteCourant);
                 }
                 if (epargne.isSelected()) {
-                    con.crediterCompteEpargne(somme, idCompteEpargne);
+                    con.debiterCompteEpargne(somme, idCompteEpargne);
                 }
             }
         }
