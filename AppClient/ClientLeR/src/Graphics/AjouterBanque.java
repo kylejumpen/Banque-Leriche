@@ -84,7 +84,10 @@ public class AjouterBanque extends javax.swing.JPanel {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Permet de gérer l'ajout d'une banque lors de l'appui sur le bouton "valider" grâce aux informations contenues dans les champs textes
+ * @param evt 
+ */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 if(!nom.getText().equals("") && !ville.getText().equals("")){
         con.ajouterBanque(nom.getText(), ville.getText());

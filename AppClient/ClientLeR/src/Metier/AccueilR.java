@@ -9,7 +9,7 @@ import com.google.gson.*;
 
 /**
  *
- * @author kyle
+ * @author kafui
  */
 public class AccueilR extends CoRest {
 

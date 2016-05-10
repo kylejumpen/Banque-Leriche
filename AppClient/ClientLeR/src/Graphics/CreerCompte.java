@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author kyle
+ * @author kafui
  */
 public class CreerCompte extends javax.swing.JPanel {
 
@@ -86,7 +86,10 @@ public class CreerCompte extends javax.swing.JPanel {
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
         add(codepostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Permet de créer un client et son compte lors de l'appui sur "valider"
+ * @param evt 
+ */
     private void validerAjouterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjouterCompteActionPerformed
         Gson gson = new Gson();
         String nomClient = nom.getText();

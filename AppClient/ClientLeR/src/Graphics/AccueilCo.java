@@ -150,6 +150,10 @@ public class AccueilCo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    /**
+     * Permet de vider les champs textes lors d'un appui sur "annuler"
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextField1.setText("");
         jPasswordField1.setText("");
@@ -160,7 +164,11 @@ public class AccueilCo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
- /*Kyle */
+/**
+ * Permet de gérer l'appui sur le bouton "connexion"
+ * @param evt 
+ */
+    
     private void connexionActionPerformed(java.awt.event.ActionEvent evt) {
         
         String username = jTextField1.getText();

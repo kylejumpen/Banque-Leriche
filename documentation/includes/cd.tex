@@ -94,3 +94,56 @@ Il devra permettre de récupérer les informations dans le but de les empaqueter
 Le contrôleur ControleurServeur permet d'interpréter les actions de l'utilisateur et d'appeler les méthodes du modèle
 dans le but de le mettre à jour. Il permet la gestion des ressources humaines de la banque, des diverses opérations
 bancaires ainsi que des comptes bancaires.
+
+\begin{verbatim}
+fonction echangerArgent(Réel montant, CompteCourant compteADebiter, CompteCourant compteACrediter)
+debut
+    EchangeDArgent ech ;
+
+    si(compteADebiter – montant < 0) alors
+    compteADebiter.montant = compteADebiter.montant – montant ;
+        compteACrediter.montant =  compteACrediter.montant + montant ;
+        ech.montant = montant ;
+        ech.compteBeneficiaire =  compteACrediter ;
+        ech.compteDebiteur =  compteADebiter ;
+        ech.type = «virement» ;
+        enregistrer(ech);
+        retourner vrai
+    sinon
+        retourner faux
+    finsi
+fin
+\end{verbatim}
+
+
+
+\begin{verbatim}
+fonction authentifier(CdC nom, CdC mdp, Banque banque, Tableau[1..NbPersonnel] personnel)
+debut
+    Personnel employé =  personnel.obtenirPersonnelParNom() ;
+    si (estNonNul(employé)) alors
+        si (employé.obtenirMotDePasse() = mdp) alors
+            si (employé.obtenirBanque() = banque) alors
+                authentifierUtilisateur() ;
+            sinon
+                retourner faux ;
+            finsi
+        finsi
+    finsi
+fin
+\end{verbatim}
+
+
+
+\begin{verbatim}
+fonction creerCompte(Tableau[1..NbClients] clients, Entier numeroClient)
+debut
+    CompteCourant compte ;
+
+    compte.montant = 0 ;
+    compte.client = clients.obtenirClient(numeroClient) ;
+    compte.bloque = faux ;
+    compte.numeroCompte = genererAutomatiquementNumero() ;
+    compte.IBAN = genererAutomatiquementIBAN() ;
+fin
+\end{verbatim}

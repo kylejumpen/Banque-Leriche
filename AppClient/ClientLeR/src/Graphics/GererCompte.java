@@ -26,10 +26,10 @@ public class GererCompte extends javax.swing.JPanel {
 
         consulterCompte = new javax.swing.JButton();
         consulterStatistiques = new javax.swing.JButton();
-        creerCompte = new javax.swing.JButton();
+        creerClient = new javax.swing.JButton();
         ajoutPersonnel = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        creerUnCompte = new javax.swing.JButton();
+        echangeArgent = new javax.swing.JButton();
 
         consulterCompte.setText("Consulter un Compte");
         consulterCompte.addActionListener(new java.awt.event.ActionListener() {
@@ -45,10 +45,10 @@ public class GererCompte extends javax.swing.JPanel {
             }
         });
 
-        creerCompte.setText("Créer un Client");
-        creerCompte.addActionListener(new java.awt.event.ActionListener() {
+        creerClient.setText("Créer un Client");
+        creerClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                creerCompteActionPerformed(evt);
+                creerClientActionPerformed(evt);
             }
         });
 
@@ -59,17 +59,17 @@ public class GererCompte extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Créer un Compte");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        creerUnCompte.setText("Créer un Compte");
+        creerUnCompte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                creerUnCompteActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Echange d'argent");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        echangeArgent.setText("Echange d'argent");
+        echangeArgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                echangeArgentActionPerformed(evt);
             }
         });
 
@@ -83,10 +83,10 @@ public class GererCompte extends javax.swing.JPanel {
                     .addComponent(consulterCompte)
                     .addComponent(ajoutPersonnel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(creerCompte)
+                        .addComponent(creerClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(creerUnCompte, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(echangeArgent, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(275, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,46 +98,64 @@ public class GererCompte extends javax.swing.JPanel {
                 .addComponent(consulterStatistiques)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(creerCompte)
-                    .addComponent(jButton2))
+                    .addComponent(creerClient)
+                    .addComponent(creerUnCompte))
                 .addGap(26, 26, 26)
-                .addComponent(jButton3)
+                .addComponent(echangeArgent)
                 .addGap(30, 30, 30)
                 .addComponent(ajoutPersonnel)
                 .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "consulter un compte"
+ * @param evt 
+ */
     private void consulterCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterCompteActionPerformed
         //Montrer la carte consulter compte
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneConsulterCompte");
     }//GEN-LAST:event_consulterCompteActionPerformed
-
-    private void creerCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerCompteActionPerformed
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "créer un client"
+ * @param evt 
+ */
+    private void creerClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerClientActionPerformed
         // TODO add your handling code here:
         //Montrer la carte creer compte
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneCreerCompte");
-    }//GEN-LAST:event_creerCompteActionPerformed
+    }//GEN-LAST:event_creerClientActionPerformed
 
-
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "ajouter un mebre du personnel"
+ * @param evt 
+ */
     private void ajoutPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutPersonnelActionPerformed
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAjoutPersonnel");
 
     }//GEN-LAST:event_ajoutPersonnelActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "créer un compte"
+ * @param evt 
+ */
+    private void creerUnCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerUnCompteActionPerformed
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneCreerCompteClient");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_creerUnCompteActionPerformed
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "echange d'argent"
+ * @param evt 
+ */
+    private void echangeArgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_echangeArgentActionPerformed
         String[] parts = GlobalFrame.idBanquePersonnel.getText().split(":");
 System.out.println("id banque"+parts[1]);
         GlobalFrame.paneEchangeArgent.initComboBox(Integer.parseInt(parts[1]));
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneEchangeArgent");
         //GlobalFrame.cards.remove(paneEchangeArgent);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    }//GEN-LAST:event_echangeArgentActionPerformed
+/**
+ * Permet d'afficher le bon JPanel lors de l'appui sur "consulter les statistiques"
+ * @param evt 
+ */
     private void consulterStatistiquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consulterStatistiquesActionPerformed
         GlobalFrame.paneStats.initStats();
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneStats");
@@ -148,8 +166,8 @@ System.out.println("id banque"+parts[1]);
     public javax.swing.JButton ajoutPersonnel;
     private javax.swing.JButton consulterCompte;
     private javax.swing.JButton consulterStatistiques;
-    private javax.swing.JButton creerCompte;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton creerClient;
+    private javax.swing.JButton creerUnCompte;
+    private javax.swing.JButton echangeArgent;
     // End of variables declaration//GEN-END:variables
 }

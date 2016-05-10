@@ -85,7 +85,10 @@ public class CreerCompteClient extends javax.swing.JPanel {
                 .addContainerGap(105, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Permet de créer un compte lors de l'appui sur "valider"
+ * @param evt 
+ */
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
         if (!idClient.getText().equals("")) {
             if (type.getSelectedItem().equals("Courant")) {

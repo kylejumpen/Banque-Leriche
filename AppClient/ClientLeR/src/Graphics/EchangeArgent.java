@@ -59,6 +59,11 @@ public class EchangeArgent extends javax.swing.JPanel {
             }
         });*/
     }
+    
+    /**
+     * Permet d'initailiser les comptes contenus dans les combobox en fonctionction de l'id de la banque de l'utilisateur
+     * @param idBanque id de la banque de l'utilisateur
+     */
 
     public void initComboBox(int idBanque) {
         DefaultComboBoxModel dml1 = new DefaultComboBoxModel();
@@ -133,6 +138,10 @@ public class EchangeArgent extends javax.swing.JPanel {
         add(valider, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permet de valider l'échange d'argent lors de l'appui sur "valider"
+     * @param evt 
+     */
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
         String compte1 = cbDebit.getSelectedItem().toString();
         String compte2 = cbCredit.getSelectedItem().toString();

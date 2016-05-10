@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author kyle
+ * @author kafui
  */
 public class GlobalFrame extends javax.swing.JFrame {
 

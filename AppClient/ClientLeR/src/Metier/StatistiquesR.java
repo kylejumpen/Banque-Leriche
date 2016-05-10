@@ -7,6 +7,7 @@ package Metier;
 public class StatistiquesR extends CoRest {
 
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir le nombre de clients de la fédération
      *
      * @return le nombre de clients
@@ -20,6 +21,7 @@ public class StatistiquesR extends CoRest {
     }
 
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir le nombre d'opérations effectuées dans la fédération
      *
      * @return le nombre d'opérations
@@ -33,6 +35,7 @@ public class StatistiquesR extends CoRest {
     }
 
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir le nombre de comptes de la fédération
      *
      * @return le nombre de comptes courants et epargnes

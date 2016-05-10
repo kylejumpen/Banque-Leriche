@@ -1,7 +1,7 @@
 /**
  * La classe BanqueResource traite toutes les requêtes REST
  *
- * @author  Kafui Atanley, Quentin Lerebours, Florian Leriche, Pauline Mouchès
+ * @author  Kafui Atanley, Quentin Lerebours, Florian Leriche
  * @version 1.0
  * @since   2016-05-10
  */
@@ -36,6 +36,7 @@ public class BanqueResource {
     //CLIENT _______________________________________________________________________
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de créer un client
      *
      * @param chaine Les informations en lien avec le client pour sa création (banque, nom, prenom
@@ -74,6 +75,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de supprimer un client
      *
      * @param id L'id chiffré du compte à supprimer
@@ -94,6 +96,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les informations sur un client
      *
      * @param idc L'id chiffré du client dont on souhaite obtenir les informations
@@ -121,6 +124,7 @@ public class BanqueResource {
     //BANQUE _______________________________________________________________________
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les informations sur une banque
      *
      * @param id L'id chiffré de la banque dont on souhaite obtenir les informations
@@ -144,6 +148,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de créer une banque
      *
      * @param chaine La chaine contenant les informations sur la banque à créer
@@ -174,6 +179,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de supprimer une banque
      *
      * @param idc L'id chiffré de la banque qu'on souhaite supprimer
@@ -196,6 +202,7 @@ public class BanqueResource {
 
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les informations sur un compte courant
      *
      * @param idc L'id chiffré du compte courant dont on souhaite obtenir les informations
@@ -225,6 +232,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les informations sur un compte épargne
      *
      * @param idc L'id chiffré du compte épargne dont on souhaite obtenir les informations
@@ -253,6 +261,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de créer un compte courant
      *
      * @param chaine Les informations du compte courant à créer
@@ -282,6 +291,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de créer un compte épargne
      *
      * @param chaine Les informations du compte courant à créer
@@ -311,6 +321,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de supprimer un compte courant
      *
      * @param idc L'id chiffré du compte courant à supprimer
@@ -332,6 +343,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de supprimer un compte épargne
      *
      * @param idc L'id chiffré du compte épargne à supprimer
@@ -374,6 +386,7 @@ public class BanqueResource {
     //    LISTES _____
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir la liste des comptes courant
      *
      * @param idBanquec L'id de la banque chiffrée dont on veut obtenir la liste des comptes courant
@@ -406,6 +419,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir la liste des comptes épargne
      *
      * @param idBanquec L'id de la banque chiffrée dont on veut obtenir la liste des comptes épargne
@@ -440,6 +454,7 @@ public class BanqueResource {
     //    BLOQUER
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de bloquer un compte
      *
      * @param chaine La chaine contenant les informations sur le compte à bloquer
@@ -478,6 +493,7 @@ public class BanqueResource {
     //OPERATIONS _______________________________________________________________________
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'effectuer une opération entre deux comptes
      *
      * @param chaine Les informations sur les comptes à créditer, débiter et le montant en question
@@ -541,6 +557,7 @@ public class BanqueResource {
     //Personnel _______________________________________________________________________
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les informations sur un employé
      *
      * @param idc L'id chiffré du personnel dont on souhaite les informations
@@ -565,6 +582,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de créer un employé
      *
      * @param chaine La chaine contenant les informations sur l'employé à créer
@@ -601,6 +619,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de supprimer un employé
      *
      * @param id L'id chiffré sur l'employé à créer
@@ -621,6 +640,7 @@ public class BanqueResource {
     }
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet de faire gagner les interêts aux clients.
      *
      * @param key La clé unique permettant de s'assurer que seulement le cron annuel peut utiliser cette fonctionnalité
@@ -648,6 +668,7 @@ public class BanqueResource {
     //    STATISTIQUES
 
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les statistiques sur le nombre de comptes
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre de comptes
@@ -678,6 +699,7 @@ public class BanqueResource {
         return this.failure;
     }
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les statistiques sur le nombre de clients
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre de clients
@@ -703,6 +725,7 @@ public class BanqueResource {
         return this.failure;
     }
     /**
+     * <b>Auteurs:</b> Florian Leriche, Quentin Lerebours
      * Cette méthode permet d'obtenir les statistiques sur le nombre d'opération
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre d'opérations
