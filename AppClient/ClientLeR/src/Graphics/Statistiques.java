@@ -109,6 +109,9 @@ public class Statistiques extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permet d'initialiser les statistiques : d'aller chercher les informations dans la base de données
+     */
     public void initStats() {
         Gson gson = new Gson();
         String rep1 = con.getNbClients();

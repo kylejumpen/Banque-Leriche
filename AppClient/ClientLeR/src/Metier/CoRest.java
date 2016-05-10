@@ -9,6 +9,11 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import javax.ws.rs.client.Entity;
 
+/**
+ *
+ * @author kafui
+ */
+
 public abstract class CoRest extends Encrypt {
     
     protected static ResteasyClient client;
@@ -18,7 +23,7 @@ public abstract class CoRest extends Encrypt {
     protected Gson gson;
     protected static String baseUrl;
 
-    
+
     
     public CoRest(){
         this.client = new ResteasyClientBuilder().build();

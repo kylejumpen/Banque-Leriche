@@ -105,7 +105,10 @@ public class AjoutPersonnel extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Permet d'ajouter l'utilisateur lors de l'appui sur "valider" grâce aux informations entrées dans les champs texte
+ * @param evt 
+ */
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
         if(!banque.getText().equals("") && !nom.getText().equals("") && !motdepasse.getText().equals("")){
         con.ajouterPersonnel(banque.getText(), nom.getText(), motdepasse.getText(), role.getSelectedItem().toString());

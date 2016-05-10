@@ -22,11 +22,11 @@
                   <Component id="consulterCompte" min="-2" max="-2" attributes="0"/>
                   <Component id="ajoutPersonnel" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="creerCompte" min="-2" max="-2" attributes="0"/>
+                      <Component id="creerClient" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="creerUnCompte" min="-2" pref="140" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton3" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                  <Component id="echangeArgent" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="275" max="32767" attributes="0"/>
           </Group>
@@ -41,11 +41,11 @@
               <Component id="consulterStatistiques" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="creerCompte" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="creerClient" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="creerUnCompte" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="echangeArgent" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="ajoutPersonnel" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="41" max="32767" attributes="0"/>
@@ -70,12 +70,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consulterStatistiquesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="creerCompte">
+    <Component class="javax.swing.JButton" name="creerClient">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cr&#xe9;er un Client"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creerCompteActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creerClientActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ajoutPersonnel">
@@ -89,20 +89,20 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="creerUnCompte">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cr&#xe9;er un Compte"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creerUnCompteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="echangeArgent">
       <Properties>
         <Property name="text" type="java.lang.String" value="Echange d&apos;argent"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="echangeArgentActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

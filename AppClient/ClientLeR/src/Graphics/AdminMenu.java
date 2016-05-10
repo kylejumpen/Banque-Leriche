@@ -70,6 +70,10 @@ public class AdminMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Gère l'appui sur "supprimer" et permet de supprimer une banque en affichant un pop up
+     * @param evt 
+     */
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
         JOptionPane jop1 = new JOptionPane();
         int idBanque;
@@ -80,6 +84,10 @@ public class AdminMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_supprimerActionPerformed
 
+     /**
+     * Gère l'appui sur "ajouter" et permet d'afficher le bon JPanel
+     * @param evt 
+     */
     private void ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterActionPerformed
        ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneAjoutBanque");
     }//GEN-LAST:event_ajouterActionPerformed

@@ -191,6 +191,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
                 .addGap(62, 62, 62))
         );
     }// </editor-fold>//GEN-END:initComponents
+/**
+ * Permet de gérer la suppression d'un compte lors de l'appui sur supprimer
+ * @param evt 
+ */
 
     private void supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
@@ -212,7 +216,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_supprimerActionPerformed
-
+/**
+ * Permet de trouver les comptes associés à l'id du client entré et de les afficher
+ * @param evt 
+ */
     private void rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercherActionPerformed
         courant.setEnabled(true);
         epargne.setEnabled(true);
@@ -271,12 +278,12 @@ public class ConsulterCompte extends javax.swing.JPanel {
             }
 
         }
-        // } catch (Exception e) {
-        //   JOptionPane.showMessageDialog(this, "Entrée invalide", "Alerte", JOptionPane.ERROR_MESSAGE);
-        // numeroClient.setText("");
-        //}
-    }//GEN-LAST:event_rechercherActionPerformed
 
+    }//GEN-LAST:event_rechercherActionPerformed
+/**
+ * Permet d'ouvrir une pop up pour créditer un compte lors de l'appui sur "crediter"
+ * @param evt 
+ */
     private void crediterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crediterActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
             JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -299,7 +306,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
         }
         this.rechercherActionPerformed(evt);
     }//GEN-LAST:event_crediterActionPerformed
-
+/**
+ * Permet d'ouvrir une pop up pour débiter un compte lors de l'appui sur "débiter"
+ * @param evt 
+ */
     private void debiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_debiterActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
             JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
@@ -323,6 +333,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
         this.rechercherActionPerformed(evt);
     }//GEN-LAST:event_debiterActionPerformed
 
+    /**
+     * Permet d'activer/désactiver les bons boutons lors d'un événement sur le radio button "courant"
+     * @param evt 
+     */
     private void courantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courantActionPerformed
         if (courant.isSelected() && bloqueCompteCourant.equals("false")) {
             bloque.setEnabled(true);
@@ -339,6 +353,10 @@ public class ConsulterCompte extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_courantActionPerformed
 
+    /**
+     * Permet d'activer/désactiver les bons boutons lors d'un événement sur le radio button "epargne"
+     * @param evt 
+     */
     private void epargneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epargneActionPerformed
         if (epargne.isSelected() && bloqueCompteEpargne.equals("false")) {
             bloque.setEnabled(true);
@@ -355,6 +373,11 @@ public class ConsulterCompte extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_epargneActionPerformed
 
+    
+    /**
+     * Permet de gérer l'appui sur le bouton bloquer/débloquer 
+     * @param evt 
+     */
     private void bloqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloqueActionPerformed
         if (!courant.isSelected() && !epargne.isSelected()) {
             JOptionPane.showMessageDialog(this, "Merci de séléctionner un compte", "Alerte", JOptionPane.ERROR_MESSAGE);
