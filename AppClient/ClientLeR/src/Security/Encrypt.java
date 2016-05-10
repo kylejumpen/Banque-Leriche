@@ -2,12 +2,11 @@ package Security;
 import java.security.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.security.MessageDigest;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-
 public class Encrypt {
 
   protected static final byte[] keyValue = new byte[] {'e','a','r','a','a','o','u','&','e','a','r','a','a','o','u','z'};
@@ -60,6 +59,25 @@ public class Encrypt {
          return "" +(id*(-18) +189)+"%0";
     }
 
+	     /**
+     *
+     * @param password Le mot de passe à hasher
+     * @return Le mot de passe hasher
+     */
+    protected static String hashPassword(String password) throws Exception{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes("UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i< hash.length ;i++)
+            sb.append(Integer.toString((hash[i] & 0xff) + 0x100, 16).substring(1));     
+        return sb.toString(); 
+    }
+    
+    protected static boolean comparePassword(String password1, String password2) throws Exception{
+        
+        return MessageDigest.isEqual(password1.getBytes(), password2.getBytes());
+        
+    }
 
     /**
      * <b>Kafui Atanley</b>
