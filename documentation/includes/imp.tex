@@ -45,7 +45,7 @@ Ce package permet de faire la jonction entre l'application cliente et l'applicat
 En effet à partir des données récupérées via l'interface graphique, c'est ce package qui permet de faire les requêtes nécessaires au serveur. Ce package permet ensuite de faire suivre les réponses du serveur aux classes du package de l'interface graphique qui les met en forme.
 Chaque classe graphique ayant besoin de requêtes qui lui sont spécifiques, nous avons décidé de nommer chaque classe par le même nom que son correspondant graphique en lui ajoutant le suffixe R. \\
 Les requêtes ont été effectué grâce à la librairie Java RestEasy.
-Ce package est dépendant du package sécurité car les données se doivent d'être envoyées cryptées pour pouvoir être interprétées par le serveur.\\
+Ce package est dépendant du package sécurité car les données se doivent d'être envoyées chiffrées pour pouvoir être interprétées par le serveur.\\
 
 
 \newpage
@@ -53,7 +53,7 @@ Ce package est dépendant du package sécurité car les données se doivent d'ê
 
 \subsection{Description}
 Afin d'assurer la sécurité de notre application nous avons décidé de mettre en place un cryptage des flux entre l'application cliente et l'application serveur.
-L’identifiant des ressources est également crypté, empêchant ainsi à une personne quelconque de consulter une ressource.
+L’identifiant des ressources est également chiffré, empêchant ainsi à une personne quelconque de consulter une ressource.
 En somme deux algorithmes de cryptage sont utilisées : 
 \begin{itemize}
 \item Un algorithme pour crypter les données.
@@ -83,7 +83,7 @@ Le serveur dispose uniquement de la méthode pour décrypter l'identifiant là o
 \section{Test}
 
 Cette partie fait état des différents tests de validation effectués.
-Attention : Les flux de données étant cryptés, la volonté de vouloir tester l'application serveur indépendamment de l'application cliente nécessite d'utiliser la classe Encrypt.\\
+Attention : Les flux de données étant chiffrés, la volonté de vouloir tester l'application serveur indépendamment de l'application cliente nécessite d'utiliser la classe Encrypt.\\
 Les URL données ci-dessous sont à préfixer de l'adresse de déploiement.
 
 \subsection{Test 1 : S'identifier}
@@ -94,7 +94,7 @@ La vérification du mot de passe s'effectue côté client.
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status 200 de la requête HTTP et récupère le fichier JSON crypté. Ce test peut s'effectuer via l'interface graphique en essayant de se connecter via l'accueil.\\
+\textbf{\underline{Réussite}} : Le serveur renvoie un status 200 de la requête HTTP et récupère le fichier JSON chiffré. Ce test peut s'effectuer via l'interface graphique en essayant de se connecter via l'accueil.\\
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status 200 mais les données JSON récupérées signalent un échec de la transaction reçue.
 L'application cliente permet de récupérer le mot de passe à partir de la ressource reçue. Si le mot de passe ne concorde pas ou si la ressource demandée n'existe pas, une fenêtre apparaît pour détailler le problème.
@@ -106,7 +106,7 @@ Celle-ci s'effectue via une requête de type POST à l'URL suivante "/client/cre
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le nouveau client. Un nouveau client est entré dans la base de données.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant le nouveau client. Un nouveau client est entré dans la base de données.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Gérant/Employé permettant de créer un client conjointement avec son compte épargne/courant.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
@@ -115,11 +115,11 @@ L'application cliente développée dispose d'un bouton pour tout personnel faisa
 
 Ce test permet de vérifier que la consultation d'un compte est fonctionnelle.
 Celle-ci s'effectue via une requête de type GET aux URLs suivantes "/compte/courant/{id}" et "/compte/epargne/{id}" .
-L'identifiant de la ressource du compte est cryptée.
+L'identifiant de la ressource du compte est chiffrée.
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le compte en question.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant le compte en question.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant de consulter un compte.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
@@ -131,7 +131,7 @@ Celui-ci s'effectue via une requête de type POST à l’URL suivante "/client/c
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les comptes en questions.
+\textbf{\underline{Réussite}} :Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant les comptes en questions.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant d'échanger de l'argent.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
@@ -143,7 +143,7 @@ Celui-ci s'effectue via une requête de type PUT à l’URL suivante "/client/co
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les comptes en questions.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant les comptes en questions.
 Il faut se connecter en ayant un compte de type employé/gérant. Il faut ensuite cliquer sur consulter un compte. Après avoir rentré un id client, l'option "bloquer un compte" est proposée.
 \\
 \textbf{\underline{Échec}} :  Le serveur renvoie un status de type 500.
@@ -155,7 +155,7 @@ Celle-ci s'effectue via une requête de type POST à l'URL suivante "/personnel/
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le nouveau client. Un nouveau membre du personnel est ajouté dans la base de données.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant le nouveau client. Un nouveau membre du personnel est ajouté dans la base de données.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
 Attention : Le champs banque attends l'id de la banque auquel le nouveau membre sera ajouté.
 \\
@@ -168,7 +168,7 @@ Celle-ci s'effectue via grâce des requêtes de types GET aux URL suivantes "/st
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 Elle dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant de consulter les statistiques de sa banque.
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les statistiques.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant les statistiques.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
@@ -180,7 +180,7 @@ Celle-ci s'effectue grâce des requêtes de types GET aux URL suivantes "/client
 
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le client concerné. Un nouveau compte est entré dans la base de données.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant le client concerné. Un nouveau compte est entré dans la base de données.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de créer un compte.
 Attention : Il faut rentrer l'id du client.
 \\
@@ -204,7 +204,7 @@ L'interface propose ensuite de créditer/débiter un compte.
 Le test permet de vérifier que l'ajout d'une banque est fonctionnelle .
 Celle-ci s'effectue via grâce à une requête de type POST à l'URL suivante "/creer" .
 
-\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant la banque créé. Une nouvelle banque est entrée dans la base de données.
+\textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données chiffrées concernant la banque créé. Une nouvelle banque est entrée dans la base de données.
 L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin permettant de créer une banque.
 Attention : Il faut rentrer l'id du client.
 \\
