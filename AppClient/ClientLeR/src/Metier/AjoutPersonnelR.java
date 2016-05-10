@@ -29,16 +29,16 @@ public class AjoutPersonnelR extends CoRest {
         } else {
             roleEnum = "Gerant";
         }
-
+        try{
         jsonArgs.put("nom", nom);
-        jsonArgs.put("mdp", motdepasse);
+        jsonArgs.put("mdp", hashPassword(motdepasse));
         jsonArgs.put("role", role);
         jsonArgs.put("idBanque", banque);
 
         String maChaine; 
         maChaine = gson.toJson(jsonArgs);
         this.target = this.client.target(getBaseUrl() + "/personnel/creer");
-        try{
+        
         this.response = this.target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
         response.close();
         }catch(Exception e){System.out.println(e);}

@@ -30,10 +30,11 @@ public class AccueilR extends CoRest {
             this.target = this.client.target(url);
             this.response = this.target.request().get();
             String responsebrut = decryptData(this.response.readEntity(String.class));
+            System.out.println(responsebrut);
             JsonElement root = new JsonParser().parse(responsebrut);
             if (root.getAsJsonObject().has("succes")) {
                 return "KO";
-            } else if (!pw.equals(root.getAsJsonObject().get("motdepasse").getAsString())) {
+            } else if(!comparePassword(root.getAsJsonObject().get("motdepasse").getAsString(),hashPassword(pw))) {
                 return "mdp";
             }
             String reponse = root.getAsJsonObject().get("role").getAsString() + "#" + root.getAsJsonObject().get("personnelId").getAsString() + "#";
@@ -55,28 +56,29 @@ public class AccueilR extends CoRest {
      * @param nom nom du client
      * @param prenom prenom du client
      * @param email email du client
-     * @param mdp mot de passe du client
+     * @param mdp mot de passe du client 
      * @param code code postal du client
      * @return les informations sur le client créé sous forme de JSON
      */
     public String creerClient(String nom, String prenom, String email, String mdp, String code) {
-
+        String maChaine ="";
+        try{
         jsonArgs.put("nom", nom);
         jsonArgs.put("prenom", prenom);
-        jsonArgs.put("mdp", mdp);
+        jsonArgs.put("mdp", hashPassword(mdp));
         jsonArgs.put("email", email);
         jsonArgs.put("codePostal", code);
-
+        System.out.println("Voici le mot de passe avant l'envoi " + hashPassword(mdp));
         String[] parts = GlobalFrame.idBanquePersonnel.getText().split(":");
         jsonArgs.put("idBanque", parts[1]);
 
-        String maChaine = gson.toJson(jsonArgs);
+        maChaine = gson.toJson(jsonArgs);
 
-        try {
-            target = client.target(baseUrl + "/client/creer");
-            response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
-            maChaine = decryptData(response.readEntity(String.class));
-            response.close();
+        
+        target = client.target(baseUrl + "/client/creer");
+        response = target.request().post(Entity.entity(encryptData(maChaine), "application/xml;charset=UTF-8"));
+        maChaine = decryptData(response.readEntity(String.class));
+        response.close();
         } catch (Exception e) {     
         }
         return maChaine;
