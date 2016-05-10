@@ -87,6 +87,7 @@ public class CreerCompte extends javax.swing.JPanel {
         add(codepostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> kafui
  * Permet de créer un client et son compte lors de l'appui sur "valider"
  * @param evt 
  */

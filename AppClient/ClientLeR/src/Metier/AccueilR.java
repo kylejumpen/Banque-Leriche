@@ -7,10 +7,6 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import com.google.gson.*;
 
-/**
- *
- * @author kafui
- */
 public class AccueilR extends CoRest {
 
     public AccueilR() {
@@ -19,6 +15,7 @@ public class AccueilR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> kafui
      * Permet à un employé, gérant ou administrateur de la fédération de se
      * connecter
      *
@@ -52,6 +49,7 @@ public class AccueilR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> kafui
      * Permet de créer un client
      *
      * @param nom nom du client
@@ -87,6 +85,7 @@ public class AccueilR extends CoRest {
 
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet de créer un compte courant à un client
      *
      * @param idClient id du client pour lequel on veut créer le compte
@@ -104,6 +103,7 @@ public class AccueilR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de créer un compte epargne à un client
      *
      * @param idClient id du client pour lequel on veut créer le compte
@@ -122,6 +122,7 @@ public class AccueilR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir les informations sur le compte epargne d'un client
      *
      * @param id id du client dont on veux consulter le compte
@@ -147,6 +148,7 @@ public class AccueilR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir les informations sur le compte courant d'un client
      *
      * @param id id du client dont on veux consulter le compte

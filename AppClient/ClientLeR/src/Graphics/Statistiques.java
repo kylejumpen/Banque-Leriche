@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author pauline
+ * <b>author</b> pauline
  */
 public class Statistiques extends javax.swing.JPanel {
 
@@ -110,6 +110,7 @@ public class Statistiques extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * <b>author</b> pauline
      * Permet d'initialiser les statistiques : d'aller chercher les informations dans la base de données
      */
     public void initStats() {

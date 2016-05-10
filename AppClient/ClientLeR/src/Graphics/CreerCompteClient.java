@@ -86,6 +86,7 @@ public class CreerCompteClient extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> pauline
  * Permet de créer un compte lors de l'appui sur "valider"
  * @param evt 
  */

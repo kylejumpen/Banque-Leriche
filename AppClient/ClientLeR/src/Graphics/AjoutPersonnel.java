@@ -106,6 +106,7 @@ public class AjoutPersonnel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> pauline
  * Permet d'ajouter l'utilisateur lors de l'appui sur "valider" grâce aux informations entrées dans les champs texte
  * @param evt 
  */

@@ -71,6 +71,7 @@ public class AdminMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * <b>author</b> pauline
      * Gère l'appui sur "supprimer" et permet de supprimer une banque en affichant un pop up
      * @param evt 
      */
@@ -85,6 +86,7 @@ public class AdminMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_supprimerActionPerformed
 
      /**
+      * <b>author</b> pauline
      * Gère l'appui sur "ajouter" et permet d'afficher le bon JPanel
      * @param evt 
      */

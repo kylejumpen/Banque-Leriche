@@ -19,6 +19,7 @@ public class EchangeR extends CoRest {
 
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet d'effectuer un echange d'argent entre deux comptes
      *
      * @param typeDebiteur type du compte debiteur (courant ou epargne)
@@ -48,6 +49,7 @@ public class EchangeR extends CoRest {
 
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir les informations les comptes courant d'une banque
      *
      * @param id id de la banque dont on veux consulter les comptes courants
@@ -67,6 +69,7 @@ public class EchangeR extends CoRest {
 
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir les informations les comptes epargne d'une banque
      * @param id id de la banque dont on veux consulter les comptes epargnes
      * @return les informations sur les comptes epargnes

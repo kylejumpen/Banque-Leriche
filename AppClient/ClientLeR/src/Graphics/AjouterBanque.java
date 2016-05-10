@@ -85,6 +85,7 @@ public class AjouterBanque extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> pauline
  * Permet de gérer l'ajout d'une banque lors de l'appui sur le bouton "valider" grâce aux informations contenues dans les champs textes
  * @param evt 
  */

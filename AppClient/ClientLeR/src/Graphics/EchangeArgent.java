@@ -52,15 +52,10 @@ public class EchangeArgent extends javax.swing.JPanel {
         pane.add(cbCredit);
         this.add(pane, BorderLayout.NORTH);
 
-        /*montant.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                montant.setText("");
-            }
-        });*/
     }
     
     /**
+     * <b>author</b> pauline
      * Permet d'initailiser les comptes contenus dans les combobox en fonctionction de l'id de la banque de l'utilisateur
      * @param idBanque id de la banque de l'utilisateur
      */
@@ -139,6 +134,7 @@ public class EchangeArgent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * <b>author</b> pauline
      * Permet de valider l'échange d'argent lors de l'appui sur "valider"
      * @param evt 
      */

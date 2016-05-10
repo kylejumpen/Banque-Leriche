@@ -108,6 +108,7 @@ public class GererCompte extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "consulter un compte"
  * @param evt 
  */
@@ -116,6 +117,7 @@ public class GererCompte extends javax.swing.JPanel {
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneConsulterCompte");
     }//GEN-LAST:event_consulterCompteActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "créer un client"
  * @param evt 
  */
@@ -126,6 +128,7 @@ public class GererCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_creerClientActionPerformed
 
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "ajouter un mebre du personnel"
  * @param evt 
  */
@@ -134,6 +137,7 @@ public class GererCompte extends javax.swing.JPanel {
 
     }//GEN-LAST:event_ajoutPersonnelActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "créer un compte"
  * @param evt 
  */
@@ -141,6 +145,7 @@ public class GererCompte extends javax.swing.JPanel {
         ((CardLayout) GlobalFrame.cards.getLayout()).show(GlobalFrame.cards, "paneCreerCompteClient");
     }//GEN-LAST:event_creerUnCompteActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "echange d'argent"
  * @param evt 
  */
@@ -153,6 +158,7 @@ System.out.println("id banque"+parts[1]);
 
     }//GEN-LAST:event_echangeArgentActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'afficher le bon JPanel lors de l'appui sur "consulter les statistiques"
  * @param evt 
  */

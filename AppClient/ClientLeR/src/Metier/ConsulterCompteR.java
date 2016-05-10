@@ -22,6 +22,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet d'obtenir les informations sur un client
      *
      * @param id id du client à consulter
@@ -44,6 +45,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de consulter le compte courant d'un client
      *
      * @param id id du client dont on veux consulter le compte courant
@@ -68,6 +70,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de consulter le compte epargne d'un client
      *
      * @param id id du client dont on veux consulter le compte epargne
@@ -91,6 +94,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de supprimer un compte courant
      *
      * @param id id du compte courant à supprimer
@@ -106,6 +110,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de supprimer un compte epargne
      *
      * @param id id du compte epargne à supprimer
@@ -121,6 +126,7 @@ public class ConsulterCompteR extends CoRest {
 
     // secure
     /**
+     * <b>author</b> pauline
      * Permet de débiter un compte courant
      *
      * @param montant montant à débiter
@@ -148,6 +154,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de débiter un compte epargne
      *
      * @param montant montant à débiter
@@ -174,6 +181,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de créditer un compte courant
      *
      * @param montant montant à créditer
@@ -202,6 +210,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de créditer un compte epargne
      *
      * @param montant montant à créditer
@@ -230,6 +239,7 @@ public class ConsulterCompteR extends CoRest {
 
     //secure
     /**
+     * <b>author</b> pauline
      * Permet de bloquer/débloquer un compte en fonction de son état actuel 
      * @param compte compte à bloquer/débloquer
      * @param type type du compte à bloquer/débloquer (courant ou epargne)

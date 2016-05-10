@@ -192,6 +192,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /**
+ * <b>author</b> pauline
  * Permet de gérer la suppression d'un compte lors de l'appui sur supprimer
  * @param evt 
  */
@@ -217,6 +218,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_supprimerActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet de trouver les comptes associés à l'id du client entré et de les afficher
  * @param evt 
  */
@@ -281,6 +283,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
 
     }//GEN-LAST:event_rechercherActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'ouvrir une pop up pour créditer un compte lors de l'appui sur "crediter"
  * @param evt 
  */
@@ -307,6 +310,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
         this.rechercherActionPerformed(evt);
     }//GEN-LAST:event_crediterActionPerformed
 /**
+ * <b>author</b> pauline
  * Permet d'ouvrir une pop up pour débiter un compte lors de l'appui sur "débiter"
  * @param evt 
  */
@@ -334,6 +338,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_debiterActionPerformed
 
     /**
+     * <b>author</b> pauline
      * Permet d'activer/désactiver les bons boutons lors d'un événement sur le radio button "courant"
      * @param evt 
      */
@@ -354,6 +359,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
     }//GEN-LAST:event_courantActionPerformed
 
     /**
+     * <b>author</b> pauline
      * Permet d'activer/désactiver les bons boutons lors d'un événement sur le radio button "epargne"
      * @param evt 
      */
@@ -375,6 +381,7 @@ public class ConsulterCompte extends javax.swing.JPanel {
 
     
     /**
+     * <b>author</b> pauline
      * Permet de gérer l'appui sur le bouton bloquer/débloquer 
      * @param evt 
      */

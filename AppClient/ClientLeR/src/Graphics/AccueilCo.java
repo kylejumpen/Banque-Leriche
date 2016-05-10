@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import Metier.CoRest;
 /**
  *
- * @author kyle
+ * @author kafui
  */
 public class AccueilCo extends javax.swing.JPanel {
 
@@ -151,6 +151,7 @@ public class AccueilCo extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
+     * <b>author</b> kafui
      * Permet de vider les champs textes lors d'un appui sur "annuler"
      * @param evt 
      */
@@ -165,6 +166,7 @@ public class AccueilCo extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
 /**
+ * <b>author</b> kafui
  * Permet de gérer l'appui sur le bouton "connexion"
  * @param evt 
  */

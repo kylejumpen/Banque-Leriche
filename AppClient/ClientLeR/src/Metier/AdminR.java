@@ -19,6 +19,7 @@ public class AdminR extends CoRest{
     
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet de supprimer une banque
      * @param id id de la banque à supprimer
      * @return statut de la requete
@@ -39,6 +40,7 @@ public class AdminR extends CoRest{
         
     //Secure
     /**
+     * <b>author</b> pauline
      * Permet d'ajouter une banque
      * @param nom nom de la banque à ajouter
      * @param ville ville de la banque à ajouter

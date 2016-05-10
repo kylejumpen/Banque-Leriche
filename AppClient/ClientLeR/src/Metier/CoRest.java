@@ -34,6 +34,7 @@ public abstract class CoRest extends Encrypt {
     
     
     /**
+     * <b>author</b> kafui
      * @return the baseUrl
      */
     public static String getBaseUrl() {
@@ -41,6 +42,7 @@ public abstract class CoRest extends Encrypt {
     }
 
     /**
+     * <b>author</b> kafui
      * @param aBaseUrl the baseUrl to set
      */
     public static void setBaseUrl(String aBaseUrl) {

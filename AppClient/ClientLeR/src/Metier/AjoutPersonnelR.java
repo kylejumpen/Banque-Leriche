@@ -15,6 +15,7 @@ public class AjoutPersonnelR extends CoRest {
     
     //secure
     /**
+     * <b>author</b> pauline
      * Permet d'ajouter un membre du personel à la banque
      * @param banque banque dans laquelle on veux ajouter un membre
      * @param nom nom du membre
