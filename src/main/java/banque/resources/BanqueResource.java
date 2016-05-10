@@ -1,3 +1,11 @@
+/**
+ * La classe BanqueResource traite toutes les requêtes REST
+ *
+ * @author  Kafui Atanley, Quentin Lerebours, Florian Leriche, Pauline Mouchès
+ * @version 1.0
+ * @since   2016-05-10
+ */
+
 package banque.resources;
 
 import java.lang.Short;
@@ -28,6 +36,7 @@ public class BanqueResource {
     //CLIENT _______________________________________________________________________
 
     /**
+     * Cette méthode permet de créer un client
      *
      * @param chaine Les informations en lien avec le client pour sa création (banque, nom, prenom
      *               mot de passe, email et code postal)
@@ -59,12 +68,13 @@ public class BanqueResource {
         session.save(clientBanque);
         session.getTransaction().commit();
         session.close();
-	//MailUtil.sendEmail("smtp.gmail.com", 587, "banque.inforep@gmail.com", "florian.leriche@neuf.fr", "Testance", "Envoyance de mail via java dans la fonctionnellance des familles");
+	    MailUtil.sendEmail("smtp.gmail.com", 587, "banque.inforep@gmail.com", args.get("email"), "Création de compte", "Félécitation votre compte bancaire a bien été créé");
         return Response.status(200).entity(Encrypt.encryptData(clientBanque.toString())).build();
 }catch(Exception e){ return Response.status(500).build();}
     }
 
     /**
+     * Cette méthode permet de supprimer un client
      *
      * @param id L'id chiffré du compte à supprimer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la suppression
@@ -84,6 +94,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet d'obtenir les informations sur un client
      *
      * @param idc L'id chiffré du client dont on souhaite obtenir les informations
      * @return Une chaine de caractère contenant les informations sur le client en JSON
@@ -110,6 +121,7 @@ public class BanqueResource {
     //BANQUE _______________________________________________________________________
 
     /**
+     * Cette méthode permet d'obtenir les informations sur une banque
      *
      * @param id L'id chiffré de la banque dont on souhaite obtenir les informations
      * @return Une chaine de caractère contenant les informations sur la banque en JSON
@@ -132,6 +144,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de créer une banque
      *
      * @param chaine La chaine contenant les informations sur la banque à créer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la création de la banque
@@ -161,6 +174,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de supprimer une banque
      *
      * @param idc L'id chiffré de la banque qu'on souhaite supprimer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la suppression de la banque
@@ -182,6 +196,7 @@ public class BanqueResource {
 
 
     /**
+     * Cette méthode permet d'obtenir les informations sur un compte courant
      *
      * @param idc L'id chiffré du compte courant dont on souhaite obtenir les informations
      * @return Une chaine de caractère contenant les informations sur le compte en JSON
@@ -210,6 +225,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet d'obtenir les informations sur un compte épargne
      *
      * @param idc L'id chiffré du compte épargne dont on souhaite obtenir les informations
      * @return Une chaine de caractère contenant les informations sur le compte en JSON
@@ -237,6 +253,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de créer un compte courant
      *
      * @param chaine Les informations du compte courant à créer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la création du compte
@@ -265,6 +282,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de créer un compte épargne
      *
      * @param chaine Les informations du compte courant à créer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la création du compte
@@ -293,6 +311,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de supprimer un compte courant
      *
      * @param idc L'id chiffré du compte courant à supprimer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la suppression du compte
@@ -313,6 +332,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de supprimer un compte épargne
      *
      * @param idc L'id chiffré du compte épargne à supprimer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider la création du compte
@@ -332,28 +352,29 @@ public class BanqueResource {
         }catch(Exception e){ return Response.status(500).build();}
     }
 
-    @GET
-    @Path("/client/compte-courant/{id}")
-    @Produces("text/plain")
-    public String getCompteCourant(@PathParam("id") String idc) {
-        session = HibernateUtil.getSessionFactory().openSession();
-
-        try {
-	    short id = Short.parseShort(Encrypt.decryptId(idc));
-            CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
-            return Encrypt.encryptData(compteCourant.toString());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            session.close();
-        }
-        return this.failure;
-    }
+//    @GET
+//    @Path("/client/compte-courant/{id}")
+//    @Produces("text/plain")
+//    public String getCompteCourant(@PathParam("id") String idc) {
+//        session = HibernateUtil.getSessionFactory().openSession();
+//
+//        try {
+//	    short id = Short.parseShort(Encrypt.decryptId(idc));
+//            CompteCourant compteCourant = (CompteCourant) session.load(CompteCourant.class, id);
+//            return Encrypt.encryptData(compteCourant.toString());
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        } finally {
+//            session.close();
+//        }
+//        return this.failure;
+//    }
 
 
     //    LISTES _____
 
     /**
+     * Cette méthode permet d'obtenir la liste des comptes courant
      *
      * @param idBanquec L'id de la banque chiffrée dont on veut obtenir la liste des comptes courant
      * @return La chaine JSON retournant la liste des comptes courant
@@ -385,6 +406,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet d'obtenir la liste des comptes épargne
      *
      * @param idBanquec L'id de la banque chiffrée dont on veut obtenir la liste des comptes épargne
      * @return La chaine JSON retournant la liste des comptes épargne
@@ -418,6 +440,7 @@ public class BanqueResource {
     //    BLOQUER
 
     /**
+     * Cette méthode permet de bloquer un compte
      *
      * @param chaine La chaine contenant les informations sur le compte à bloquer
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider le bloquage du compte
@@ -455,6 +478,7 @@ public class BanqueResource {
     //OPERATIONS _______________________________________________________________________
 
     /**
+     * Cette méthode permet d'effectuer une opération entre deux comptes
      *
      * @param chaine Les informations sur les comptes à créditer, débiter et le montant en question
      * @return Response est le paramètre contenant les informations renvoyées au client pour valider l'opération
@@ -517,6 +541,7 @@ public class BanqueResource {
     //Personnel _______________________________________________________________________
 
     /**
+     * Cette méthode permet d'obtenir les informations sur un employé
      *
      * @param idc L'id chiffré du personnel dont on souhaite les informations
      * @return Les informations encodées en JSON contenant les informations souhaitées
@@ -540,6 +565,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de créer un employé
      *
      * @param chaine La chaine contenant les informations sur l'employé à créer
      * @return La response contient les informations validant la création du compte
@@ -575,6 +601,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de supprimer un employé
      *
      * @param id L'id chiffré sur l'employé à créer
      * @return Les informations validant la suppression de l'employé
@@ -594,6 +621,7 @@ public class BanqueResource {
     }
 
     /**
+     * Cette méthode permet de faire gagner les interêts aux clients.
      *
      * @param key La clé unique permettant de s'assurer que seulement le cron annuel peut utiliser cette fonctionnalité
      * @return Une chaine validant le fonctionnement de la fonctionnalité
@@ -620,6 +648,7 @@ public class BanqueResource {
     //    STATISTIQUES
 
     /**
+     * Cette méthode permet d'obtenir les statistiques sur le nombre de comptes
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre de comptes
      */
@@ -649,6 +678,7 @@ public class BanqueResource {
         return this.failure;
     }
     /**
+     * Cette méthode permet d'obtenir les statistiques sur le nombre de clients
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre de clients
      */
@@ -673,6 +703,7 @@ public class BanqueResource {
         return this.failure;
     }
     /**
+     * Cette méthode permet d'obtenir les statistiques sur le nombre d'opération
      *
      * @return La chaine JSON contenant les informations souhaitées sur le nombre d'opérations
      */

@@ -1,3 +1,11 @@
+/**
+ * La classe Client n'est qu'un client permettant de tester les requêtes REST.
+ * Celle-ci se trouve dans le même projet que le serveur REST.
+ *
+ * @author  Kafui Atanley, Quentin Lerebours, Florian Leriche, Pauline Mouchès
+ * @version 1.0
+ * @since   2016-05-10
+ */
 package banque.clientTest;
 
 import com.google.gson.reflect.TypeToken;
