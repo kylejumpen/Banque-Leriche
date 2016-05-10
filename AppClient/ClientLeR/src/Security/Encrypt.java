@@ -13,6 +13,7 @@ public class Encrypt {
   protected static final byte[] keyValue = new byte[] {'e','a','r','a','a','o','u','&','e','a','r','a','a','o','u','z'};
 
     /**
+     * <b>Kafui Atanley</b>
      *
      * @param Data Les données sous forme de JSON à chiffrer
      * @return Les données chiffrées
@@ -28,6 +29,7 @@ public class Encrypt {
 	    }
 
     /**
+     * <b>Kafui Atanley</b>
      *
      * @param encryptedData les données chiffrées à déchiffrées
      * @return Les données déchiffrées
@@ -44,6 +46,7 @@ public class Encrypt {
     }
 
     /**
+     * <b>Kafui Atanley</b>
      *
      * @param id L'id à chiffrer
      * @return L'id déchiffré sous forme de chaine de caractère
@@ -59,6 +62,7 @@ public class Encrypt {
 
 
     /**
+     * <b>Kafui Atanley</b>
      *
      * @return Génère une clé pour l'algorithme AES
      * @throws Exception
