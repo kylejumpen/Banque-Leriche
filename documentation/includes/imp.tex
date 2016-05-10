@@ -83,7 +83,7 @@ Le serveur dispose uniquement de la méthode pour décrypter l'identifiant là o
 \section{Test}
 
 Cette partie fait état des différents tests de validation effectués.
-Attention : Les flux de données étant cryptées, la volonté de vouloir tester l'application serveur indépendamment de l'application cliente nécessite d'utiliser la classe Encrypt.\\
+Attention : Les flux de données étant cryptés, la volonté de vouloir tester l'application serveur indépendamment de l'application cliente nécessite d'utiliser la classe Encrypt.\\
 Les URL données ci-dessous sont à préfixer de l'adresse de déploiement.
 
 \subsection{Test 1 : S'identifier}
@@ -94,11 +94,10 @@ La vérification du mot de passe s'effectue côté client.
 \\
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
-\textbf{\underline{Réussite}} : Le serveur renvoie un status 200 de la requête HTTP et récupération du fichier JSON crypté. Ce test peut s'effectuer via l'interface graphique en essayant de se connecter via l'accueil.\\
+\textbf{\underline{Réussite}} : Le serveur renvoie un status 200 de la requête HTTP et récupère le fichier JSON crypté. Ce test peut s'effectuer via l'interface graphique en essayant de se connecter via l'accueil.\\
 \\
-\textbf{\underline{Échec}} : Le serveur renvoie un status 200 mais les données JSON récupérées signale un échec de la transaction reçue.
-L'application cliente permet de récupérer le mot de passe à partir de la ressource reçue. Si le mot de passe ne concorde pas une fenêtre apparaît pour signifier le problème.
-Si la ressource demandée n'existe pas,  une fenêtre apparaît pour signifier le problème.
+\textbf{\underline{Échec}} : Le serveur renvoie un status 200 mais les données JSON récupérées signalent un échec de la transaction reçue.
+L'application cliente permet de récupérer le mot de passe à partir de la ressource reçue. Si le mot de passe ne concorde pas ou si la ressource demandée n'existe pas, une fenêtre apparaît pour détailler le problème.
 
 \subsection{Test 2 : Créer un client}
 
@@ -121,7 +120,7 @@ L'identifiant de la ressource du compte est cryptée.
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
 \textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant le compte en question.
-L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de consulter un compte.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant de consulter un compte.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
 
@@ -133,7 +132,7 @@ Celui-ci s'effectue via une requête de type POST à l’URL suivante "/client/c
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
 \\
 \textbf{\underline{Réussite}} :Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les comptes en questions.
-L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'échanger de l'argent.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant d'échanger de l'argent.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
 
@@ -167,10 +166,10 @@ Ce test permet de vérifier que la consultation de statistiques est fonctionnell
 Celle-ci s'effectue via grâce des requêtes de types GET aux URL suivantes "/stats/clients","/stats/operations","/stats/comptes" .
 
 L'application cliente développée permet une utilisation facilitée de cette fonctionnalité. 
-L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant de consulter les statistiques de sa banque.
+Elle dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant de consulter les statistiques de sa banque.
 \\
 \textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200 ainsi que les données cryptées concernant les statistiques.
-L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin/Employé permettant d'ajouter un membre du personnel.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
 
@@ -218,7 +217,7 @@ Le test permet de vérifier que l'ajout d'une banque est fonctionnelle .
 Celle-ci s'effectue via grâce à une requête de type DELETE à l'URL suivante "/supprimer/{id}" .
 
 \textbf{\underline{Réussite}} : Le serveur renvoie un status de type 200.
-L'application cliente développée dispose d'un bouton pour tout personnel faisant parti de la catégorie Admin permettant de supprimer une banque. La banque est supprimée de la base de données.
+L'application cliente développée dispose d'un bouton pour tout personnel faisant partie de la catégorie Admin permettant de supprimer une banque. La banque est supprimée de la base de données.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
 
@@ -228,10 +227,10 @@ Le test permet de vérifier que les accès concurents à la base de données son
 Celle-ci s'effectue via l'interface graphique en essayant de supprimer un client.
 Pour cela il faut ouvrir deux applications clientes et essayer de supprimer un même compte.
 
-\textbf{\underline{Réussite}} : Les données sont bien mis à jour dans l'ordre dans la base de données.
+\textbf{\underline{Réussite}} : Les données sont bien mises à jour dans l'ordre dans la base de données.
 \\
 \textbf{\underline{Échec}} : Le serveur renvoie un status de type 500.
 
 \subsection{Test 13 : Portabilité de l'application}
 
-Tout les tests décrits antérieurement ont été exécutés sur Linux et sur Windows 10.
+Tous les tests décrits antérieurement ont été exécutés sur Linux et sur Windows 10.
